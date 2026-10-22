@@ -1,0 +1,322 @@
+{
+  "character": "noble",
+  "version": 3,
+  "actions": {
+    "idle": {
+      "frames": 8,
+      "path": "assets/chars/noble/v3/idle",
+      "fps": 8,
+      "loop": true,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286
+    },
+    "walk": {
+      "frames": 8,
+      "path": "assets/chars/noble/v3/walk",
+      "fps": 14,
+      "loop": true,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286
+    },
+    "j1": {
+      "frames": 9,
+      "path": "assets/chars/noble/v3/j1",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286,
+      "phases": [
+        4,
+        6
+      ]
+    },
+    "j2": {
+      "frames": 9,
+      "path": "assets/chars/noble/v3/j2",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286,
+      "phases": [
+        4,
+        6
+      ]
+    },
+    "j3": {
+      "frames": 9,
+      "path": "assets/chars/noble/v3/j3",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286,
+      "phases": [
+        4,
+        6
+      ]
+    },
+    "low": {
+      "frames": 9,
+      "path": "assets/chars/noble/v3/low",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286,
+      "phases": [
+        4,
+        6
+      ]
+    },
+    "u": {
+      "frames": 9,
+      "path": "assets/chars/noble/v3/u",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286,
+      "fitState": true,
+      "contact": 4
+    },
+    "jump": {
+      "frames": 9,
+      "path": "assets/chars/noble/v3/jump",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286,
+      "physics": true
+    },
+    "airAttack": {
+      "frames": 9,
+      "path": "assets/chars/noble/v3/airAttack",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286,
+      "phases": [
+        4,
+        6
+      ]
+    },
+    "super_": {
+      "frames": 9,
+      "path": "assets/chars/noble/v3/super_",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286,
+      "phases": [
+        4,
+        6
+      ],
+      "activeLoop": true
+    },
+    "block": {
+      "frames": 6,
+      "path": "assets/chars/noble/v3/block",
+      "fps": 24,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286
+    },
+    "hit": {
+      "frames": 3,
+      "path": "assets/chars/noble/v3/hit",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286,
+      "fitHurt": true
+    },
+    "fall": {
+      "frames": 3,
+      "path": "assets/chars/noble/v3/fall",
+      "fps": 16,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286
+    },
+    "knockdown": {
+      "frames": 3,
+      "path": "assets/chars/noble/v3/knockdown",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286
+    },
+    "getup": {
+      "frames": 9,
+      "path": "assets/chars/noble/v3/getup",
+      "fps": 30,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286
+    },
+    "land": {
+      "frames": {
+        "offset": 7,
+        "count": 2
+      },
+      "path": "assets/chars/noble/v3/jump",
+      "fps": 30,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286,
+      "physics": false
+    },
+    "launcher": {
+      "frames": 9,
+      "path": "assets/chars/noble/v3/j3",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286,
+      "phases": [
+        4,
+        6
+      ]
+    },
+    "parry": {
+      "frames": {
+        "offset": 1,
+        "count": 5
+      },
+      "path": "assets/chars/noble/v3/block",
+      "fps": 24,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286
+    },
+    "parryCounter": {
+      "frames": 9,
+      "path": "assets/chars/noble/v3/j1",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286,
+      "phases": [
+        4,
+        6
+      ]
+    },
+    "dashAttack": {
+      "frames": 9,
+      "path": "assets/chars/noble/v3/u",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286,
+      "fitState": false,
+      "contact": 4,
+      "phases": [
+        4,
+        6
+      ]
+    },
+    "dash": {
+      "frames": {
+        "offset": 2,
+        "count": 4
+      },
+      "path": "assets/chars/noble/v3/u",
+      "fps": 24,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286,
+      "fitState": false,
+      "contact": 4
+    },
+    "charge": {
+      "frames": {
+        "offset": 3,
+        "count": 3
+      },
+      "path": "assets/chars/noble/v3/block",
+      "fps": 5,
+      "loop": true,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286
+    },
+    "superLunge": {
+      "frames": 9,
+      "path": "assets/chars/noble/v3/u",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286,
+      "fitState": false,
+      "contact": 4,
+      "phases": [
+        4,
+        6
+      ]
+    },
+    "superWave": {
+      "frames": 9,
+      "path": "assets/chars/noble/v3/u",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286,
+      "fitState": true,
+      "contact": 4
+    },
+    "ko": {
+      "frames": 3,
+      "path": "assets/chars/noble/v3/knockdown",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 288,
+      "canvasHeight": 448,
+      "originX": 0.425,
+      "originY": 0.9285714285714286
+    }
+  }
+}

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>百兽夜行</title>
+<link rel="stylesheet" href="style.css?v=20261022-noble-v3-final">
+<link rel="stylesheet" href="practice.css?v=20261022-noble-v3-final">
+</head>
+<body>
+<div id="game-wrapper">
+    <!-- 顶部 HUD -->
+    <div id="hud">
+        <div class="player-panel" id="p1-panel">
+            <div class="player-name" id="p1-name">玩家 1</div>
+            <div class="health-bar">
+                <div class="health-fill" id="p1-health"></div>
+                <div class="health-ghost" id="p1-ghost"></div>
+            </div>
+            <div class="meter-bar">
+                <div class="meter-seg seg1"></div><div class="meter-seg seg2"></div><div class="meter-seg seg3"></div>
+                <div class="meter-fill" id="p1-meter"></div>
+                <span class="meter-num" id="p1-meter-num">0</span>
+            </div>
+            <div class="resource-line sub" id="p1-special"></div>
+            <div class="round-marks" id="p1-rounds"></div>
+            <div class="controls-strip" id="p1-controls"></div>
+        </div>
+        <div id="timer">120</div>
+        <button id="btn-ingame-settings" title="设置（暂停/退出）">⚙</button>
+        <div class="player-panel right" id="p2-panel">
+            <div class="player-name" id="p2-name">玩家 2</div>
+            <div class="health-bar">
+                <div class="health-fill" id="p2-health"></div>
+                <div class="health-ghost" id="p2-ghost"></div>
+            </div>
+            <div class="meter-bar">
+                <div class="meter-seg seg1"></div><div class="meter-seg seg2"></div><div class="meter-seg seg3"></div>
+                <div class="meter-fill right" id="p2-meter"></div>
+                <span class="meter-num" id="p2-meter-num">0</span>
+            </div>
+            <div class="resource-line sub" id="p2-special"></div>
+            <div class="round-marks" id="p2-rounds"></div>
+            <div class="controls-strip" id="p2-controls"></div>
+        </div>
+    </div>
+
+    <canvas id="game-canvas" width="1200" height="540"></canvas>
+    <section id="noble-practice" class="practice-panel hidden" aria-label="贵族练习场">
+        <div class="practice-toolbar">
+            <strong>贵族练习场</strong>
+            <label>靶桩 <select id="practice-target"><option value="stand">站立</option><option value="block">格挡</option><option value="attack">定时还击</option></select></label>
+            <label>气槽 <select id="practice-meter"><option value="300">300 · 七重刺</option><option value="200">200 · 裂空波</option><option value="100">100 · 疾影突</option></select></label>
+            <label><input type="checkbox" id="practice-refill" checked> 自动补气</label>
+            <button id="practice-contract">叠满剑契</button><button id="practice-reset">重置位置</button>
+            <span id="practice-stats" aria-live="polite">自由练习</span>
+        </div>
+        <p class="practice-help">A / D 移动 · J 三段连击 · W + J 上挑 · S + J 低刺 · K 跳跃 · 空中 J 下劈 · L → J 突刺 · U 剑气 · O 招架 · I 必杀 · S + P 蓄气。点击出招表中的「演示」可直接试招。</p>
+        <details open><summary>贵族出招表与参数</summary><div class="move-table-wrap"><table id="noble-moves"><thead><tr><th>招式 / 操作</th><th>基础伤害</th><th>耗气</th><th>前摇</th><th>判定</th><th>收招</th><th>射程</th><th></th></tr></thead><tbody></tbody></table></div><p class="practice-help">帧数以 60 FPS、0 层剑契计；射程从角色中心计算，单位为游戏像素。每层剑契增加 3% 攻速、5% 伤害，最多 5 层。招架成功叠满剑契并回 20 气，反击实际造成 88 点伤害。七重刺实际伤害随剑契及连段衰减变化。练习靶桩会自动恢复。</p></details>
+    </section>
+
+    <div id="announce" class="hidden"></div>
+
+    <!-- ================= 主页面（参考图布局：背景图 + 透明热点按钮） ================= -->
+    <div id="menu-main" class="overlay main-menu">
+        <button class="noble-entry" id="btn-noble-main">贵族 · 进入练习场</button>
+        <!-- 热点按钮：位置与背景图上的按钮一一对应，悬停时高亮 -->
+        <button class="hotspot" style="top: 42.5%; left: 33%; width: 32%; height: 8.5%;" data-target="story" title="剧情模式"></button>
+        <button class="hotspot" style="top: 55.5%; left: 33%; width: 32%; height: 8.5%;" data-target="duel" title="双人对决"></button>
+        <button class="hotspot" style="top: 68%;   left: 31.5%; width: 35%; height: 9%;" data-target="cg" title="人物CG动画介绍"></button>
+        <button class="hotspot" style="top: 78%;   left: 34%; width: 30%; height: 8%;" data-target="settings" title="设置"></button>
+        <button class="hotspot" style="top: 87.5%; left: 33.5%; width: 31%; height: 8.5%;" data-target="exit" title="退出游戏"></button>
+    </div>
+
+    <!-- ================= 剧情模式 ================= -->
+    <div id="menu-story" class="overlay hidden">
+        <h2>剧情模式</h2>
+        <div class="story-layout">
+            <div class="chapter-list" id="chapter-list"></div>
+            <div class="story-player">
+                <video id="story-video" controls preload="none"></video>
+                <div id="story-placeholder" class="video-placeholder">
+                    <p>选择左侧章节开始播放</p>
+                    <p class="hint">视频文件放入 assets/videos/ 目录即可自动加载（如 ch1.mp4）</p>
+                </div>
+            </div>
+        </div>
+        <button class="menu-btn back" id="btn-story-back">返回主界面</button>
+    </div>
+
+    <!-- ================= 人物CG动画介绍 ================= -->
+    <div id="menu-cg" class="overlay hidden">
+        <h2>人物CG动画介绍</h2>
+        <div class="story-layout">
+            <div class="chapter-list" id="cg-list"></div>
+            <div class="story-player">
+                <video id="cg-video" controls preload="none"></video>
+                <div id="cg-placeholder" class="video-placeholder">
+                    <p id="cg-char-name">选择左侧角色</p>
+                    <p class="hint" id="cg-char-desc">CG 视频放入 assets/cg/ 目录（如 canglang.mp4），未添加时显示角色资料卡</p>
+                </div>
+                <div id="cg-card" class="cg-card hidden"></div>
+            </div>
+        </div>
+        <button class="menu-btn back" id="btn-cg-back">返回主界面</button>
+    </div>
+
+    <!-- ================= 对决模式选择 ================= -->
+    <div id="menu-mode" class="overlay hidden">
+        <h2>双人对决</h2>
+        <button class="menu-btn" id="btn-lan">在线对战（房间号）</button>
+        <button class="menu-btn" id="btn-local">本地对战（双人同键盘·测试）</button>
+        <button class="menu-btn" id="btn-noble-practice">贵族练习场 / 出招表</button>
+        <button class="menu-btn back" id="btn-mode-back">返回主界面</button>
+    </div>
+
+    <!-- ================= 本地对战选人 ================= -->
+    <div id="menu-local" class="overlay hidden">
+        <h2>本地对战 · 选择角色</h2>
+        <div class="lobby-columns">
+            <div class="lobby-col">
+                <h3>玩家 1（WASD 移动 / J 攻 / K 跳 / L 瞬步 / U 技 / I 必杀 / O 援护 / P+S 蓄气）</h3>
+                <div class="char-grid" id="local-grid-p1"></div>
+            </div>
+            <div class="lobby-col">
+                <h3>玩家 2（方向键移动 / 小键盘 1 攻 / 2 跳 / 3 瞬步 / 4 技 / 5 必杀 / 6 援护 / 7+↓ 蓄气）</h3>
+                <div class="char-grid" id="local-grid-p2"></div>
+            </div>
+        </div>
+        <div class="lobby-footer">
+            <span id="local-picks">P1：贵族决斗者 VS P2：江湖剑客</span>
+            <button class="menu-btn" id="btn-local-start">开始战斗</button>
+        </div>
+        <button class="menu-btn back" id="btn-local-back">返回</button>
+    </div>
+
+    <!-- ================= 局域网：创建 / 加入 ================= -->
+    <div id="menu-lan" class="overlay hidden">
+        <h2>在线对战</h2>
+        <div class="lan-row">
+            <button class="menu-btn" id="btn-create">创建房间</button>
+            <div class="join-box">
+                <input id="input-room" maxlength="4" placeholder="房间号">
+                <button class="menu-btn" id="btn-join">加入房间</button>
+            </div>
+        </div>
+        <p class="hint" id="lan-status">创建房间后把 4 位房间号发给对方，对方输入房间号即可加入</p>
+        <button class="menu-btn back" id="btn-lan-back">返回</button>
+    </div>
+
+    <!-- ================= 房间大厅 ================= -->
+    <div id="menu-lobby" class="overlay hidden">
+        <h2>对战房间 <span id="room-code" class="room-code"></span></h2>
+        <button class="menu-btn back corner" id="btn-lobby-back">返回主页</button>
+        <p class="hint" id="lobby-status">等待对方进入…</p>
+
+        <div class="lobby-columns">
+            <div class="lobby-col">
+                <h3 id="lobby-me-label">我方角色</h3>
+                <div class="char-grid" id="char-grid"></div>
+            </div>
+            <div class="lobby-col">
+                <h3>对战场景（主机选择）</h3>
+                <div class="stage-grid" id="stage-grid"></div>
+                <div class="options-box" id="options-box">
+                    <label>赛制：
+                        <select id="opt-format">
+                            <option value="bo3">三局两胜</option>
+                            <option value="single">单局决胜</option>
+                        </select>
+                    </label>
+                    <label><input type="checkbox" id="opt-boss"> 启用 BOSS 玄鸦</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="lobby-footer">
+            <span id="opp-info">对方：未连接</span>
+            <button class="menu-btn" id="btn-ready">准备</button>
+        </div>
+    </div>
+
+    <!-- ================= 设置 ================= -->
+    <div id="menu-settings" class="overlay hidden">
+        <h2>设置</h2>
+        <div class="settings-box">
+            <label><input type="checkbox" id="opt-debug"> 显示碰撞框（调试）</label>
+            <label><input type="checkbox" id="opt-flip"> 翻转角色立绘方向（立绘朝向反了就勾这个）</label>
+            <label>音量（占位，接入音频后生效）：
+                <input type="range" id="opt-volume" min="0" max="100" value="80">
+            </label>
+            <div class="controls-help">
+                <h3>统一操作（两台电脑一致）</h3>
+                <p>A / D 移动 &nbsp; W 起跳 &nbsp; S 防御/受身</p>
+                <p>J 普攻(三段) &nbsp; K 跳跃(二段) &nbsp; L 瞬步</p>
+                <p>U 远攻(耗气75) &nbsp; O 援护键（设计中）</p>
+                <p>I 放必杀：按气量分档（≥100 疾影突 / ≥200 裂空波 / 满300 终式）</p>
+                <p>守望者：S+I 耗2段气从穿甲(减伤/慢) → 脱甲(攻速+10%，单向不可逆)</p>
+                <p>P+S 同时按住=蓄气（每秒80点，约3.75秒攒满；蓄气中受伤×1.5）</p>
+                <p>攻击命中 +15 / 受击 +10 / 格挡 +12 气（上限300点）</p>
+                <p>W+J 上攻 &nbsp; S+J 下攻(破防) &nbsp; Esc 暂停</p>
+            </div>
+        </div>
+        <button class="menu-btn back" id="btn-settings-back">返回主界面</button>
+    </div>
+
+    <!-- ================= 退出游戏 ================= -->
+    <div id="menu-exit" class="overlay hidden">
+        <h2>确认退出游戏？</h2>
+        <div class="lan-row">
+            <button class="menu-btn" id="btn-exit-yes">确认退出</button>
+            <button class="menu-btn back" id="btn-exit-no">再玩一会</button>
+        </div>
+    </div>
+    <div id="menu-farewell" class="overlay hidden">
+        <h1>百兽夜行</h1>
+        <p class="subtitle">感谢游玩 · 可直接关闭本窗口</p>
+    </div>
+
+    <!-- ================= 回合间菜单 ================= -->
+    <div id="menu-between" class="overlay hidden">
+        <h2 id="between-title">回合结束</h2>
+        <button class="menu-btn" id="btn-next-round">下一回合</button>
+        <button class="menu-btn back" id="btn-back-lobby">返回房间（换角色/场景）</button>
+    </div>
+
+    <!-- ================= 暂停 ================= -->
+    <div id="menu-pause" class="overlay hidden">
+        <h2>暂停</h2>
+        <button class="menu-btn" id="btn-resume">继续战斗</button>
+        <button class="menu-btn back" id="btn-quit">退出到主界面</button>
+    </div>
+</div>
+
+<script src="js/config.js?v=20261022-noble-v3-final"></script>
+<script src="js/fighter.js?v=20261022-noble-v3-final"></script>
+<script src="js/net.js?v=20261022-noble-v3-final"></script>
+<script src="js/game.js?v=20261022-noble-v3-final-r3"></script>
+<script src="js/noble-practice.js?v=20261022-noble-v3-final-r3"></script>
+</body>
+</html>

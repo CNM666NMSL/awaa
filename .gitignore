@@ -1,0 +1,29 @@
+# Generated packages and local runtimes are distributed separately from source.
+/runtime/
+/dist/
+/release/
+*.zip
+*.7z
+*.tar.gz
+
+# Local logs, caches, dependencies and editor state.
+*.log
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Local credentials and configuration must stay on the current computer.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+.codex/
+.agents/
+.workbuddy/

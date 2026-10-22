@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>立绘朝向校验 · 百兽夜行</title>
+<style>
+body { background:#0d1526; color:#e8e8e8; font-family: sans-serif; margin:20px; }
+.card { display:inline-block; background:#151f33; border:1px solid #2a3a55; margin:10px; padding:10px; text-align:center; }
+.card canvas { display:block; background:#0b0f1a; border:1px solid #334; }
+.card h3 { margin:8px 0 4px; }
+.card p { margin:4px 0; font-size:12px; color:#9ab; }
+.hint { color:#7a8; margin-top:20px; }
+</style>
+</head>
+<body>
+<h2>立绘朝向校验：所有角色必须原始朝右</h2>
+<p>绿色箭头 = 期望朝向。若立绘正面与箭头同向 = 正确。</p>
+<div id="wrap"></div>
+<p class="hint">说明：贴图文件本身必须朝右；游戏中 facing=1 会按原样显示，facing=-1 会水平镜像，这样角色才会面向操作方向。</p>
+
+<script src="../js/config.js?v=20261031a"></script>
+<script>
+const wrap = document.getElementById("wrap");
+const roster = CONFIG.roster;
+
+function makeCard(id, label, src) {
+    const c = CONFIG.characters[id];
+    const div = document.createElement("div"); div.className = "card";
+    const canvas = document.createElement("canvas");
+    canvas.width = 220; canvas.height = 280;
+    div.appendChild(canvas);
+    div.innerHTML += `<h3>${c.name}</h3><p>${label}</p><p>${src}</p>`;
+    wrap.appendChild(div);
+    const ctx = canvas.getContext("2d");
+    const img = new Image();
+    img.onload = () => {
+        const h = 220;
+        const w = h * (img.width / img.height);
+        ctx.save();
+        ctx.translate(110, 240);
+        ctx.drawImage(img, -w/2, -h, w, h);
+        ctx.restore();
+        // 绿色箭头朝右
+        ctx.strokeStyle = "#4e6"; ctx.lineWidth = 4; ctx.fillStyle = "#4e6";
+        ctx.beginPath(); ctx.moveTo(30, 30); ctx.lineTo(90, 30); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(85, 22); ctx.lineTo(95, 30); ctx.lineTo(85, 38); ctx.stroke();
+        ctx.font = "14px sans-serif"; ctx.fillText("RIGHT", 45, 52);
+    };
+    img.onerror = () => { ctx.fillStyle="#c66"; ctx.fillText("加载失败", 70, 140); };
+    img.src = "../" + src + "?v=" + ASSET_VER;
+}
+
+for (const id of roster) {
+    const c = CONFIG.characters[id];
+    if (c.sprites) {
+        makeCard(id, "穿甲形态", c.sprites.armored);
+        makeCard(id, "脱甲形态", c.sprites.unarmored);
+    } else if (c.sprite) {
+        makeCard(id, "单形态", c.sprite);
+    }
+}
+</script>
+</body>
+</html>

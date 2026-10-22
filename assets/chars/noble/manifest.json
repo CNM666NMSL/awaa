@@ -1,0 +1,23 @@
+{
+  "character": "noble",
+  "actions": {
+    "idle": {
+      "frames": 8,
+      "loop": true,
+      "fps": 8,
+      "path": "assets/chars/noble/idle"
+    },
+    "j1": {
+      "frames": 16,
+      "loop": false,
+      "fps": 12,
+      "path": "assets/chars/noble/j1"
+    },
+    "u": {
+      "frames": 15,
+      "loop": false,
+      "fps": 12,
+      "path": "assets/chars/noble/u"
+    }
+  }
+}

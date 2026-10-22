@@ -1,0 +1,13 @@
+{
+  "name": "baishou-yexing-fighter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "百兽夜行 - 2D 格斗对战（含在线房间对战）",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

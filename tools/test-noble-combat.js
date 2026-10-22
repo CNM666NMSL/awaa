@@ -1,0 +1,29 @@
+const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert');
+const root=path.join(__dirname,'..'),elements=new Map();
+function element(id){if(!elements.has(id))elements.set(id,{value:id==='practice-meter'?'300':'stand',checked:true,textContent:'',children:[],classList:{add(){},remove(){}},replaceChildren(){this.children=[]},append(child){this.children.push(child)},setAttribute(){}});return elements.get(id);}
+const context={Image:class{set src(v){}},console,URL,Buffer,setTimeout(){},document:{getElementById:element,querySelector:element,createElement:()=>({textContent:'',children:[],append(v){this.children.push(v)},setAttribute(){}})},window:{},performance:{now:()=>0}};
+vm.createContext(context);
+for(const file of ['config.js','fighter.js','game.js','noble-practice.js']){
+ let code=fs.readFileSync(path.join(root,'js',file),'utf8');
+ if(file==='game.js')code=code.replace('window.game = new Game();','');
+ if(file==='noble-practice.js')code=code.slice(0,code.indexOf("document.getElementById('btn-noble-main')"));
+ vm.runInContext(code,context,{filename:file});
+}
+vm.runInContext('globalThis.F=Fighter;globalThis.G=Game;globalThis.C=CONFIG;',context);
+const {F,G,C}=context;
+const make=()=>{const g=Object.create(G.prototype);Object.assign(g,{p1:new F('noble',200,1),p2:new F('noble',270,-1),sparks:[],projectiles:[],phase:'fight',keysDown:{},announce(){},updateHUD(){},onKO(){},show(){},startMatch(){}});return g;};
+const check=(name,fn)=>{fn();console.log('OK '+name);};
+check('Health and sword-contract bonuses match the displayed parameters',()=>{const f=new F('noble',200,1);assert.equal(f.maxHealth,850);f.resource=5;assert.equal(f.damageScale(),1.25);});
+check('Holding block advances its animation instead of restarting it each tick',()=>{const f=new F('noble',200,1);for(let n=0;n<24;n++){f.block(true);f.update();}assert.equal(f.state,'block');assert(f.animFrame>=3);assert(f.stateTimer>=24);});
+check('Low thrust has a low hitbox and mirrors correctly',()=>{const f=new F('noble',200,1);f._startAttack(f.def.low);let b=f.getAttackBox();assert.equal(b.y,f.y-42);assert(b.y+b.h<=f.y);f.facing=-1;let left=f.getAttackBox();assert.equal(left.x+left.w,f.x);assert.equal(left.y,b.y);});
+check('Parry catches a strike once and deals counter damage only during its active frames',()=>{const g=make(),a=g.p1,d=g.p2;a._startAttack(a.def.combo[0]);a.stateTimer=a.curEff().startup;d.castSpecial();const health=a.health;g.checkHit(a,d);assert.equal(a.health,health);assert.equal(d.currentAttack,d.def.special.counter);assert.equal(d.meter,20);assert(a.hasHit);g.checkHit(d,a);assert.equal(a.health,health);d.stateTimer=d.curEff().startup;g.checkHit(d,a);assert(a.health<health);const after=a.health;g.checkHit(d,a);assert.equal(a.health,after);});
+check('Sevenfold ultimate produces exactly seven hits and one finishing knockdown',()=>{const g=make(),a=g.p1,d=g.p2;d.health=d.maxHealth=100000;let hits=0;const take=d.takeHit.bind(d);d.takeHit=(...args)=>{hits++;return take(...args)};a.meter=300;a.castSuper();const e=a.curEff();for(let t=0;t<e.startup+e.active;t++){a.stateTimer=t;g.checkHit(a,d);}assert.equal(hits,7);assert(a.hasHit);assert.equal(d.state,'knockdown');});
+check('Interrupted casting cannot leave a stale projectile queued',()=>{const g=make(),f=g.p1;const s=f.castSkill();assert.equal(s,null);f.meter=300;f.pendingProj=f.castSkill();assert(f.pendingProj);f.takeHit({damage:10,hitstun:18,knockback:1},-1,false);assert.equal(f.pendingProj,null);assert.equal(f.currentCast,null);f.stateTimer=8;g.updateSkillCasts(f);assert.equal(g.projectiles.length,0);});
+check('The 200-meter cast uses its own startup and animation',()=>{const f=new F('noble',200,1);f.meter=200;f.castSuperTier();f.stateTimer=10;f._updateAnim();assert.equal(f.animKey,'superWave');assert.equal(f.animFrame,C.characters.noble.anims.superWave.contact);});
+check('Airborne jump poses never finish in a standing pose',()=>{const f=new F('noble',200,1);f.jump();for(let n=0;n<30;n++){f.update();if(!f.onGround&&f.state==='jump')assert(f.animFrame>=2&&f.animFrame<=6);} });
+check('Attack identity and frame survive network snapshots',()=>{const f=new F('noble',200,1),other=new F('noble',0,-1);for(const attack of [f.def.dashAttack,f.def.airAttack,f.def.special.counter,f.def.superTiers.lunge]){f._startAttack(attack);f.stateTimer=f.curEff().startup;f._updateAnim();other.applySnapshot(JSON.parse(JSON.stringify(f.toSnapshot())));assert.equal(other.animKey,f.animKey);assert.equal(other.animFrame,f.animFrame);assert.equal(other.curEff().damage,f.curEff().damage);}});
+check('Practice entry creates all twelve move-table rows',()=>{const g=make();g.startNoblePractice();assert.equal(element('#noble-moves tbody').children.length,12);assert.equal(g.mode,'practice');assert.equal(g.phase,'fight');assert.equal(g.p1.meter,300);});
+check('All twelve demonstration buttons start a playable move and reveal the arena',()=>{const g=make();let scrolls=0;g.canvas={scrollIntoView(){scrolls++;}};g.startNoblePractice();for(const [key] of g.nobleMoveRows()){g.demonstrateNobleMove(key);assert(['attack','skill','super','parry'].includes(g.p1.state));assert.equal(g.phase,'fight');}assert.equal(scrolls,12);});
+check('A practice knockout enters recoverable knockdown and keeps the session running',()=>{const g=make();g.mode='practice';g.p2.health=0;g.p2.setState('ko');G.prototype.onKO.call(g,g.p1);assert.equal(g.phase,'fight');assert.equal(g.p2.health,1);assert.equal(g.p2.state,'knockdown');});
+check('A short key tap between simulation ticks is consumed exactly once',()=>{const g=make();g.keysPressed={KeyJ:true};const edges={};assert(g.readInput(C.keys,edges).atk);assert(!g.readInput(C.keys,edges).atk);g.keysDown.KeyJ=true;g.keysPressed.KeyJ=true;assert(g.readInput(C.keys,edges).atk);assert(!g.readInput(C.keys,edges).atk);});
+console.log('All noble integration checks passed');
