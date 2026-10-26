@@ -1,0 +1,3 @@
+const fs=require('fs');let p='js/fighter.js',s=fs.readFileSync(p,'utf8').replace('        this.justSwitchedForm = false;\n        this.animKey = null;','        this.justSwitchedForm = false;\n        this.dashLeft=0;this.dashCooldownLeft=0;this._dashWasAir=false;this.justDashed=false;\n        this.animKey = null;');fs.writeFileSync(p,s);
+p='js/config.js';s=fs.readFileSync(p,'utf8').replace('tier1Cost: 100','tier1Cost: 0').replace('tier2Cost: 200','tier2Cost: 0').replaceAll('"cost":100','"cost":0').replaceAll('"cost":200','"cost":0');fs.writeFileSync(p,s);
+p='index.html';s=fs.readFileSync(p,'utf8').replaceAll('rules-20261024','rules-20261024-b');fs.writeFileSync(p,s);

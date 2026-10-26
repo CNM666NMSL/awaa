@@ -1,0 +1,24 @@
+{
+  "identities": [
+    "noble",
+    "jianke",
+    "armored",
+    "unarmored"
+  ],
+  "sourcePoses": 48,
+  "clips": {
+    "u": 6,
+    "j4": 7,
+    "uCharge": 4,
+    "uCharged": 7
+  },
+  "canvas": [
+    512,
+    320
+  ],
+  "anchor": [
+    190,
+    300
+  ],
+  "referenceHeight": 210
+}

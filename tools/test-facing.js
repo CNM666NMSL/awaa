@@ -35,7 +35,7 @@ f = fresh(); f.meter = CONFIG.resources.dashCost + 10; f.update();
 const meterBefore = f.meter;
 f.dash();
 A("瞬步触发 justDashed 标记", f.justDashed === true);
-A("瞬步耗气 dashCost", f.meter === meterBefore - CONFIG.resources.dashCost);
+A("瞬步不耗气", f.meter === meterBefore - CONFIG.resources.dashCost);
 
 // 4) 瞬步时缓推进逻辑（模拟 game 层）
 f = fresh(); f.meter = CONFIG.resources.dashCost + 10; f.dash();

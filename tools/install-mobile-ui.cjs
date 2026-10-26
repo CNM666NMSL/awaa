@@ -1,0 +1,10 @@
+const fs=require('fs');
+let h=fs.readFileSync('index.html','utf8');
+h=h.replace('width=device-width, initial-scale=1.0','width=device-width, initial-scale=1.0, viewport-fit=cover');
+h=h.replace('</head>','<link rel="stylesheet" href="responsive.css?v=mobile1">\n</head>');
+h=h.replace('<div id="game-wrapper">','<div id="game-wrapper">\n<button id="quick-settings" aria-label="打开设置">⚙ 设置</button>');
+h=h.replace(/<label>音量（占位，接入音频后生效）：[\s\S]*?<\/label>/,`<label>人物音量 <output id="voice-value">80%</output><input type="range" id="voice-volume" min="0" max="100" value="80"></label><label>游戏音效 <output id="effects-value">80%</output><input type="range" id="effects-volume" min="0" max="100" value="80"></label><label>背景音乐 <output id="music-value">35%</output><input type="range" id="music-volume" min="0" max="100" value="35"></label><p class="audio-note">人物通道用于角色语音；当前尚无配音素材。音量自动保存。</p>`);
+h=h.replace('<h3>统一操作（两台电脑一致）</h3>','<h3>键位操作 / 手机按键对照</h3><p>手机：左侧方向键移动与防御；右侧普攻、跳跃、冲刺、远攻、特殊、大招与蓄气。横屏体验更佳。</p><p>P2：← → 移动，↓ 防御，↑+1 上挑；1 普攻 / 2 跳跃 / 3 冲刺 / 4 远攻 / 5 大招 / 6 特殊 / 7 蓄气。</p>');
+h=h.replace('<script src="js/game.js?v=entrance2"></script>','<script src="js/game.js?v=mobile1"></script>');
+h=h.replace('</body>','<script src="js/mobile-ui.js?v=mobile1"></script>\n</body>');
+fs.writeFileSync('index.html',h);

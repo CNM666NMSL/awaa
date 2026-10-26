@@ -5,7 +5,7 @@
 
 // 素材缓存版本号：每次替换/修改 assets 下的图片后，把这个值 +1
 // （JS/CSS 靠 index.html 的 ?v= 刷新，图片靠这个）
-const ASSET_VER = "20261022-noble-v3-final";
+const ASSET_VER = "20261023-jianke-v2";
 
 const CONFIG = {
     // ---------- 画布与场景 ----------
@@ -28,31 +28,36 @@ const CONFIG = {
         gravity: 0.8,
         jumpForce: -15,
         moveSpeed: 5.2,        // 地面移动速度（提升，走位更跟手）
+        runMultiplier: 1.65,
+        doubleTapFrames: 15,
+        airAcceleration: 1.1,
+        airAttackControl: 0.85,
         airControl: 0.92,      // 空中水平速度系数（提高，空中转向更跟手）
         jumpHop: 4.0,          // 起跳水平初速（加大，前跳/后跳距离更远）
         friction: 0.85,
-        dashSpeed: 11,         // 冲刺速度
-        dashFrames: 14,        // 冲刺持续帧
-        dashInvuln: 10,        // 冲刺前 N 帧无敌（闪避用，加长更实在）
+        dashSpeed: 0,         // 冲刺速度
+        dashDistance: 150,      // 瞬移距离（游戏像素）
+        dashFrames: 12,        // 冲刺持续帧
+        dashInvuln: 8,        // 冲刺前 N 帧无敌（闪避用，加长更实在）
     },
 
     // ---------- 核心资源（设计文档 三.1） ----------
     resources: {
-        maxHealth: 1000,       // 基础血量
-        maxMeter: 300,         // 气槽上限：300 点（连续一条，UI 切 3 色分区）
-        meterOnHit: 15,        // 普攻/技能命中攒气（点）
-        meterOnHurt: 10,       // 受击攒气（点）
-        meterOnBlock: 12,      // 成功格挡攒气（点）
-        skillCost: 75,         // U 远攻技能耗气（点）
-        superCost: 300,        // I 终式超必杀需满气
+        maxHealth: 2000,       // 基础血量
+        maxMeter: 100,         // 气槽上限：300 点（连续一条，UI 切 3 色分区）
+        meterOnHit: 5,        // 普攻/技能命中攒气（点）
+        meterOnHurt: 3.3333333333,       // 受击攒气（点）
+        meterOnBlock: 4,      // 成功格挡攒气（点）
+        skillCost: 0,         // 普通技能不耗气
+        superCost: 100,        // I 终式超必杀需满气
         // ---- 蓄气 / 三段式必杀 ----
-        chargePerSecond: 80,   // 按住 蓄气键 每秒攒气点（约 3.75 秒攒满）
+        chargePerSecond: 26.6666666667,   // 按住 蓄气键 每秒攒气点（约 3.75 秒攒满）
         chargeHurtMult: 1.5,   // 蓄气破绽惩罚：蓄气期间受到的伤害 ×1.5
         tapFrames: 10,         // 蓄气键按下 ≤N 帧算「点按」（现在蓄气键已独立，此值基本无用）
-        tier1Cost: 100,        // 一段必杀耗气：疾影突（贴脸突进斩）
-        tier2Cost: 200,        // 二段必杀耗气：裂空波（大型飞行剑气）
+        tier1Cost: 0,        // 一段必杀耗气：疾影突（贴脸突进斩）
+        tier2Cost: 0,        // 二段必杀耗气：裂空波（大型飞行剑气）
         // ---- 瞬步（瞬移）----
-        dashCost: 36,          // 瞬步消耗 36 点气（约 1/8 气槽）
+        dashCost: 0,          // 瞬步不耗气
         dashCooldown: 40,      // 瞬步冷却帧数（约 0.66 秒），期间不能再次瞬步
         slowmoFrames: 18,      // 瞬步时缓持续帧数（对方推进减半，突出闪避）
         slowmoDivisor: 2,      // 时缓期间非瞬步方每 N 帧推进 1 帧
@@ -60,8 +65,8 @@ const CONFIG = {
 
     // ---------- 回合规则 ----------
     round: {
-        time: 120,             // 每局两分钟（真实时间流速）
-        introFrames: 90,
+        time: 180,             // 每局三分钟（真实时间流速）
+        introFrames: 180,
         koFreezeFrames: 70,
     },
 
@@ -75,7 +80,7 @@ const CONFIG = {
     keys: {
         left:    "KeyA",   // 左移
         right:   "KeyD",   // 右移
-        up:      "KeyW",   // 向上 / 起跳 / W+J 上攻
+        up:      "KeyW",   // 上挑组合键 / W+J 上攻（不跳跃）
         down:    "KeyS",   // 下蹲 / 按住格挡 / 受击瞬间按=受身 / S+J 下攻
         attack:  "KeyJ",   // 普攻（可连击3段）
         jump:    "KeyK",   // 跳跃（支持二段跳）
@@ -121,7 +126,7 @@ const CONFIG = {
             ],
             launcher: { damage: 60, range: 58, hitHeight: 70, startup: 8, active: 5, recovery: 20, knockback: 3, hitstun: 26, launch: -9 },   // W+J 浮空
             low:      { damage: 55, range: 66, hitHeight: 26, startup: 9, active: 5, recovery: 20, knockback: 5, hitstun: 22, guardBreak: true }, // S+J 破防
-            skill:    { damage: 70, cost: 75, projSpeed: 9, projSize: 14, startup: 10, recovery: 18 },  // U 远攻
+            skill:    { damage: 70, cost: 0, projSpeed: 9, projSize: 14, startup: 10, recovery: 18 },  // U 远攻
             super_:   { damage: 260, range: 110, hitHeight: 90, startup: 14, active: 8, recovery: 30, knockback: 12, hitstun: 40, guardBreak: true },
         },
         xuanwu: {
@@ -136,7 +141,7 @@ const CONFIG = {
             ],
             launcher: { damage: 68, range: 54, hitHeight: 74, startup: 10, active: 5, recovery: 24, knockback: 3, hitstun: 26, launch: -8 },
             low:      { damage: 64, range: 62, hitHeight: 26, startup: 11, active: 5, recovery: 24, knockback: 6, hitstun: 24, guardBreak: true },
-            skill:    { damage: 85, cost: 75, projSpeed: 7, projSize: 20, startup: 14, recovery: 24 },
+            skill:    { damage: 85, cost: 0, projSpeed: 7, projSize: 20, startup: 14, recovery: 24 },
             super_:   { damage: 300, range: 100, hitHeight: 100, startup: 16, active: 8, recovery: 34, knockback: 14, hitstun: 44, guardBreak: true },
         },
         baize: {
@@ -151,7 +156,7 @@ const CONFIG = {
             ],
             launcher: { damage: 58, range: 60, hitHeight: 70, startup: 8, active: 5, recovery: 20, knockback: 3, hitstun: 26, launch: -9 },
             low:      { damage: 52, range: 68, hitHeight: 26, startup: 9, active: 5, recovery: 20, knockback: 5, hitstun: 22, guardBreak: true },
-            skill:    { damage: 65, cost: 75, projSpeed: 10, projSize: 13, startup: 9, recovery: 16 },
+            skill:    { damage: 65, cost: 0, projSpeed: 10, projSize: 13, startup: 9, recovery: 16 },
             super_:   { damage: 250, range: 115, hitHeight: 90, startup: 13, active: 8, recovery: 30, knockback: 12, hitstun: 40, guardBreak: true },
         },
         zhuque: {
@@ -166,7 +171,7 @@ const CONFIG = {
             ],
             launcher: { damage: 62, range: 58, hitHeight: 72, startup: 7, active: 5, recovery: 19, knockback: 3, hitstun: 26, launch: -10 },
             low:      { damage: 54, range: 64, hitHeight: 26, startup: 9, active: 5, recovery: 20, knockback: 5, hitstun: 22, guardBreak: true },
-            skill:    { damage: 72, cost: 75, projSpeed: 11, projSize: 15, startup: 10, recovery: 18 },
+            skill:    { damage: 72, cost: 0, projSpeed: 11, projSize: 15, startup: 10, recovery: 18 },
             super_:   { damage: 270, range: 108, hitHeight: 95, startup: 14, active: 8, recovery: 30, knockback: 12, hitstun: 40, guardBreak: true },
         },
         qingluan: {
@@ -181,7 +186,7 @@ const CONFIG = {
             ],
             launcher: { damage: 56, range: 58, hitHeight: 70, startup: 7, active: 5, recovery: 19, knockback: 3, hitstun: 26, launch: -10 },
             low:      { damage: 50, range: 66, hitHeight: 26, startup: 8, active: 5, recovery: 19, knockback: 5, hitstun: 22, guardBreak: true },
-            skill:    { damage: 62, cost: 75, projSpeed: 12, projSize: 12, startup: 8, recovery: 15 },
+            skill:    { damage: 62, cost: 0, projSpeed: 12, projSize: 12, startup: 8, recovery: 15 },
             super_:   { damage: 245, range: 112, hitHeight: 88, startup: 12, active: 8, recovery: 28, knockback: 12, hitstun: 40, guardBreak: true },
         },
         // ---------- 贵族决斗者 · 序列23【纯白剑契】（飞书文档完整设定） ----------
@@ -200,7 +205,7 @@ const CONFIG = {
                 boots:  "#15151f",
                 accent: "#c9a227",
             },
-            width: 42, height: 108, walkSpeed: 5.6, maxHealth: 850,   // 身板偏脆
+            width: 42, height: 108, walkSpeed: 5.6, maxHealth: 2000,   // 所有模式使用相同基础血量
             // 帧动画：path 为目录，帧文件 00.png 01.png ...
             // frames 支持 number / [start,end] 闭区间 / {count,offset}
             anims: {
@@ -245,11 +250,11 @@ const CONFIG = {
             // S+J 低身滑刺：滑步突进破防，+2 剑契；满层突进距离翻倍+击退
             low:      { hitY: 42, damage: 50, gainLayers: 2, range: 62, hitHeight: 38, startup: 5, active: 6, recovery: 18, knockback: 5, hitstun: 22, guardBreak: true, lunge: 5, fullLunge: 10, fullKnockback: 11 },
             // U 残月剑气：纤细剑气中距快速飞行；满层双道交叉剑气+破甲
-            skill:    { projY: 0.62, damage: 60, cost: 75, projSpeed: 12, projSize: 12, startup: 8, recovery: 15, fullDamageMult: 1.3, fullDouble: true, fullGuardBreak: true },
+            skill:    { projY: 0.62, damage: 60, cost: 0, projSpeed: 12, projSize: 12, startup: 8, recovery: 15, fullDamageMult: 1.3, fullDouble: true, fullGuardBreak: true },
             // O 决斗招架：0.8s精准格挡，成功触发反击突刺（叠满剑契+20气），失败大硬直
             special:  { type: "parry", meterGain: 20, window: 48, failRecover: 42,
                         counter: { damage: 70, range: 84, hitHeight: 50, startup: 2, active: 6, recovery: 14, knockback: 8, hitstun: 26 } },
-            superTiers: {"lunge":{"name":"疾影突","anim":"superLunge","cost":100,"damage":150,"range":100,"hitY":82,"hitHeight":36,"startup":6,"active":8,"recovery":15,"knockback":9,"hitstun":24,"lunge":12,"tier":1},"wave":{"name":"裂空波","anim":"superWave","cost":200,"damage":230,"projSpeed":7.5,"projSize":36,"projY":0.62,"startup":10,"recovery":22,"guardBreak":true,"tier":2}},
+            superTiers: {"lunge":{"name":"疾影突","anim":"superLunge","cost":0,"damage":150,"range":100,"hitY":82,"hitHeight":36,"startup":6,"active":8,"recovery":15,"knockback":9,"hitstun":24,"lunge":12,"tier":1},"wave":{"name":"裂空波","anim":"superWave","cost":0,"damage":230,"projSpeed":7.5,"projSize":36,"projY":0.62,"startup":10,"recovery":22,"guardBreak":true,"tier":2}},
             // I 终焉七重刺：七次高速突刺+终击挑飞，伤害随剑契层数提升；满层追加十字剑气
             super_:   { multiHit: true, hits: 7, interval: 5, startup: 10, active: 40, recovery: 26,
                         perHit: 24, perHitLayerBonus: 5, finalDamage: 70, finalLayerBonus: 12,
@@ -262,7 +267,13 @@ const CONFIG = {
             name: "江湖剑客", title: "无名之剑",
             color: "#4a4a54", colorDark: "#8a7a52",
             sprite: "assets/chars/jianke.png",
-            width: 46, height: 112, walkSpeed: 5.2,
+            width: 46, height: 112, walkSpeed: 5.2, maxHealth: 2000,
+            dashAttack: {name:"踏影刺",damage:65,range:88,hitHeight:44,startup:6,active:5,recovery:17,knockback:7,hitstun:22},
+            airAttack: {name:"落雁斩",damage:58,range:72,hitHeight:60,startup:7,active:6,recovery:18,knockback:5,hitstun:21},
+            superTiers: {
+                lunge: {name:"疾影突",anim:"superLunge",damage:150,range:100,hitHeight:52,startup:6,active:8,recovery:15,knockback:9,hitstun:24,lunge:12,tier:1},
+                wave: {name:"裂空波",anim:"superWave",damage:230,projSpeed:7.5,projSize:36,startup:10,recovery:22,guardBreak:true,tier:2}
+            },
             resource: { name: "剑意", max: 3, desc: "O键凝聚剑意，每层提升8%伤害" },
             combo: [
                 { damage: 42, range: 62, hitHeight: 42, startup: 5, active: 4, recovery: 10, knockback: 3, hitstun: 15 },
@@ -271,7 +282,7 @@ const CONFIG = {
             ],
             launcher: { damage: 62, range: 58, hitHeight: 72, startup: 8, active: 5, recovery: 20, knockback: 3, hitstun: 26, launch: -10 },
             low:      { damage: 56, range: 66, hitHeight: 26, startup: 9, active: 5, recovery: 20, knockback: 5, hitstun: 22, guardBreak: true },
-            skill:    { damage: 68, cost: 75, projSpeed: 10, projSize: 14, startup: 10, recovery: 18 },
+            skill:    { damage: 68, cost: 0, projSpeed: 10, projSize: 14, startup: 10, recovery: 18 },
             super_:   { damage: 265, range: 108, hitHeight: 92, startup: 14, active: 8, recovery: 30, knockback: 12, hitstun: 40, guardBreak: true },
         },
 
@@ -284,7 +295,7 @@ const CONFIG = {
                 armored:   "assets/chars/shouwang_armed.png",   // 穿甲：重甲剑士
                 unarmored: "assets/chars/shouwang.png",         // 脱甲：银发魔法剑士
             },
-            formSwitchCost: 200,   // 形态切换耗气（2 段）
+            formSwitchCost: 0,   // 形态切换不耗气
             width: 48, height: 116, walkSpeed: 4.2,
             resource: { name: "誓约", max: 3, desc: "援护键（O/6）· 设计中" },
             // 穿甲形态加成：重甲减伤 20%，但移速降低
@@ -298,7 +309,7 @@ const CONFIG = {
             ],
             launcher: { damage: 74, range: 58, hitHeight: 78, startup: 10, active: 5, recovery: 24, knockback: 3, hitstun: 28, launch: -9 },
             low:      { damage: 68, range: 66, hitHeight: 28, startup: 11, active: 5, recovery: 24, knockback: 7, hitstun: 24, guardBreak: true },
-            skill:    { damage: 88, cost: 75, projSpeed: 8, projSize: 22, startup: 13, recovery: 24 },
+            skill:    { damage: 88, cost: 0, projSpeed: 8, projSize: 22, startup: 13, recovery: 24 },
             super_:   { damage: 320, range: 104, hitHeight: 104, startup: 16, active: 9, recovery: 36, knockback: 15, hitstun: 46, guardBreak: true },
         },
 
@@ -315,7 +326,7 @@ const CONFIG = {
             ],
             launcher: { damage: 66, range: 60, hitHeight: 74, startup: 8, active: 5, recovery: 20, knockback: 3, hitstun: 27, launch: -10 },
             low:      { damage: 60, range: 68, hitHeight: 26, startup: 9, active: 5, recovery: 20, knockback: 6, hitstun: 23, guardBreak: true },
-            skill:    { damage: 80, cost: 75, projSpeed: 10, projSize: 16, startup: 10, recovery: 17 },
+            skill:    { damage: 80, cost: 0, projSpeed: 10, projSize: 16, startup: 10, recovery: 17 },
             super_:   { damage: 290, range: 118, hitHeight: 96, startup: 13, active: 9, recovery: 30, knockback: 13, hitstun: 42, guardBreak: true },
         },
     },
@@ -326,7 +337,7 @@ const CONFIG = {
     // ---------- 6 张剧情衍生对战场景（设计文档 一） ----------
     // 后期替换美术：改 colors，或在 game.js drawStage() 里换成贴图
     stages: {
-        lingxia:   { name: "灵峡古道",   sky: ["#0f3460", "#533483", "#1a1a2e"], ground: "#2b2b45", hazard: "滚石", img: "assets/stages/lingxia.jpg" },
+        lingxia:   { name: "暮雨 · 废弃工业街",   sky: ["#0f3460", "#533483", "#1a1a2e"], ground: "#2b2b45", hazard: "滚石", img: "assets/stages/industrial-rain.png", weather: "rain" },
         youdu:     { name: "幽都夜市",   sky: ["#1a0533", "#3d1a5c", "#0d0221"], ground: "#3a2b45", hazard: "鬼火" },
         cangshan:  { name: "苍山雪境",   sky: ["#4a6fa5", "#87a8d0", "#c8d8e8"], ground: "#dfe8f0", hazard: "冰锥" },
         yanhuang:  { name: "炎荒熔窟",   sky: ["#3d0c02", "#8a2408", "#1a0501"], ground: "#45251a", hazard: "岩浆喷涌" },

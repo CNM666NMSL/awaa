@@ -1,0 +1,1 @@
+const fs=require('fs');let p='js/round-entrance.js',s=fs.readFileSync(p,'utf8');s=s.replace("clip=t<38?'land':t<64?'getup':t<105?'charge':'idle';local=t<38?t:t<64?t-38:t<105?t-64:t-105;","clip=t<54?'land':t<105?'block':'idle';local=t<54?Math.min(12,t):t<105?t-54:t-105;");fs.writeFileSync(p,s);

@@ -2,13 +2,16 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>百兽夜行</title>
-<link rel="stylesheet" href="style.css?v=20261022-noble-v3-final">
-<link rel="stylesheet" href="practice.css?v=20261022-noble-v3-final">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AWA · 残街对决</title>
+<link rel="stylesheet" href="style.css?v=20261023-codex4">
+<link rel="stylesheet" href="practice.css?v=practice-all2">
+<link rel="stylesheet" href="dusk-theme.css?v=c1">
+<link rel="stylesheet" href="responsive.css?v=mobile3">
 </head>
 <body>
 <div id="game-wrapper">
+<button id="quick-settings" aria-label="打开设置">⚙ 设置</button>
     <!-- 顶部 HUD -->
     <div id="hud">
         <div class="player-panel" id="p1-panel">
@@ -26,7 +29,7 @@
             <div class="round-marks" id="p1-rounds"></div>
             <div class="controls-strip" id="p1-controls"></div>
         </div>
-        <div id="timer">120</div>
+        <div id="timer">180</div>
         <button id="btn-ingame-settings" title="设置（暂停/退出）">⚙</button>
         <div class="player-panel right" id="p2-panel">
             <div class="player-name" id="p2-name">玩家 2</div>
@@ -46,42 +49,44 @@
     </div>
 
     <canvas id="game-canvas" width="1200" height="540"></canvas>
-    <section id="noble-practice" class="practice-panel hidden" aria-label="贵族练习场">
+    <section id="noble-practice" class="practice-panel hidden" aria-label="全角色练习场">
         <div class="practice-toolbar">
-            <strong>贵族练习场</strong>
+            <strong id="practice-title">自由练习场</strong>
             <label>靶桩 <select id="practice-target"><option value="stand">站立</option><option value="block">格挡</option><option value="attack">定时还击</option></select></label>
-            <label>气槽 <select id="practice-meter"><option value="300">300 · 七重刺</option><option value="200">200 · 裂空波</option><option value="100">100 · 疾影突</option></select></label>
+            <label>气槽 <select id="practice-meter"><option value="100">100 · 满气大招</option><option value="50">50</option><option value="0">0</option></select></label>
             <label><input type="checkbox" id="practice-refill" checked> 自动补气</label>
-            <button id="practice-contract">叠满剑契</button><button id="practice-reset">重置位置</button>
+            <button id="practice-change-character">重新选人</button><button id="practice-contract">叠满资源</button><button id="practice-reset">重置位置</button>
             <span id="practice-stats" aria-live="polite">自由练习</span>
         </div>
-        <p class="practice-help">A / D 移动 · J 三段连击 · W + J 上挑 · S + J 低刺 · K 跳跃 · 空中 J 下劈 · L → J 突刺 · U 剑气 · O 招架 · I 必杀 · S + P 蓄气。点击出招表中的「演示」可直接试招。</p>
-        <details open><summary>贵族出招表与参数</summary><div class="move-table-wrap"><table id="noble-moves"><thead><tr><th>招式 / 操作</th><th>基础伤害</th><th>耗气</th><th>前摇</th><th>判定</th><th>收招</th><th>射程</th><th></th></tr></thead><tbody></tbody></table></div><p class="practice-help">帧数以 60 FPS、0 层剑契计；射程从角色中心计算，单位为游戏像素。每层剑契增加 3% 攻速、5% 伤害，最多 5 层。招架成功叠满剑契并回 20 气，反击实际造成 88 点伤害。七重刺实际伤害随剑契及连段衰减变化。练习靶桩会自动恢复。</p></details>
+        <p class="practice-help">A / D 移动，双击快跑 · K 二段跳（方向键空中可控） · 空中方向 + J 追击 · J 四段连击 · W + J 上攻 · S + J 下攻 · L → J 瞬身攻击 · U 短按远攻 / 长按蓄力 / 空中可用 · O 满资源特殊技 · I 必杀 · P / S + P 攒气。点击出招表中的「演示」可直接试招。</p>
+        <details open><summary id="practice-move-title">出招表与参数</summary><div class="move-table-wrap"><table id="noble-moves"><thead><tr><th>招式 / 操作</th><th>基础伤害</th><th>耗气</th><th>前摇</th><th>判定</th><th>收招</th><th>射程</th><th></th></tr></thead><tbody></tbody></table></div><p class="practice-help">帧数以 60 FPS、0 层资源计；射程从角色中心计算，单位为游戏像素。实际伤害受资源、形态和连段影响。练习靶桩会自动恢复。</p></details>
     </section>
 
     <div id="announce" class="hidden"></div>
 
     <!-- ================= 主页面（参考图布局：背景图 + 透明热点按钮） ================= -->
-    <div id="menu-main" class="overlay main-menu">
-        <button class="noble-entry" id="btn-noble-main">贵族 · 进入练习场</button>
-        <!-- 热点按钮：位置与背景图上的按钮一一对应，悬停时高亮 -->
-        <button class="hotspot" style="top: 42.5%; left: 33%; width: 32%; height: 8.5%;" data-target="story" title="剧情模式"></button>
-        <button class="hotspot" style="top: 55.5%; left: 33%; width: 32%; height: 8.5%;" data-target="duel" title="双人对决"></button>
-        <button class="hotspot" style="top: 68%;   left: 31.5%; width: 35%; height: 9%;" data-target="cg" title="人物CG动画介绍"></button>
-        <button class="hotspot" style="top: 78%;   left: 34%; width: 30%; height: 8%;" data-target="settings" title="设置"></button>
-        <button class="hotspot" style="top: 87.5%; left: 33.5%; width: 31%; height: 8.5%;" data-target="exit" title="退出游戏"></button>
+    <div id="menu-main" class="overlay main-menu" aria-label="AWA 主菜单">
+        <h1 class="main-brand">AWA</h1>
+        <p class="main-tagline">残街对决</p>
+        <nav class="main-actions" aria-label="主菜单选项">
+        <button class="hotspot" data-target="story" aria-label="剧情模式">剧情模式</button>
+        <button class="hotspot primary" data-target="duel" aria-label="双人对决">双人对决</button>
+        <button class="hotspot" id="btn-noble-main" aria-label="练习场">练习场</button>
+        <button class="hotspot" data-target="cg" aria-label="角色图鉴">角色图鉴</button>
+        <button class="hotspot" data-target="settings" aria-label="设置">设置</button>
+        <button class="hotspot" data-target="exit" aria-label="退出游戏">退出游戏</button>
+        </nav>
     </div>
-
     <!-- ================= 剧情模式 ================= -->
-    <div id="menu-story" class="overlay hidden">
-        <h2>剧情模式</h2>
+    <div id="menu-story" class="overlay archive-menu hidden">
+        <div class="archive-heading"><span>AWA / CHRONICLES</span><h2>剧情模式</h2><p>黄昏落雨，故事从废弃街道开始</p></div>
         <div class="story-layout">
             <div class="chapter-list" id="chapter-list"></div>
             <div class="story-player">
                 <video id="story-video" controls preload="none"></video>
                 <div id="story-placeholder" class="video-placeholder">
-                    <p>选择左侧章节开始播放</p>
-                    <p class="hint">视频文件放入 assets/videos/ 目录即可自动加载（如 ch1.mp4）</p>
+                    <p>选择章节，回溯夜幕中的故事</p>
+                    <p class="hint">章节故事与人物档案</p>
                 </div>
             </div>
         </div>
@@ -89,15 +94,15 @@
     </div>
 
     <!-- ================= 人物CG动画介绍 ================= -->
-    <div id="menu-cg" class="overlay hidden">
-        <h2>人物CG动画介绍</h2>
+    <div id="menu-cg" class="overlay archive-menu hidden">
+        <div class="archive-heading"><span>AWA / FIGHTERS</span><h2>角色图鉴</h2><p>残街相逢 · 各执一刃</p></div>
         <div class="story-layout">
             <div class="chapter-list" id="cg-list"></div>
             <div class="story-player">
                 <video id="cg-video" controls preload="none"></video>
                 <div id="cg-placeholder" class="video-placeholder">
-                    <p id="cg-char-name">选择左侧角色</p>
-                    <p class="hint" id="cg-char-desc">CG 视频放入 assets/cg/ 目录（如 canglang.mp4），未添加时显示角色资料卡</p>
+                    <p id="cg-char-name">选择角色，查看档案</p>
+                    <p class="hint" id="cg-char-desc">查看立绘、战斗风格与招式资料</p>
                 </div>
                 <div id="cg-card" class="cg-card hidden"></div>
             </div>
@@ -109,9 +114,19 @@
     <div id="menu-mode" class="overlay hidden">
         <h2>双人对决</h2>
         <button class="menu-btn" id="btn-lan">在线对战（房间号）</button>
+        <button class="menu-btn" id="btn-cpu">人机对决（玩家 VS 系统）</button>
         <button class="menu-btn" id="btn-local">本地对战（双人同键盘·测试）</button>
-        <button class="menu-btn" id="btn-noble-practice">贵族练习场 / 出招表</button>
+        <button class="menu-btn" id="btn-noble-practice">全角色练习场 / 出招表</button>
         <button class="menu-btn back" id="btn-mode-back">返回主界面</button>
+    </div>
+
+    <div id="menu-practice-select" class="overlay archive-menu hidden" aria-label="练习场选人">
+        <div class="archive-heading"><span>AWA / TRAINING</span><h2>练习场 · 选择角色</h2><p>选择操控角色与陪练角色，自由熟悉动作和技能</p></div>
+        <div class="practice-pick-columns">
+            <section><h3>操控角色 · P1</h3><div class="char-grid" id="practice-grid-player"></div><label id="practice-player-form-label" class="practice-form-label hidden">守望者形态 <select id="practice-player-form"><option value="armored">穿甲 · 银铠守望</option><option value="unarmored">脱甲 · 符文重剑</option></select></label></section>
+            <section><h3>陪练角色</h3><div class="char-grid" id="practice-grid-target"></div><label id="practice-target-form-label" class="practice-form-label hidden">守望者形态 <select id="practice-target-form"><option value="armored">穿甲 · 银铠守望</option><option value="unarmored">脱甲 · 符文重剑</option></select></label></section>
+        </div>
+        <div class="practice-pick-footer"><p id="practice-pick-summary" aria-live="polite"></p><button id="btn-practice-start" class="menu-btn">进入练习</button><button id="btn-practice-select-back" class="menu-btn back">返回</button></div>
     </div>
 
     <!-- ================= 本地对战选人 ================= -->
@@ -119,14 +134,15 @@
         <h2>本地对战 · 选择角色</h2>
         <div class="lobby-columns">
             <div class="lobby-col">
-                <h3>玩家 1（WASD 移动 / J 攻 / K 跳 / L 瞬步 / U 技 / I 必杀 / O 援护 / P+S 蓄气）</h3>
+                <h3>玩家 1（A/D 移动，双击快跑，W+J 上挑 / J 攻 / K 跳 / L 瞬步 / U 技 / I 必杀 / O 特殊技 / P 长按攒气）</h3>
                 <div class="char-grid" id="local-grid-p1"></div>
             </div>
             <div class="lobby-col">
-                <h3>玩家 2（方向键移动 / 小键盘 1 攻 / 2 跳 / 3 瞬步 / 4 技 / 5 必杀 / 6 援护 / 7+↓ 蓄气）</h3>
+                <h3>玩家 2（左右移动，双击快跑，↑+1 上挑 / 小键盘 1 攻 / 2 跳 / 3 瞬步 / 4 技 / 5 必杀 / 6 特殊技 / 7 长按攒气）</h3>
                 <div class="char-grid" id="local-grid-p2"></div>
             </div>
         </div>
+        <label id="cpu-options" class="hidden">人机难度 <select id="cpu-level"><option value="easy">入门</option><option value="normal" selected>标准</option><option value="hard">挑战</option></select></label>
         <div class="lobby-footer">
             <span id="local-picks">P1：贵族决斗者 VS P2：江湖剑客</span>
             <button class="menu-btn" id="btn-local-start">开始战斗</button>
@@ -186,18 +202,16 @@
         <div class="settings-box">
             <label><input type="checkbox" id="opt-debug"> 显示碰撞框（调试）</label>
             <label><input type="checkbox" id="opt-flip"> 翻转角色立绘方向（立绘朝向反了就勾这个）</label>
-            <label>音量（占位，接入音频后生效）：
-                <input type="range" id="opt-volume" min="0" max="100" value="80">
-            </label>
+            <label>人物音量 <output id="voice-value">80%</output><input type="range" id="voice-volume" min="0" max="100" value="80"></label><label>游戏音效 <output id="effects-value">80%</output><input type="range" id="effects-volume" min="0" max="100" value="80"></label><label>背景音乐 <output id="music-value">35%</output><input type="range" id="music-volume" min="0" max="100" value="35"></label><p class="audio-note">人物通道用于角色语音；当前尚无配音素材。音量自动保存。</p>
             <div class="controls-help">
-                <h3>统一操作（两台电脑一致）</h3>
-                <p>A / D 移动 &nbsp; W 起跳 &nbsp; S 防御/受身</p>
-                <p>J 普攻(三段) &nbsp; K 跳跃(二段) &nbsp; L 瞬步</p>
-                <p>U 远攻(耗气75) &nbsp; O 援护键（设计中）</p>
-                <p>I 放必杀：按气量分档（≥100 疾影突 / ≥200 裂空波 / 满300 终式）</p>
-                <p>守望者：S+I 耗2段气从穿甲(减伤/慢) → 脱甲(攻速+10%，单向不可逆)</p>
-                <p>P+S 同时按住=蓄气（每秒80点，约3.75秒攒满；蓄气中受伤×1.5）</p>
-                <p>攻击命中 +15 / 受击 +10 / 格挡 +12 气（上限300点）</p>
+                <h3>键位操作 / 手机按键对照</h3><p>手机：左侧方向键移动与防御；右侧普攻、跳跃、瞬身、远攻、特殊、大招与蓄气。横屏体验更佳。</p><p>P2：← → 移动，↓ 防御，↑+1 上挑；1 普攻 / 2 跳跃 / 3 瞬身 / 4 远攻 / 5 大招 / 6 特殊 / 7 蓄气。</p>
+                <p>A / D 移动 &nbsp; W + J 上挑（W 单按不跳） &nbsp; S 防御/受身</p>
+                <p>J 普攻(三段) &nbsp; K 跳跃(方向二段跳，空中可移动攻击) &nbsp; L 瞬步</p>
+                <p>U 远攻、L 瞬步、O 特殊技均不耗气；气槽仅用于满气大招</p>
+                <p>I / 5：满100气释放大招；不足100气无法释放。</p>
+                <p>守望者：S+I 不耗气从穿甲(减伤/慢) → 脱甲(攻速+10%，单向不可逆)</p>
+                <p>P / 7 长按攒气，S+P / ↓+7 同样可用；松键或受击中断。</p>
+                <p>命中 +5 / 受击约 +3.33 / 格挡 +4 气（上限100点）</p>
                 <p>W+J 上攻 &nbsp; S+J 下攻(破防) &nbsp; Esc 暂停</p>
             </div>
         </div>
@@ -232,10 +246,20 @@
     </div>
 </div>
 
-<script src="js/config.js?v=20261022-noble-v3-final"></script>
-<script src="js/fighter.js?v=20261022-noble-v3-final"></script>
-<script src="js/net.js?v=20261022-noble-v3-final"></script>
-<script src="js/game.js?v=20261022-noble-v3-final-r3"></script>
-<script src="js/noble-practice.js?v=20261022-noble-v3-final-r3"></script>
+<script src="js/config.js?v=arcade1"></script>
+<script src="js/jianke-anims.js?v=20261023-rain1"></script>
+<script src="js/jianke-movement.js?v=move1"></script><script src="js/jianke-walk.js?v=walk3"></script><script src="js/shouwang-anims.js?v=watch1"></script><script src="js/mobility-anims.js?v=mobility1"></script><script src="js/combat-v2-config.js?v=combat4"></script><script src="js/fighter.js?v=combat4"></script>
+<script src="js/net.js?v=20261023-rain1"></script>
+<script type="module" src="js/rain-weather.js?v=arcade2"></script>
+<script type="module" src="js/jianke-fx.js?v=arcade1"></script>
+<script type="module" src="js/shouwang-fx.js?v=magic1"></script>
+<script type="module" src="js/character-magic.js?v=combat4"></script>
+<script src="js/round-entrance.js?v=theme-c1"></script>
+<script src="js/blink-fx.js?v=arcade2"></script>
+<script src="js/game.js?v=combat4"></script>
+<script src="js/arcade-combat.js?v=magic1"></script>
+<script src="js/noble-practice.js?v=combat4"></script>
+<script src="js/combat-v2.js?v=combat4"></script>
+<script src="js/mobile-ui.js?v=combat4"></script>
 </body>
 </html>

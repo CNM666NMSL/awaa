@@ -1,0 +1,287 @@
+{
+  "sourcePoses": 36,
+  "anims": {
+    "idle": {
+      "frames": 4,
+      "path": "assets/chars/jianke/v2/idle",
+      "fps": 6,
+      "loop": true,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925
+    },
+    "walk": {
+      "frames": 4,
+      "path": "assets/chars/jianke/v2/walk",
+      "fps": 12,
+      "loop": true,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925
+    },
+    "j1": {
+      "frames": 5,
+      "path": "assets/chars/jianke/v2/j1",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925,
+      "phases": [
+        2,
+        3
+      ]
+    },
+    "j2": {
+      "frames": 6,
+      "path": "assets/chars/jianke/v2/j2",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925,
+      "phases": [
+        3,
+        4
+      ]
+    },
+    "j3": {
+      "frames": 6,
+      "path": "assets/chars/jianke/v2/j3",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925,
+      "phases": [
+        3,
+        4
+      ]
+    },
+    "launcher": {
+      "frames": 5,
+      "path": "assets/chars/jianke/v2/launcher",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925,
+      "phases": [
+        2,
+        3
+      ]
+    },
+    "low": {
+      "frames": 5,
+      "path": "assets/chars/jianke/v2/low",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925,
+      "phases": [
+        2,
+        3
+      ]
+    },
+    "dashAttack": {
+      "frames": 5,
+      "path": "assets/chars/jianke/v2/dashAttack",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925,
+      "phases": [
+        2,
+        3
+      ]
+    },
+    "airAttack": {
+      "frames": 5,
+      "path": "assets/chars/jianke/v2/airAttack",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925,
+      "phases": [
+        2,
+        3
+      ]
+    },
+    "super_": {
+      "frames": 7,
+      "path": "assets/chars/jianke/v2/super_",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925,
+      "phases": [
+        4,
+        5
+      ]
+    },
+    "superLunge": {
+      "frames": 5,
+      "path": "assets/chars/jianke/v2/superLunge",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925,
+      "phases": [
+        2,
+        3
+      ]
+    },
+    "u": {
+      "frames": 5,
+      "path": "assets/chars/jianke/v2/u",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925,
+      "fitState": true,
+      "contact": 2
+    },
+    "superWave": {
+      "frames": 5,
+      "path": "assets/chars/jianke/v2/superWave",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925,
+      "fitState": true,
+      "contact": 2
+    },
+    "jump": {
+      "frames": 7,
+      "path": "assets/chars/jianke/v2/jump",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925,
+      "physics": true
+    },
+    "land": {
+      "frames": 3,
+      "path": "assets/chars/jianke/v2/land",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925
+    },
+    "dash": {
+      "frames": 4,
+      "path": "assets/chars/jianke/v2/dash",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925
+    },
+    "block": {
+      "frames": 1,
+      "path": "assets/chars/jianke/v2/block",
+      "fps": 12,
+      "loop": true,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925
+    },
+    "parry": {
+      "frames": 3,
+      "path": "assets/chars/jianke/v2/parry",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925
+    },
+    "charge": {
+      "frames": 4,
+      "path": "assets/chars/jianke/v2/charge",
+      "fps": 6,
+      "loop": true,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925
+    },
+    "hit": {
+      "frames": 3,
+      "path": "assets/chars/jianke/v2/hit",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925,
+      "fitHurt": true
+    },
+    "fall": {
+      "frames": 1,
+      "path": "assets/chars/jianke/v2/fall",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925
+    },
+    "knockdown": {
+      "frames": 1,
+      "path": "assets/chars/jianke/v2/knockdown",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925
+    },
+    "ko": {
+      "frames": 1,
+      "path": "assets/chars/jianke/v2/ko",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925
+    },
+    "getup": {
+      "frames": 4,
+      "path": "assets/chars/jianke/v2/getup",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 240,
+      "canvasHeight": 320,
+      "originX": 0.4296875,
+      "originY": 0.925
+    }
+  }
+}

@@ -1,0 +1,44 @@
+/* Touch input feeds the same key map and readInput path as keyboard / network play. */
+(() => {
+'use strict';
+const g=window.game,$=id=>document.getElementById(id),touch=new Map();
+const controls=document.createElement('section');controls.className='touch-controls';controls.setAttribute('aria-label','手机战斗按键');
+const button=(action,label,key)=>`<button type="button" data-action="${action}" aria-label="${label}">${label}<small>${key}</small></button>`;
+controls.innerHTML='<div class="touch-dpad">'+button('up','上挑','W + 普攻')+button('left','◀','双击快跑')+button('down','防御','S / 下攻')+button('right','▶','双击快跑')+'</div><div class="touch-actions">'+button('skill','远攻','长按蓄力 U/4')+button('special','特殊','满资源 O/6')+button('super_','大招','I / 5')+button('charge','蓄气','按住 P / 7')+button('attack','普攻','J / 1')+button('jump','跳跃','K / 2')+button('dash','瞬身','L / 3')+button('launcher','上挑','W + J')+'</div>';
+$('game-canvas').after(controls);
+const keysFor=action=>action==='launcher'?[CONFIG.keys.up,CONFIG.keys.attack]:[CONFIG.keys[action]];
+const heldKeys=()=>new Set([...touch.values()].flatMap(v=>keysFor(v.action)));
+function releaseAll(){touch.clear();controls.querySelectorAll('.held').forEach(b=>b.classList.remove('held'));}
+function release(e){const old=touch.get(e.pointerId);touch.delete(e.pointerId);if(old&&![...touch.values()].some(v=>v.button===old.button))old.button.classList.remove('held');}
+controls.querySelectorAll('button').forEach(b=>{
+ b.addEventListener('pointerdown',e=>{e.preventDefault();if(g.phase!=='fight')return;const before=heldKeys();b.setPointerCapture(e.pointerId);touch.set(e.pointerId,{action:b.dataset.action,button:b});b.classList.add('held');for(const key of keysFor(b.dataset.action))if(!before.has(key))g.keysPressed[key]=true;audio.unlock();});
+ for(const name of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(name,release);
+});
+const originalShow=g.show;g.show=function(id){const result=originalShow.call(this,id);if(!id)requestAnimationFrame(()=>window.scrollTo(0,0));return result;};
+const read=g.readInput;g.readInput=function(map,edges){if(map!==CONFIG.keys||!touch.size)return read.call(this,map,edges);const physical=this.keysDown;this.keysDown={...physical};for(const key of heldKeys())this.keysDown[key]=true;try{return read.call(this,map,edges);}finally{this.keysDown=physical;}};
+window.addEventListener('blur',releaseAll);document.addEventListener('visibilitychange',()=>{if(document.hidden){releaseAll();if(g.phase==='fight'&&!g.net)g.togglePause();}});
+function layout(){const visible=[...document.querySelectorAll('.overlay')].some(e=>!e.classList.contains('hidden'));document.body.classList.toggle('menu-visible',visible);controls.classList.toggle('active',!visible&&g.phase==='fight');if(visible)releaseAll();}
+new MutationObserver(layout).observe($('game-wrapper'),{subtree:true,attributes:true,attributeFilter:['class']});layout();
+let settingsReturn='menu-main',pausedHere=false;
+function openSettings(){releaseAll();if(!$('menu-settings').classList.contains('hidden'))return;settingsReturn=document.querySelector('.overlay:not(.hidden)')?.id||null;pausedHere=g.phase==='fight';if(pausedHere)g.togglePause();g.show('menu-settings');$('btn-settings-back').textContent=pausedHere?'保存并继续战斗':'返回';$('voice-volume').focus();}
+$('quick-settings').onclick=openSettings;$('btn-ingame-settings').onclick=openSettings;
+const mainMenu=g.onMainMenu;g.onMainMenu=function(target){if(target==='settings')return openSettings();return mainMenu.call(this,target);};
+$('btn-settings-back').onclick=()=>{if(pausedHere&&g.phase==='paused')g.togglePause();else g.show(settingsReturn);pausedHere=false;};
+window.addEventListener('keydown',e=>{if(e.code==='Escape'&&!$('menu-settings').classList.contains('hidden')){e.stopImmediatePropagation();$('btn-settings-back').click();}},true);
+
+// Three independent gain buses. No character speech exists yet; videos and future voice assets use the voice bus.
+const defaults={voice:.8,effects:.8,music:.35};let saved={};try{saved=JSON.parse(localStorage.getItem('awa-audio')||'{}');}catch{}
+const audio=window.awaAudio={values:{...defaults},ctx:null,buses:{},
+ unlock(){try{if(!this.ctx){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;this.ctx=new AC();for(const name of Object.keys(defaults)){const gain=this.ctx.createGain();gain.gain.value=this.values[name];gain.connect(this.ctx.destination);this.buses[name]=gain;}}if(this.ctx.state==='suspended')this.ctx.resume().catch(()=>{});}catch{}},
+ set(name,value){this.values[name]=value;const gain=this.buses[name];if(gain)gain.gain.setTargetAtTime(value,this.ctx.currentTime,.02);try{localStorage.setItem('awa-audio',JSON.stringify(this.values));}catch{}document.querySelectorAll('video,audio').forEach(el=>{el.volume=this.values[el.dataset.audioBus||'voice']??this.values.voice;});},
+ tone(bus,hz,duration=.12,level=.1,type='sine'){if(!this.ctx||this.ctx.state!=='running')return;const c=this.ctx,o=c.createOscillator(),v=c.createGain(),t=c.currentTime;o.type=type;o.frequency.setValueAtTime(hz,t);o.frequency.exponentialRampToValueAtTime(Math.max(30,hz*.55),t+duration);v.gain.setValueAtTime(.0001,t);v.gain.exponentialRampToValueAtTime(level,t+.01);v.gain.exponentialRampToValueAtTime(.0001,t+duration);o.connect(v);v.connect(this.buses[bus]);o.start(t);o.stop(t+duration+.02);o.onended=()=>{o.disconnect();v.disconnect();};},
+ playVoice(url){this.unlock();const el=new Audio(url);el.dataset.audioBus='voice';el.volume=this.values.voice;document.body.append(el);el.onended=()=>el.remove();el.play().catch(()=>el.remove());return el;}
+};
+for(const name of Object.keys(defaults)){const value=Number(saved[name]);if(Number.isFinite(value)&&saved[name]!==undefined)audio.values[name]=Math.max(0,Math.min(1,value));const input=$(name+'-volume');input.value=Math.round(audio.values[name]*100);$(name+'-value').textContent=input.value+'%';input.oninput=()=>{$(name+'-value').textContent=input.value+'%';audio.set(name,Number(input.value)/100);};audio.set(name,audio.values[name]);}
+for(const event of ['pointerdown','keydown'])document.addEventListener(event,()=>audio.unlock(),{once:true});
+document.querySelectorAll('video').forEach(v=>v.addEventListener('play',()=>v.volume=audio.values.voice));
+let note=0;const melody=[146.83,174.61,220,196,146.83,130.81,174.61,164.81];
+setInterval(()=>{if(document.hidden||g.phase==='paused'||!$('menu-settings').classList.contains('hidden')||[...document.querySelectorAll('video')].some(v=>!v.paused))return;audio.tone('music',melody[note++%melody.length],1.5,.045);},650);
+const previous=new WeakMap(),update=g.update;g.update=function(...args){const result=update.apply(this,args);if(this.phase==='fight')for(const f of [this.p1,this.p2])if(f){const p=previous.get(f);if(p&&p.health>f.health)audio.tone('effects',90,.14,.16,'triangle');if(p&&p.state!==f.state&&['attack','skill','super','dash'].includes(f.state))audio.tone('effects',f.state==='super'?480:300,.12,.06,'triangle');previous.set(f,{state:f.state,health:f.health});}return result;};
+})();
+

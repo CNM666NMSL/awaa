@@ -1,0 +1,8 @@
+const fs=require('fs');
+let p='js/fighter.js',s=fs.readFileSync(p,'utf8');s=s.replace('`${a.path}/${String(i + offset).padStart(2, "0")}.png`','`${a.path.replace("{form}", form || "")}/${String(i + offset).padStart(2, "0")}.png`');
+s=s.replaceAll('!(this.charId === "jianke" && window.jiankeFX)','!(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX)');fs.writeFileSync(p,s);
+p='index.html';s=fs.readFileSync(p,'utf8');s=s.replace('<script src="js/fighter.js?v=20261023-rain1"></script>','<script src="js/shouwang-anims.js?v=watch1"></script><script src="js/fighter.js?v=watch1"></script>');s=s.replace('js/jianke-fx.js?v=20261023-fx2','js/jianke-fx.js?v=watch1');s=s.replace('<script src="js/game.js?v=20261023-codex3">','<script type="module" src="js/shouwang-fx.js?v=watch1"></script>\n<script src="js/game.js?v=watch1">');fs.writeFileSync(p,s);
+p='js/jianke-fx.js';s=fs.readFileSync(p,'utf8');s=s.replace("actor(f){if(!f||f.charId!=='jianke')return;","actor(f){if(f?.charId==='shouwang'){window.shouwangFX?.actor(f);return;}if(!f||f.charId!=='jianke')return;");
+s=s.replace("if(p.owner?.charId!=='jianke'&&p.fxChar!=='jianke')continue;const before=this.events.length;this.ribbon", "const char=p.owner?.charId||p.fxChar;if(!['jianke','shouwang'].includes(char))continue;const before=this.events.length;if(char==='shouwang'&&window.shouwangFX)window.shouwangFX.projectile(p);else this.ribbon");
+s=s.replace('clear(){for(const e of this.events)', 'clear(){window.shouwangFX?.clear();for(const e of this.events)');fs.writeFileSync(p,s);
+p='js/game.js';s=fs.readFileSync(p,'utf8');s=s.replace("if ((p.owner?.charId || p.fxChar) === 'jianke'", "if (['jianke','shouwang'].includes(p.owner?.charId || p.fxChar)");fs.writeFileSync(p,s);

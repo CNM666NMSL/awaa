@@ -8,6 +8,7 @@
 
 // ---------- 角色贴图缓存（设定集抠图 + 动作帧序列） ----------
 const SPRITES = {};
+const STABLE_WALK = new WeakMap();
 (function loadSprites() {
     if (typeof CONFIG === "undefined" || !CONFIG.characters) return;
     for (const id in CONFIG.characters) {
@@ -47,7 +48,7 @@ const SPRITES = {};
                     for (let i = 0; i < count; i++) {
                         const img = new Image();
                         const key = `${keyPrefix}_${i}`;
-                        const file = `${a.path}/${String(i + offset).padStart(2, "0")}.png`;
+                        const file = `${a.path.replace("{form}", form || "")}/${String(i + offset).padStart(2, "0")}.png`;
                         img.onload = ((k) => (() => { SPRITES[k] = img; }))(key);
                         img.src = `${file}?v=${ASSET_VER}`;
                     }
@@ -80,6 +81,8 @@ class Fighter {
         // 核心资源（设计文档 三.1）
         this.maxHealth = this.def.maxHealth || CONFIG.resources.maxHealth;
         this.health = this.maxHealth;
+        this.chargeInterrupted = false;
+        this.moveStopping = false;
         this.landingTicks = 0;
         this.meter = 0;
         this.resource = 0;                          // 专属资源（层数/数值）
@@ -94,10 +97,12 @@ class Fighter {
         this.hitstunLeft = 0;
         this.canUkemi = false;    // 当前受击是否可受身
         this.dashLeft = 0;
+        this.blinkInvulnLeft = 0; this.blinkEvent = null; this.blinkSerial = 0;
         this.dashCooldownLeft = 0;   // 瞬步冷却剩余帧数（>0 期间无法瞬步）
         this.roundsWon = 0;
         this.sinceHit = 0;        // 距上次命中帧数（剑契超时清零用）
         this.pendingFacing = facing;
+        this.running = false;
         this._nextHitAt = 0;      // 多段攻击下一次判定帧
 
         // 连段保护 / 倒地机制
@@ -130,11 +135,17 @@ class Fighter {
         const d = this.def;
         if (!d.anims) return null;
         const st = this.state;
+        if (st === "idle" && this.moveStopping && this.stateTimer < 8 && d.anims.walkStop) return "walkStop";
+        if (st === "walk" && this.running && d.anims.run) return "run";
+        if (st === "walk" && d.anims.walkStart && this.stateTimer < 8) return "walkStart";
+        if (st === "walk" && this._walkDirection * this.facing < 0 && d.anims.walkBack) return "walkBack";
         if (st === "idle") return this.landingTicks > 0 && d.anims.land ? "land" : (d.anims.idle ? "idle" : null);
         if (st === "walk") return d.anims.walk ? "walk" : (d.anims.idle ? "idle" : null);
         if (st === "block") return d.anims.block ? "block" : (d.anims.idle ? "idle" : null);
         if (st === "parry") return d.anims.parry ? "parry" : (d.anims.block ? "block" : (d.anims.idle ? "idle" : null));
         if (st === "charge") return d.anims.charge ? "charge" : (d.anims.idle ? "idle" : null);
+        if(st==='jump'&&this.jumpsLeft===0&&this.stateTimer<10&&d.anims.doubleJump)return 'doubleJump';
+        if(st==='jump'&&Math.abs(this.vx)>.4&&d.anims.airMove)return 'airMove';
         if (st === "jump") return d.anims.jump ? "jump" : (d.anims.idle ? "idle" : null);
         if (st === "dash") return d.anims.dash ? "dash" : (d.anims.idle ? "idle" : null);
         if (st === "attack" || st === "super") {
@@ -197,6 +208,7 @@ class Fighter {
         if (!this.animKey) return;
         const a = this.def.anims[this.animKey];
         const count = this._animFrameCount(a);
+        if(a.airTravel&&this.state==='jump'){this.animFrame=this.vy< -6?0:this.vy<2?1:this.vy<8?2:3;return;}
         if (a.physics && this.state === "jump") {
             this.animFrame = this.stateTimer < 3 ? 2 : this.vy < -8 ? 3 : this.vy < 3 ? 4 : this.vy < 9 ? 5 : 6;
             this.animFrame = Math.min(count - 1, this.animFrame);
@@ -312,15 +324,12 @@ class Fighter {
         return !!this.def.sprites;
     }
 
-    /** S+I 形态切换：耗 2 段气，穿甲 → 脱甲（单向，不可逆） */
+    /** S+I 形态切换：不耗气，穿甲 → 脱甲（单向，不可逆） */
     switchForm() {
         if (!this.canSwitchForm() || !this.onGround) return false;
         // S 键会触发 block（防御），所以切换需在 idle/walk/block 状态下都可进行
         if (!(this.state === "idle" || this.state === "walk" || this.state === "block")) return false;
         if (this.form !== "armored") return false;   // 单向：脱甲后不可切回
-        const cost = this.def.formSwitchCost || CONFIG.resources.tier2Cost;
-        if (this.meter < cost) return false;
-        this.meter -= cost;
         this.form = "unarmored";
         this.justSwitchedForm = true;   // 通知 game 层做切换特效
         return true;
@@ -409,6 +418,8 @@ class Fighter {
     }
 
     setState(s) {
+        if(s!=="walk")this.running=false;
+        this.moveStopping = false;
         this.state = s;
         this.stateTimer = 0;
         if (s !== "skill") {
@@ -422,25 +433,27 @@ class Fighter {
         // 状态切换时下一帧 _updateAnim 会自动切到对应动画
     }
 
-    move(dir) {
-        // 空中移动：跳跃状态下允许前后位移（空中可控），速度用 airControl 系数
-        if (this.state === "jump") {
-            this.vx = dir * this.curWalkSpeed() * CONFIG.physics.airControl;
-            return;
+    move(dir,running=false) {
+        const airAttack=!this.onGround&&this.state==='attack'&&this.currentAttack===this.def.airAttack;
+        if(!this.onGround&&(this.state==='jump'||airAttack)){
+            const speed=this.curWalkSpeed()*CONFIG.physics.airControl*(this.jumpsLeft===0?1.15:1)*(airAttack?CONFIG.physics.airAttackControl:1);
+            const target=dir*speed,acc=CONFIG.physics.airAcceleration;
+            this.vx+=Math.max(-acc,Math.min(acc,target-this.vx));return;
         }
-        // 转身期间锁脚步（先完成转身再移动）
-        if (this.state !== "idle" && this.state !== "walk" && this.state !== "turn") return;
-        this.state = "walk";
-        this.vx = dir * this.curWalkSpeed();
+        if(!['idle','walk','turn'].includes(this.state)||!this.onGround)return;
+        const changed=this.running!==!!running;
+        this.running=!!running;
+        if(this.def.anims?.walkStart&&(this.state!=='walk'||this._walkDirection!==dir||changed))this.setState('walk');
+        this._walkDirection=dir;this.state='walk';this.vx=dir*this.curWalkSpeed()*(this.running?CONFIG.physics.runMultiplier:1);
     }
 
     stopMove() {
-        if (this.state === "walk") { this.state = "idle"; this.vx = 0; }
-        // 空中松方向键：水平速度快速衰减归零，避免起跳后一路滑行到底
-        if (this.state === "jump") this.vx *= 0.5;
+        this.running=false;
+        if(this.state==='walk'){if(this.def.anims?.walkStop){this.setState('idle');this.moveStopping=true;}else this.state='idle';this.vx=0;}
+        if(!this.onGround&&(this.state==='jump'||(this.state==='attack'&&this.currentAttack===this.def.airAttack))){this.vx*=.86;if(Math.abs(this.vx)<.08)this.vx=0;}
     }
 
-    /** K/W 跳跃：支持二段跳（设计文档 四）；dir 为起跳水平方向（前跳/后跳，空中二段跳也生效） */
+    /** K 跳跃：支持二段跳（设计文档 四）；dir 为起跳水平方向（前跳/后跳，空中二段跳也生效） */
     jump(dir) {
         if (this.state === "hit" || this.state === "guardbreak" || this.state === "ko" || this.state === "charge") return;
         if (this.state === "attack" || this.state === "skill" || this.state === "super" || this.state === "knockdown") return;
@@ -448,25 +461,27 @@ class Fighter {
         this.vy = CONFIG.physics.jumpForce;
         // 起跳水平初速：按输入方向给，实现「向前跳 / 向后跳」（朝向已由 aim 统一处理）
         if (dir !== undefined && dir !== 0) {
-            this.vx = (dir > 0 ? 1 : -1) * CONFIG.physics.jumpHop;
+            this.vx = (dir > 0 ? 1 : -1) * CONFIG.physics.jumpHop * (this.jumpsLeft===1?1.25:1);
         }
         this.onGround = false;
         this.jumpsLeft--;
         this.setState("jump");
     }
 
-    /** L 瞬步：消耗少量气做短距离瞬移（死神VS火影式），前几帧无敌，有冷却；支持空中瞬步 */
+    /** L 瞬步：不耗气的短距离瞬移（死神VS火影式），前几帧无敌，有冷却；支持空中瞬步 */
     dash() {
         if (!(this.canAct() || this.state === "jump")) return;
         if (this.state === "knockdown") return;
         if (this.dashCooldownLeft > 0) return;              // 冷却中，瞬步失败
-        if (this.meter < CONFIG.resources.dashCost) return; // 气不够，瞬步失败
-        this.meter -= CONFIG.resources.dashCost;
         this.dashCooldownLeft = CONFIG.resources.dashCooldown;
         this._dashWasAir = !this.onGround;                  // 记录是否空中瞬步（结束后回 jump 而非 idle）
         this.setState("dash");
         this.dashLeft = CONFIG.physics.dashFrames;
-        this.vx = this.facing * CONFIG.physics.dashSpeed;
+        const fromX=this.x,margin=CONFIG.canvas.wallMargin+this.width/2;
+        this.x=Math.max(margin,Math.min(CONFIG.canvas.width-margin,this.x+this.facing*CONFIG.physics.dashDistance));
+        this.vx=0;this.running=false;
+        this.blinkInvulnLeft=CONFIG.physics.dashInvuln;
+        this.blinkEvent={id:++this.blinkSerial,fromX,toX:this.x,y:this.y,dir:this.facing};
         // 空中瞬步：清零垂直速度，保留悬空感（不再往下坠一段）
         if (this._dashWasAir) this.vy = 0;
         this.justDashed = true;   // 通知 game 层触发瞬步时缓（慢动作）
@@ -486,7 +501,7 @@ class Fighter {
             // 连击取消窗口：当前段生效后即可接下一段（帧数按攻速加成换算）
             const a = this.currentAttack;
             const su = this.atkDur(a, "startup"), ac = this.atkDur(a, "active"), rc = this.atkDur(a, "recovery");
-            if (this.comboIndex < this.def.combo.length - 1 &&
+            if (this.def.combo.includes(a) && this.comboIndex < this.def.combo.length - 1 &&
                 this.stateTimer >= su + ac &&
                 this.stateTimer < su + ac + rc) {
                 this.comboIndex++;
@@ -536,7 +551,7 @@ class Fighter {
             hitstun: a.hitstun, guardBreak: a.guardBreak || (full && a.fullGuardBreak),
             launch: full && a.fullLaunch ? a.fullLaunch : a.launch,
             lunge: a.lunge ? (full && a.fullLunge ? a.fullLunge : a.lunge) : 0,
-            below: a.below, gainLayers: a.gainLayers,
+            below: a.below, gainLayers: a.gainLayers, deferKnockdown:!!a.deferKnockdown, comboChain:!!a.comboChain,
             multiHit: a.multiHit, hits: a.hits, interval: a.interval,
             perHit: a.perHit, perHitLayerBonus: a.perHitLayerBonus,
             finalDamage: a.finalDamage, finalLayerBonus: a.finalLayerBonus,
@@ -545,19 +560,18 @@ class Fighter {
     }
 
     _startAttack(a) {
+        const carry=!this.onGround&&a===this.def.airAttack?this.vx:0;
         this.currentAttack = a;
         this.hasHit = false;
         this._nextHitAt = 0;
         this.setState("attack");
-        this.vx = 0;
+        this.vx = carry;
     }
 
-    /** U 远攻技能：消耗气槽，生成飞行道具（由 game.js 真正生成） */
+    /** U 远攻技能：不消耗气槽，生成飞行道具（由 game.js 真正生成） */
     castSkill() {
         if (!this.canAct() || !this.onGround) return null;
         const s = this.def.skill;
-        if (this.meter < s.cost) return null;
-        this.meter -= s.cost;
         this.setState("skill");
         this.vx = 0;
         this.currentCast = s;
@@ -574,6 +588,7 @@ class Fighter {
         this.hasHit = false;
         this._nextHitAt = 0;
         this.setState("super");
+        this.superSerial=(this.superSerial||0)+1;
         this.vx = 0;
         return true;
     }
@@ -585,8 +600,7 @@ class Fighter {
 
     /** 进入蓄气姿势（需 P+S 触发，气满时不可蓄） */
     startCharge() {
-        if (!this.canAct() || !this.onGround) return false;
-        if (this.meter >= CONFIG.resources.superCost) return false;
+        if (!(this.canAct() || this.state === "block") || !this.onGround) return false;
         this.setState("charge");
         this.chargeHeldFrames = 0;
         this.vx = 0;
@@ -601,44 +615,10 @@ class Fighter {
 
     /** 点按释放：按当前气量选档 */
     castSuperTier() {
-        if (!this.canAct() && this.state !== "charge") return false;
-        if (!this.onGround) return false;
-        const R = CONFIG.resources;
-        const m = this.meter;
-        if (m >= R.superCost) { this.endCharge(); return this.castSuper(); }
-        if (m >= R.tier2Cost) {
-            this.meter -= R.tier2Cost;
-            this.endCharge();
-            // 二段「裂空波」：复用技能通道，由 game.js 在 startup 帧生成大型剑气
-            this.pendingProj = this.def.superTiers?.wave || {
-                name: "裂空波", damage: 230, projSpeed: 7.5, projSize: 36,
-                startup: 10, recovery: 22, guardBreak: true, tier: 2,
-            };
-            this.currentSkillFrames = this.pendingProj.startup + this.pendingProj.recovery;
-            this.currentCast = this.pendingProj;
-            this.setState("skill");
-            this.vx = 0;
-            return true;
-        }
-        if (m >= R.tier1Cost) {
-            this.meter -= R.tier1Cost;
-            this.endCharge();
-            // 一段「疾影突」：贴脸突进斩，快起手长突进
-            this.currentAttack = this.def.superTiers?.lunge || {
-                name: "疾影突", damage: 150, range: 100, hitHeight: 52,
-                startup: 6, active: 8, recovery: 15, knockback: 9, hitstun: 24,
-                lunge: 12, tier: 1,
-            };
-            this.hasHit = false;
-            this._nextHitAt = 0;
-            this.setState("super");
-            return true;
-        }
-        this.endCharge();
-        return false;   // 气不足 33：什么都不放
+        if (!this.onGround || this.meter < CONFIG.resources.superCost) return false;
+        this.endCharge(); return this.castSuper();
     }
 
-    /** O 特殊机制技：贵族决斗者=决斗招架；其他角色=积攒专属资源 */
     castSpecial() {
         if (!this.canAct() || !this.onGround) return false;
         const sp = this.def.special;
@@ -665,6 +645,7 @@ class Fighter {
 
     /** 被击中（含连段保护 + 倒地判定） */
     takeHit(attack, attackerFacing, blocked, attackerScale) {
+        if (this.isInvulnerable()) return { blocked: false, dmg: 0, ko: false, immune: true };
         const scale = attackerScale || 1;
 
         // 倒地 / 起身无敌中：免疫一切命中，打断连段
@@ -768,6 +749,7 @@ class Fighter {
 
     /** 每帧更新 */
     update() {
+        if(this.blinkInvulnLeft>0)this.blinkInvulnLeft--;
         this.stateTimer++;
         this.sinceHit++;
         if (this.landingTicks > 0) this.landingTicks--;
@@ -779,7 +761,7 @@ class Fighter {
         // 平台边缘检测：站在平台上（y < groundY）时，若脚下不再有平台支撑则变空中
         if (this.onGround && this.y < CONFIG.canvas.groundY - 1) {
             let supported = false;
-            for (const p of (CONFIG.platforms || [])) {
+            for (const p of (this.combatPlatforms?.() || CONFIG.platforms || [])) {
                 if (this.x >= p.x && this.x <= p.x + p.w && Math.abs(this.y - p.y) < 2) {
                     supported = true;
                     break;
@@ -788,12 +770,13 @@ class Fighter {
             if (!supported) {
                 this.onGround = false;
                 this.vy = 0;
+                if(["idle","walk"].includes(this.state))this.setState("jump");
                 this.jumpsLeft = Math.max(1, this.jumpsLeft);
             }
         }
 
         // 剑契超时清零：连续 1.5 秒（90帧）未命中
-        if (this.resource > 0 && this.sinceHit > 90) this.resource = 0;
+        // 专属资源保留到消耗或新回合，允许积攒满资源特殊技。
 
         // 攻击/超必杀结束
         if ((this.state === "attack" || this.state === "super") && this.currentAttack) {
@@ -802,6 +785,7 @@ class Fighter {
                 const wasLauncher = this.currentAttack === this.def.launcher;
                 const wasFull = this.isPureWhite();
                 const endedInAir = !this.onGround;
+                this.vx = 0;
                 this.currentAttack = null;
                 this.comboIndex = 0;
                 this.setState(endedInAir ? "jump" : "idle");
@@ -815,6 +799,8 @@ class Fighter {
             } else if (a.lunge && this.stateTimer <= a.startup) {
                 // 滑步突进：前摇期间向前位移
                 this.vx = this.facing * a.lunge;
+            } else if (this.onGround) {
+                this.vx = 0;
             }
         }
 
@@ -892,7 +878,7 @@ class Fighter {
 
             // 1) 平台顶面落地（单向平台：仅当上一帧脚底在顶面之上且本帧越过顶面）
             let landedOnPlatform = false;
-            const plat = CONFIG.platforms || [];
+            const plat = this.combatPlatforms?.() || CONFIG.platforms || [];
             for (const p of plat) {
                 const feetX = this.x;
                 if (feetX >= p.x && feetX <= p.x + p.w) {
@@ -936,6 +922,7 @@ class Fighter {
         // 已落地：清除浮空标记
         if (this.onGround) this._wasAirborne = false;
 
+        if (this.onGround && ["idle", "block", "charge", "parry"].includes(this.state)) this.vx = 0;
         this.x += this.vx;
         if (this.state === "walk") this.vx = 0;
 
@@ -945,8 +932,7 @@ class Fighter {
 
     /** 冲刺无敌帧判定 */
     isInvulnerable() {
-        return this.state === "dash" &&
-               this.stateTimer < CONFIG.physics.dashInvuln;
+        return this.blinkInvulnLeft > 0;
     }
 
     /** 方向键手动转身（向左/向右调整面向），转身时播短暂转身动作 */
@@ -986,6 +972,8 @@ class Fighter {
         this.onGround = true;
         this.jumpsLeft = CONFIG.mechanics.maxJumps;
         this.health = this.maxHealth;
+        this.chargeInterrupted = false;
+        this.moveStopping = false;
         this.meter = 0;
         this.resource = 0;
         this.sinceHit = 0;
@@ -1001,8 +989,10 @@ class Fighter {
         this.knockdownTimer = 0;
         this.knockdownInvuln = 0;
         this._wasAirborne = false;
+        this.running=false;
         this.form = this.def.sprites ? "armored" : null;   // 每回合重置回穿甲
         this.justSwitchedForm = false;
+        this.blinkInvulnLeft=0;this.blinkEvent=null;this.dashLeft=0;this.dashCooldownLeft=0;this._dashWasAir=false;this.justDashed=false;
         this.animKey = null;
         this.animFrame = 0;
         this.animTimer = 0;
@@ -1017,12 +1007,13 @@ class Fighter {
             vx: this.vx, vy: this.vy, f: this.facing, g: this.onGround,
             hp: this.health, mt: this.meter, rs: this.resource,
             st: this.state, tt: this.stateTimer, j: this.jumpsLeft,
+            ss: this.superSerial||0, bi: this.blinkInvulnLeft, be: this.blinkEvent, bs: this.blinkSerial,
             hs: this.hitstunLeft, dl: this.dashLeft, ci: this.comboIndex, sh: this.sinceHit,
             ca: this.currentAttack ? this._attackRef() : null,
             rw: this.roundsWon,
             ch: this.comboHits, cd: this.comboDamage, kt: this.knockdownTimer, ki: this.knockdownInvuln,
             fm: this.form,
-            an: this.animKey, af: this.animFrame, at: this.animTimer,
+            rn: !!this.running, wd: this._walkDirection || 0, ms: !!this.moveStopping, an: this.animKey, af: this.animFrame, at: this.animTimer,
             cs: this.currentCast || null, cf: this.currentSkillFrames || 0, lt: this.landingTicks,
         };
     }
@@ -1046,6 +1037,10 @@ class Fighter {
         this.health = s.hp; this.meter = s.mt; this.resource = s.rs;
         if (this.state !== s.st) this.setState(s.st);
         this.stateTimer = s.tt;
+        this.moveStopping = !!s.ms;
+        this._walkDirection = s.wd || 0;
+        this.running=!!s.rn;
+        this.superSerial=s.ss||0;this.blinkInvulnLeft=s.bi||0;this.blinkEvent=s.be||null;this.blinkSerial=s.bs||0;
         this.jumpsLeft = s.j; this.hitstunLeft = s.hs; this.dashLeft = s.dl;
         this.comboIndex = s.ci; this.roundsWon = s.rw; this.sinceHit = s.sh || 0;
         this.comboHits = s.ch || 0; this.comboDamage = s.cd || 0;
@@ -1110,7 +1105,7 @@ class Fighter {
         else if (this.charId === "jianke") this._drawWanderer(ctx);
         else if (this.charId === "shouwang") this._drawWatcher(ctx);
         else this._drawDuelist(ctx);
-        if (this.state === "charge") this._drawChargeAura(ctx);
+        if (this.state === "charge" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX)) this._drawChargeAura(ctx);
     }
 
     /** 蓄气姿势特效：脚下光环 + 上升气焰（密度随气量增长），贴图/矢量角色通用 */
@@ -1136,6 +1131,23 @@ class Fighter {
 
     // ---------- 贴图渲染：设定集立绘 + 状态动效 ----------
     _drawSprite(ctx, img) {
+        // Keep one torso/cape silhouette across AI gait sources; animate the legs below the thigh.
+        if (this.charId === "jianke" && this.animKey === "walk") {
+            const anchor = SPRITES.jianke_walk_0;
+            if (anchor && img !== anchor && typeof document !== "undefined") {
+                let stable = STABLE_WALK.get(img);
+                if (!stable || stable.anchor !== anchor) {
+                    const canvas = document.createElement("canvas"); canvas.width = img.width; canvas.height = img.height;
+                    const paint = canvas.getContext("2d"), split = Math.round(img.height * .63);
+                    paint.drawImage(anchor, 0, 0);
+                    paint.clearRect(0, split, img.width, img.height-split);
+                    paint.drawImage(img, 0, split, img.width, img.height-split, 0, split, img.width, img.height-split);
+                    stable = {canvas,anchor}; STABLE_WALK.set(img, stable);
+                }
+                // Preserve animation metadata lookup, but draw the registered stable frame.
+                this._walkRenderImage = stable.canvas;
+            } else this._walkRenderImage = null;
+        } else this._walkRenderImage = null;
         const t = this.stateTimer, st = this.state;
         const b = this.getBodyBox();
         const animated = !!(this.animKey && this._animImg() === img);
@@ -1188,7 +1200,7 @@ class Fighter {
             ctx.fill();
         }
 
-        ctx.drawImage(img, cx + dx - W / 2, dy - H, W, H);
+        ctx.drawImage(this._walkRenderImage || img, cx + dx - W / 2, dy - H, W, H);
 
         // 受击 / 破防：整体提亮闪烁
         if (st === "hit" || st === "guardbreak") {
@@ -1199,14 +1211,14 @@ class Fighter {
             ctx.globalAlpha = 1;
         }
         // 格挡：身前护盾
-        if (st === "block" && this.charId !== "noble") {
+        if (st === "block" && this.charId !== "noble" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX)) {
             ctx.fillStyle = "rgba(140,190,255,0.30)";
             ctx.beginPath();
             ctx.ellipse(W * 0.30, -H * 0.5, W * 0.28, H * 0.48, 0, 0, Math.PI * 2);
             ctx.fill();
         }
         // 攻击 / 超必杀：白色刀光弧
-        if (this.charId !== "noble" && this.currentAttack && this.isAttackActive && this.isAttackActive()) {
+        if (this.charId !== "noble" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX) && this.currentAttack && this.isAttackActive && this.isAttackActive()) {
             ctx.strokeStyle = st === "super" ? "rgba(255,209,102,0.9)" : "rgba(255,255,255,0.85)";
             ctx.lineWidth = 5;
             ctx.beginPath();
@@ -1214,7 +1226,7 @@ class Fighter {
             ctx.stroke();
         }
         // 超必杀外圈
-        if (st === "super" && this.charId !== "noble") {
+        if (st === "super" && this.charId !== "noble" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX)) {
             ctx.strokeStyle = "rgba(255,209,102,0.85)";
             ctx.lineWidth = 3;
             ctx.beginPath();
@@ -1222,7 +1234,7 @@ class Fighter {
             ctx.stroke();
         }
         // 招架成功白闪
-        if (st === "parry" && this.charId !== "noble" && Math.floor(t / 4) % 2 === 0) {
+        if (st === "parry" && this.charId !== "noble" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX) && Math.floor(t / 4) % 2 === 0) {
             ctx.fillStyle = "rgba(255,255,255,0.35)";
             ctx.fillRect(-W / 2, -H, W, H);
         }

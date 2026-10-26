@@ -1,0 +1,1 @@
+Object.assign(CONFIG.characters.jianke.anims.walk,{"frames":8,"path":"assets/chars/jianke/walk-v3","fps":12,"loop":true});

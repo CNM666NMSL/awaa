@@ -1,0 +1,480 @@
+{
+  "anims": {
+    "idle": {
+      "frames": 3,
+      "path": "assets/chars/jianke/v1/idle",
+      "fps": 3,
+      "loop": true,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625
+    },
+    "walk": {
+      "frames": 6,
+      "path": "assets/chars/jianke/v1/walk",
+      "fps": 12,
+      "loop": true,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625
+    },
+    "j1": {
+      "frames": 5,
+      "path": "assets/chars/jianke/v1/j1",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625,
+      "phases": [
+        2,
+        3
+      ]
+    },
+    "j2": {
+      "frames": 6,
+      "path": "assets/chars/jianke/v1/j2",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625,
+      "phases": [
+        3,
+        4
+      ]
+    },
+    "j3": {
+      "frames": 6,
+      "path": "assets/chars/jianke/v1/j3",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625,
+      "phases": [
+        3,
+        4
+      ]
+    },
+    "launcher": {
+      "frames": 5,
+      "path": "assets/chars/jianke/v1/launcher",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625,
+      "phases": [
+        2,
+        3
+      ]
+    },
+    "low": {
+      "frames": 5,
+      "path": "assets/chars/jianke/v1/low",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625,
+      "phases": [
+        2,
+        3
+      ]
+    },
+    "dashAttack": {
+      "frames": 5,
+      "path": "assets/chars/jianke/v1/dashAttack",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625,
+      "phases": [
+        2,
+        3
+      ]
+    },
+    "airAttack": {
+      "frames": 5,
+      "path": "assets/chars/jianke/v1/airAttack",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625,
+      "phases": [
+        2,
+        3
+      ]
+    },
+    "super_": {
+      "frames": 6,
+      "path": "assets/chars/jianke/v1/super_",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625,
+      "phases": [
+        3,
+        4
+      ]
+    },
+    "superLunge": {
+      "frames": 5,
+      "path": "assets/chars/jianke/v1/superLunge",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625,
+      "phases": [
+        2,
+        3
+      ]
+    },
+    "u": {
+      "frames": 5,
+      "path": "assets/chars/jianke/v1/u",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625,
+      "fitState": true,
+      "contact": 3
+    },
+    "superWave": {
+      "frames": 6,
+      "path": "assets/chars/jianke/v1/superWave",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625,
+      "fitState": true,
+      "contact": 3
+    },
+    "jump": {
+      "frames": 7,
+      "path": "assets/chars/jianke/v1/jump",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625,
+      "physics": true
+    },
+    "land": {
+      "frames": 3,
+      "path": "assets/chars/jianke/v1/land",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625
+    },
+    "dash": {
+      "frames": 4,
+      "path": "assets/chars/jianke/v1/dash",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625
+    },
+    "block": {
+      "frames": 1,
+      "path": "assets/chars/jianke/v1/block",
+      "fps": 12,
+      "loop": true,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625
+    },
+    "parry": {
+      "frames": 3,
+      "path": "assets/chars/jianke/v1/parry",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625
+    },
+    "charge": {
+      "frames": 4,
+      "path": "assets/chars/jianke/v1/charge",
+      "fps": 5,
+      "loop": true,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625
+    },
+    "hit": {
+      "frames": 3,
+      "path": "assets/chars/jianke/v1/hit",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625,
+      "fitHurt": true
+    },
+    "fall": {
+      "frames": 1,
+      "path": "assets/chars/jianke/v1/fall",
+      "fps": 12,
+      "loop": true,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625
+    },
+    "knockdown": {
+      "frames": 1,
+      "path": "assets/chars/jianke/v1/knockdown",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625
+    },
+    "ko": {
+      "frames": 1,
+      "path": "assets/chars/jianke/v1/ko",
+      "fps": 12,
+      "loop": false,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625
+    },
+    "getup": {
+      "frames": 4,
+      "path": "assets/chars/jianke/v1/getup",
+      "fps": 18,
+      "loop": false,
+      "referenceHeight": 180,
+      "canvasHeight": 256,
+      "originX": 0.46875,
+      "originY": 0.90625
+    }
+  },
+  "sourceCells": [
+    {
+      "minX": 61,
+      "minY": 30,
+      "maxX": 227,
+      "maxY": 256,
+      "w": 167,
+      "h": 227
+    },
+    {
+      "minX": 294,
+      "minY": 30,
+      "maxX": 493,
+      "maxY": 256,
+      "w": 200,
+      "h": 227
+    },
+    {
+      "minX": 551,
+      "minY": 27,
+      "maxX": 755,
+      "maxY": 256,
+      "w": 205,
+      "h": 230
+    },
+    {
+      "minX": 818,
+      "minY": 27,
+      "maxX": 1028,
+      "maxY": 256,
+      "w": 211,
+      "h": 230
+    },
+    {
+      "minX": 1079,
+      "minY": 30,
+      "maxX": 1268,
+      "maxY": 257,
+      "w": 190,
+      "h": 228
+    },
+    {
+      "minX": 1340,
+      "minY": 27,
+      "maxX": 1523,
+      "maxY": 257,
+      "w": 184,
+      "h": 231
+    },
+    {
+      "minX": 32,
+      "minY": 310,
+      "maxX": 275,
+      "maxY": 514,
+      "w": 244,
+      "h": 205
+    },
+    {
+      "minX": 301,
+      "minY": 298,
+      "maxX": 476,
+      "maxY": 513,
+      "w": 176,
+      "h": 216
+    },
+    {
+      "minX": 554,
+      "minY": 285,
+      "maxX": 748,
+      "maxY": 515,
+      "w": 195,
+      "h": 231
+    },
+    {
+      "minX": 790,
+      "minY": 315,
+      "maxX": 1087,
+      "maxY": 515,
+      "w": 298,
+      "h": 201
+    },
+    {
+      "minX": 1079,
+      "minY": 316,
+      "maxX": 1350,
+      "maxY": 514,
+      "w": 272,
+      "h": 199
+    },
+    {
+      "minX": 1358,
+      "minY": 303,
+      "maxX": 1513,
+      "maxY": 514,
+      "w": 156,
+      "h": 212
+    },
+    {
+      "minX": 24,
+      "minY": 608,
+      "maxX": 259,
+      "maxY": 748,
+      "w": 236,
+      "h": 141
+    },
+    {
+      "minX": 274,
+      "minY": 523,
+      "maxX": 467,
+      "maxY": 748,
+      "w": 194,
+      "h": 226
+    },
+    {
+      "minX": 514,
+      "minY": 537,
+      "maxX": 744,
+      "maxY": 700,
+      "w": 231,
+      "h": 164
+    },
+    {
+      "minX": 779,
+      "minY": 614,
+      "maxX": 1063,
+      "maxY": 749,
+      "w": 285,
+      "h": 136
+    },
+    {
+      "minX": 1041,
+      "minY": 562,
+      "maxX": 1260,
+      "maxY": 748,
+      "w": 220,
+      "h": 187
+    },
+    {
+      "minX": 1263,
+      "minY": 662,
+      "maxX": 1525,
+      "maxY": 744,
+      "w": 263,
+      "h": 83
+    },
+    {
+      "minX": 25,
+      "minY": 824,
+      "maxX": 250,
+      "maxY": 990,
+      "w": 226,
+      "h": 167
+    },
+    {
+      "minX": 261,
+      "minY": 842,
+      "maxX": 535,
+      "maxY": 990,
+      "w": 275,
+      "h": 149
+    },
+    {
+      "minX": 541,
+      "minY": 752,
+      "maxX": 745,
+      "maxY": 992,
+      "w": 205,
+      "h": 241
+    },
+    {
+      "minX": 767,
+      "minY": 822,
+      "maxX": 1125,
+      "maxY": 992,
+      "w": 359,
+      "h": 171
+    },
+    {
+      "minX": 1122,
+      "minY": 771,
+      "maxX": 1294,
+      "maxY": 994,
+      "w": 173,
+      "h": 224
+    },
+    {
+      "minX": 1357,
+      "minY": 762,
+      "maxX": 1506,
+      "maxY": 995,
+      "w": 150,
+      "h": 234
+    }
+  ]
+}

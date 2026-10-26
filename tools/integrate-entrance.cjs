@@ -1,0 +1,14 @@
+const fs=require('fs');let p='js/config.js',s=fs.readFileSync(p,'utf8').replace('introFrames: 90','introFrames: 180');fs.writeFileSync(p,s);
+p='js/game.js';s=fs.readFileSync(p,'utf8').replace('this.announce("ROUND " + (this.p1.roundsWon + this.p2.roundsWon + 1), false);','this.announce("", true);\n        this._introStartedAt=performance.now();');
+s=s.replace('tm: this.timeLeft, ph: this.phase,','tm: this.timeLeft, ph: this.phase, pt: this.phaseTimer,');s=s.replace('if (d.ph === "intro") this.announce("ROUND " + (this.p1.roundsWon + this.p2.roundsWon + 1), false);','if (d.ph === "intro") this.announce("", true);');s=s.replace('        this.updateRoundMarks();\n        this.updateNameplates();\n        this.updateHUD();','        if(d.ph==="intro"){this.phaseTimer=d.pt||0;this._introSnapshotAt=performance.now();}\n        this.updateRoundMarks();\n        this.updateNameplates();\n        this.updateHUD();');
+const a=s.indexOf('        if (this.phase === "intro") {',s.indexOf('    update() {')),b=s.indexOf('\n        if (this.phase === "ko")',a);s=s.slice(0,a)+`        if (this.phase === "intro") {
+            this.phaseTimer=Math.floor((performance.now()-this._introStartedAt)*.06);
+            if(this.phaseTimer>=CONFIG.round.introFrames){this.phase='fight';this.keysDown={};this.keysPressed={};this._edgeStore={};this._edgeStore1={};this._edgeStore2={};this.announce('',true);}
+            if(this.mode==='lan-host')this.broadcastState();
+            return;
+        }
+`+s.slice(b);
+s=s.replace('            this.p1.draw(ctx);\n            this.p2.draw(ctx);',`            if(this.phase==='intro'&&window.roundEntrance){const t=window.roundEntrance.tick(this);window.roundEntrance.actor(ctx,this.p1,t);window.roundEntrance.actor(ctx,this.p2,t);}else{this.p1.draw(ctx);this.p2.draw(ctx);}`);
+s=s.replace('if (window.rainWeather?.enabled(this)) {','if (this.phase!=="intro" && window.rainWeather?.enabled(this)) {');s=s.replace('        // 瞬步时缓：边缘淡蓝光晕提示', '        if(this.phase==="intro"&&window.roundEntrance)window.roundEntrance.overlay(ctx,this);\n        // 瞬步时缓：边缘淡蓝光晕提示');fs.writeFileSync(p,s);
+p='js/jianke-fx.js';s=fs.readFileSync(p,'utf8').replace("if(['menu','intro','between','matchEnd'].includes(game.phase))", "if(game.phase==='intro'&&window.roundEntrance){this.clear();window.roundEntrance.effects(this,game);this.renderer.render(this.scene,this.camera);ctx.drawImage(this.renderer.domElement,0,0,1200,540);return;}if(['menu','intro','between','matchEnd'].includes(game.phase))");fs.writeFileSync(p,s);
+p='index.html';s=fs.readFileSync(p,'utf8');s=s.replace('<script src="js/game.js?', '<script src="js/round-entrance.js?v=entrance1"></script>\n<script src="js/game.js?');s=s.replace(/js\/config.js\?v=[^"\s]+/g,'js/config.js?v=entrance1').replace(/js\/game.js\?v=[^"\s]+/g,'js/game.js?v=entrance1').replace(/js\/jianke-fx.js\?v=[^"\s]+/g,'js/jianke-fx.js?v=entrance1');fs.writeFileSync(p,s);

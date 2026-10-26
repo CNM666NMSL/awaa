@@ -58,13 +58,14 @@ class Game {
 
     bindInput() {
         window.addEventListener("keydown", (e) => {
-            if (!this.keysDown[e.code]) this.keysPressed[e.code] = true;
-            this.keysDown[e.code] = true;
+            const code = /^Digit[1-7]$/.test(e.code) ? e.code.replace("Digit","Numpad") : e.code;
+            if (!this.keysDown[code]) this.keysPressed[code] = true;
+            this.keysDown[code] = true;
             if (["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Space"].includes(e.code)) e.preventDefault();
             if (e.code === "Escape" && (this.phase === "fight" || this.phase === "paused")) this.togglePause();
         });
-        window.addEventListener("keyup", (e) => { this.keysDown[e.code] = false; });
-        window.addEventListener("blur", () => { this.keysDown = {}; this.keysPressed = {}; });
+        window.addEventListener("keyup", (e) => { const code = /^Digit[1-7]$/.test(e.code) ? e.code.replace("Digit","Numpad") : e.code; this.keysDown[code] = false; });
+        window.addEventListener("blur", () => { this.keysDown = {}; this.keysPressed = {}; this._edgeStore={};this._edgeStore1={};this._edgeStore2={}; });
     }
 
     /** 读取一帧输入（含边沿检测），返回输入对象；联机时直接发给主机 */
@@ -78,11 +79,17 @@ class Game {
             return pressed || (!!k[code] && !was);
         };
         const jumpPressed = edge(keyMap.jump);
-        const upPressed = edge(keyMap.up);
+        edge(keyMap.up);
+        const leftPressed=edge(keyMap.left),rightPressed=edge(keyMap.right);
+        const tick=edgeStore._inputTick=(edgeStore._inputTick||0)+1;
+        for(const [dir,pressed]of [[-1,leftPressed],[1,rightPressed]])if(pressed){const name=dir<0?'_leftTap':'_rightTap';if(edgeStore[name]!==undefined&&tick-edgeStore[name]<=CONFIG.physics.doubleTapFrames)edgeStore._runDir=dir;edgeStore[name]=tick;edgeStore[dir<0?"_rightTap":"_leftTap"]=undefined;}
+        if((!k[keyMap.left]&&!k[keyMap.right])||(k[keyMap.left]&&k[keyMap.right])||(edgeStore._runDir===-1&&!k[keyMap.left])||(edgeStore._runDir===1&&!k[keyMap.right]))edgeStore._runDir=0;
+        const skillHeld=!!k[keyMap.skill],skillWas=!!edgeStore[keyMap.skill];
         return {
+            sklHeld:skillHeld,sklRelease:skillWas&&!skillHeld,
             l: !!k[keyMap.left], r: !!k[keyMap.right],
             u: !!k[keyMap.up], d: !!k[keyMap.down],
-            atk: edge(keyMap.attack), jmp: jumpPressed || upPressed,
+            atk: edge(keyMap.attack), jmp: jumpPressed, run: edgeStore._runDir||0,
             dsh: edge(keyMap.dash), skl: edge(keyMap.skill),
             sup: edge(keyMap.super_), spc: edge(keyMap.special),
             chg: !!k[keyMap.charge], chgHeld: !!k[keyMap.charge],
@@ -102,32 +109,33 @@ class Game {
         f.aim(aimDir);
 
         // 攻击输入：冲刺中=滑步突刺；S+J 下攻；W+J 上攻；其余=普攻（空中自动变下劈刺）
+        if(inp.jmp)f.jump(inp.l&&!inp.r?-1:inp.r&&!inp.l?1:0);
+        if (inp.dsh) f.dash();
         if (inp.atk) {
             if (f.state === "dash") f.dashAttack();
+            else if (!f.onGround) f.attack();
             else if (inp.d) f.comboAttack("low");
             else if (inp.u) f.comboAttack("launcher");
             else f.attack();
         }
-        if (inp.jmp) {
-            // 跳跃带方向：按住左=后跳、右=前跳，不按=原地跳
-            const jdir = inp.l ? -1 : (inp.r ? 1 : 0);
-            f.jump(jdir);
-        }
-        if (inp.dsh) f.dash();
-        if (inp.skl) {
+        if(this.handleRangedInput)this.handleRangedInput(f,inp);
+        else if (inp.skl) {
             const s = f.castSkill();
             if (s) { f.pendingProj = s; f.currentSkillFrames = s.startup + s.recovery; }
         }
         // I 键：按住 S = 形态切换（双形态角色专属，耗 2 段气）；否则放必杀（按气量分档）
         if (inp.sup) {
-            if (inp.d && f.canSwitchForm() && f.switchForm()) {
+            if (inp.d && f.canSwitchForm()) {
+                f.switchForm();
                 // 形态切换成功
             } else {
                 f.castSuperTier();
             }
         }
         // 蓄气：需同时按住 P（蓄气键）+ S（下蹲/防御键）才生效；蓄气中受伤×1.5（破绽惩罚）
-        const charging = inp.chgHeld && inp.d;
+        if (!inp.chgHeld) f.chargeInterrupted = false;
+        if (inp.chgHeld && ["hit","guardbreak","knockdown"].includes(f.state)) f.chargeInterrupted = true;
+        const charging = inp.chgHeld && !f.chargeInterrupted;
         if (charging && f.state !== "charge") {
             f.startCharge();
         } else if (!charging && f.state === "charge") {
@@ -139,8 +147,8 @@ class Game {
         f.block(inp.d && f.state !== "hit");
 
         // 移动：按住方向键走（朝向已由 aim 处理，move 只负责位移）
-        if (inp.l) f.move(-1);
-        else if (inp.r) f.move(1);
+        if (inp.l && !inp.r) f.move(-1,inp.run===-1);
+        else if (inp.r && !inp.l) f.move(1,inp.run===1);
         else f.stopMove();
     }
 
@@ -235,21 +243,26 @@ class Game {
     buildChapterList() {
         const list = document.getElementById("chapter-list");
         list.innerHTML = "";
-        for (const ch of CONFIG.story.chapters) {
+        const scenes = [
+            "黄昏的雨水打湿了废弃街道。路灯在积水中摇晃，贵族决斗者与江湖剑客在残街相遇。各自握紧的剑，成为这场对决的开端。",
+            "夜色渐深，街角传来陌生的脚步声。银铠守望者穿过雨幕；在沉重的铠甲与誓约之间，每个人都要作出自己的选择。",
+            "隐藏在夜幕中的身影终于显露。残街上的对决走向终章，而关于玄鸦的谜团，仍等待被揭开。"
+        ];
+        CONFIG.story.chapters.forEach((ch, i) => {
             const el = document.createElement("button");
             el.className = "chapter-item";
-            el.innerHTML = `${ch.title}<div class="sub">${ch.sub}</div>`;
+            el.innerHTML = '<span class="chapter-number">0'+(i+1)+'</span><strong>'+ch.title+'</strong><div class="sub">'+ch.sub+'</div>';
             el.onclick = () => {
                 list.querySelectorAll(".chapter-item").forEach(c => c.classList.remove("selected"));
                 el.classList.add("selected");
-                this.playVideo("story-video", "story-placeholder", ch.video,
-                    `${ch.title}<br><span class="hint">视频待添加：${ch.video}</span>`);
+                const ph = document.getElementById("story-placeholder");
+                ph.innerHTML = '<div class="chapter-preview"><span class="eyebrow">CHAPTER 0'+(i+1)+'</span><h3>'+ch.title+'</h3><p>'+scenes[i]+'</p><div class="chapter-cast">'+CONFIG.roster.map(id => this.charCardHtml(CONFIG.characters[id])).map(html=>'<div class="cast-figure">'+html+'</div>').join('')+'</div><span class="chapter-status">故事预览 · 章节动画尚未开放</span></div>';
+                this.playVideo("story-video", "story-placeholder", ch.video, null);
             };
             list.appendChild(el);
-        }
+        });
+        list.firstElementChild?.click();
     }
-
-    // ---------- 人物CG动画介绍 ----------
 
     buildCgList() {
         const list = document.getElementById("cg-list");
@@ -257,8 +270,9 @@ class Game {
         for (const id of CONFIG.roster) {
             const c = CONFIG.characters[id];
             const el = document.createElement("button");
-            el.className = "chapter-item";
-            el.innerHTML = `${c.name}${c.boss ? "（BOSS）" : ""}<div class="sub">${c.title} · ${c.resource.name}</div>`;
+            el.className = "chapter-item fighter-index";
+            el.setAttribute("aria-label", c.name);
+            el.innerHTML = this.charCardHtml(c);
             el.onclick = () => {
                 list.querySelectorAll(".chapter-item").forEach(x => x.classList.remove("selected"));
                 el.classList.add("selected");
@@ -266,22 +280,30 @@ class Game {
             };
             list.appendChild(el);
         }
+        list.firstElementChild?.click();
     }
 
     showCg(charId) {
         const c = CONFIG.characters[charId];
-        document.getElementById("cg-char-name").textContent = c.name + " · " + c.title;
-
-        // 先填好资料卡（视频缺失时的兜底展示）
+        const profiles = {
+            noble: ["以细剑掌握节奏的决斗者。直刺、横划与上挑连成精确的攻势，蓝色披风与白羽礼帽是他的标志。", "精准招架 / 剑契强化"],
+            jianke: ["斗笠遮面，蓑衣迎雨。无名剑客以三段斩击衔接踏影突进，用银白剑气封锁对手的退路。", "近身连斩 / 剑意增伤"],
+            shouwang: ["身披银铠的守望者，以重剑与沉稳的步伐守住战线。穿甲与脱甲形态带来不同的攻防节奏。", "双形态 / 重剑压制"]
+        };
+        const profile = profiles[charId];
+        const portrait = this.charCardHtml(c);
+        const moves = [
+            ["J / 1", "三段普攻", c.combo.map(m=>m.damage).join(" / ")],
+            ["W + J / ↑ + 1", "上攻", c.launcher.damage],
+            ["S + J / ↓ + 1", "下攻 · 破防", c.low.damage],
+            ["U / 4", "远攻 · 无耗气", c.skill.damage],
+            ["I / 5", "超必杀 · 100气", (c.super_.multiHit ? c.super_.hits + " × " + c.super_.perHit + " + " + c.super_.finalDamage : c.super_.damage)]
+        ];
         const card = document.getElementById("cg-card");
-        card.innerHTML = `
-            <div class="swatch-lg" style="background:${c.color}"></div>
-            <h3>${c.name}</h3>
-            <div class="title-tag">${c.title}${c.boss ? " · BOSS" : ""}</div>
-            <p>专属资源：${c.resource.name}（上限 ${c.resource.max}）<br>${c.resource.desc}</p>
-            <p class="hint">CG 视频待添加：${CONFIG.cgDir}${charId}.mp4</p>`;
-
-        this.playVideo("cg-video", "cg-placeholder", CONFIG.cgDir + charId + ".mp4", null, card);
+        document.getElementById("cg-placeholder").classList.add("hidden");
+        document.getElementById("cg-video").style.display = "none";
+        card.classList.remove("hidden");
+        card.innerHTML = '<div class="dossier-art">'+portrait+'</div><div class="dossier-copy"><span class="eyebrow">FIGHTER / 0'+(CONFIG.roster.indexOf(charId)+1)+'</span><h3>'+c.name+'</h3><div class="title-tag">'+c.title+'</div><p>'+profile[0]+'</p><div class="fighter-tags"><span>生命 '+(c.maxHealth || CONFIG.resources.maxHealth)+'</span><span>'+profile[1]+'</span></div><h4>'+c.resource.name+' · 上限 '+c.resource.max+'</h4><p>'+c.resource.desc+'</p><table class="dossier-moves"><thead><tr><th>操作</th><th>招式</th><th>基础伤害</th></tr></thead><tbody>'+moves.map(m=>'<tr><td>'+m[0]+'</td><td>'+m[1]+'</td><td>'+m[2]+'</td></tr>').join('')+'</tbody></table><p class="dossier-note">伤害为基础值，实战受资源层数、形态与连段影响。P / 7 长按攒气。</p></div>';
     }
 
     /** 视频播放通用：文件存在则播放，不存在则显示占位（CG 页额外显示资料卡） */
@@ -391,10 +413,9 @@ class Game {
     // 角色卡片内容：有立绘贴图的角色直接用贴图做头像（双形态角色用穿甲形态）
     charCardHtml(c) {
         const img = (c.sprites && c.sprites.armored) || c.sprite;
-        const sw = img
-            ? `<div class="swatch" style="background:#0d1526 url('${img}?v=${ASSET_VER}') center/contain no-repeat"></div>`
-            : `<div class="swatch" style="background:${c.color}"></div>`;
-        return `${sw}<div>${c.name}</div><div class="res-name">${c.resource.name}</div>`;
+        const portrait = img ? '<img class="char-portrait '+(img.includes('jianke')?'padded':'')+'" src="'+img+'?v='+ASSET_VER+'" alt="'+c.name+'立绘" draggable="false">' : '<span class="portrait-fallback">'+c.name.slice(0,1)+'</span>';
+        return '<div class="portrait-stage">'+portrait+'</div><div class="char-name">'+c.name+'</div><div class="char-title">'+(c.title||'')+'</div><div class="res-name">'+c.resource.name+'</div>';
+
     }
 
     buildCharGrid() {
@@ -524,7 +545,11 @@ class Game {
 
     // ---------- 本地对战选人 ----------
 
-    openLocalSelect() {
+    openLocalSelect(cpu=false) {
+        this.cpuSelection=cpu;
+        const menu=document.getElementById("menu-local");menu.querySelector("h2").textContent=cpu?"人机对决 · 选择角色":"本地对战 · 选择角色";
+        menu.querySelectorAll(".lobby-col h3")[1].textContent=cpu?"系统操控 · 选择对手":"玩家 2 · 方向键 / 数字 1–7";
+        document.getElementById("cpu-options").classList.toggle("hidden",!cpu);
         this.localPick = this.localPick || { p1: "noble", p2: "jianke" };   // 默认设定图三人组
         this.show("menu-local");
         this.buildLocalGrids();
@@ -548,11 +573,12 @@ class Game {
         }
         document.getElementById("local-picks").textContent =
             "P1：" + CONFIG.characters[this.localPick.p1].name +
-            "  VS  P2：" + CONFIG.characters[this.localPick.p2].name;
+            (this.cpuSelection?"  VS  人机：":"  VS  P2：") + CONFIG.characters[this.localPick.p2].name;
     }
 
     startLocalMatch() {
-        this.mode = "local";
+        this.mode = this.cpuSelection ? "cpu" : "local";
+        this.cpuBrain=null;
         document.getElementById("noble-practice").classList.add("hidden");
         this.matchOptions = { stage: "lingxia", format: "bo3" };
         const pick = this.localPick || { p1: "noble", p2: "jianke" };
@@ -560,6 +586,7 @@ class Game {
         this.p2 = new Fighter(pick.p2, CONFIG.canvas.width * 0.7, -1);
         this.show(null);
         this.startMatch();
+        if(this.mode==="cpu")document.getElementById("p2-controls").textContent="系统操控 · "+document.getElementById("cpu-level").selectedOptions[0].textContent;
     }
 
     beginLanMatch(setup, isHostSide) {
@@ -572,6 +599,7 @@ class Game {
         this.p2 = new Fighter(setup.guestChar, W * 0.7, -1);
         this.remoteInput = null;
         this._edgeStore = {};
+        this._edgeStore1={};this._edgeStore2={};
         this.show(null);
         if (this.mode === "lan-host") this.startMatch();
         else this.announce("等待主机同步…", false);
@@ -586,11 +614,13 @@ class Game {
     }
 
     startRound() {
+        this._edgeStore={};this._edgeStore1={};this._edgeStore2={};
         const W = CONFIG.canvas.width;
         this.keysPressed = {};
         this.p1.resetForRound(W * 0.3, 1);
         this.p2.resetForRound(W * 0.7, -1);
         this.projectiles = [];
+        this.superFreeze=null;this._superSeen=new WeakMap();this.cpuBrain=null;
         this.sparks = [];
         this.timeLeft = CONFIG.round.time;
         this.frameCount = 0;
@@ -598,7 +628,8 @@ class Game {
         document.getElementById("timer").textContent = this.timeLeft;
         this.phase = "intro";
         this.phaseTimer = 0;
-        this.announce("ROUND " + (this.p1.roundsWon + this.p2.roundsWon + 1), false);
+        this.announce("", true);
+        this._introStartedAt=performance.now();this._fightBannerStartedAt=null;
         this.updateNameplates();
         this.updateHUD(true);
     }
@@ -736,6 +767,7 @@ class Game {
                 y: f.y - f.height * (s.projY ?? 0.55) + (vy ? 8 : 0),
                 vx: f.facing * s.projSpeed,
                 vy: vy || 0,
+                charged: !!s.charged, life: s.charged?110:90,
                 size: s.projSize,
                 damage: dmg,
                 scale: f.damageScale(),
@@ -806,6 +838,7 @@ class Game {
         if (this.mode === "lan-guest" && !fromNet) return;
         if (this.mode === "lan-host" && !fromNet && this.net) this.net.send({ k: "lobby" });
         this.phase = "menu";
+        if(this.mode==="local"||this.mode==="cpu"){this.openLocalSelect(this.mode==="cpu");return;}
         this.lobby.myReady = false;
         this.lobby.oppReady = false;
         document.getElementById("btn-ready").textContent = "准备";
@@ -813,6 +846,7 @@ class Game {
     }
 
     togglePause() {
+        this.keysDown={};this.keysPressed={};this._edgeStore={};this._edgeStore1={};this._edgeStore2={};
         const pausing = this.phase === "fight";
         if (!(pausing || this.phase === "paused")) return;
         if (pausing) {
@@ -860,8 +894,8 @@ class Game {
             k: "state",
             p1: this.p1.toSnapshot(),
             p2: this.p2.toSnapshot(),
-            pr: this.projectiles.map(p => ({ x: p.x, y: p.y, s: p.size, c: p.color })),
-            tm: this.timeLeft, ph: this.phase,
+            pr: this.projectiles.map(p => ({ x: p.x, y: p.y, s: p.size, charged:!!p.charged,c: p.color, fxChar: p.owner?.charId, fxDir: Math.sign(p.vx) })),
+            wo: this.combatV2ObjectsSnapshot?.()||[], sc: this.superFreeze, tm: this.timeLeft, ph: this.phase, pt: this.phaseTimer,
             ev,
         });
     }
@@ -869,8 +903,11 @@ class Game {
     /** 客机：应用快照 */
     applyStateSnapshot(d) {
         if (this.phase === "menu") { this.show(null); }
+        this.specialObjects=(d.wo||[]).map(o=>({...o,owner:o.side===1?this.p1:this.p2}));
+        this.superFreeze=d.sc||null;
         this.p1.applySnapshot(d.p1);
         this.p2.applySnapshot(d.p2);
+        this.projectiles = (d.pr || []).map(p => ({x:p.x,y:p.y,size:p.s,charged:!!p.charged,color:p.c,fxChar:p.fxChar,fxDir:p.fxDir}));
         this.timeLeft = d.tm;
         document.getElementById("timer").textContent = d.tm;
         for (const e of d.ev || []) this.spawnHitSpark(e.x, e.y, e.b);
@@ -878,7 +915,7 @@ class Game {
         if (d.ph !== this.phase) {
             this.phase = d.ph;
             this.phaseTimer = 0;
-            if (d.ph === "intro") this.announce("ROUND " + (this.p1.roundsWon + this.p2.roundsWon + 1), false);
+            if (d.ph === "intro") this.announce("", true);
             else if (d.ph === "ko") this.announce("K.O.!", false);
             else if (d.ph === "between" || d.ph === "matchEnd") {
                 this.show("menu-between");
@@ -887,10 +924,12 @@ class Game {
                         ? (this.p1.roundsWon > this.p2.roundsWon ? this.p1.name : this.p2.name) + " 获胜！"
                         : "回合结束";
             } else if (d.ph === "fight") {
+                this._fightBannerStartedAt=performance.now();
                 this.show(null);
                 this.announce("", true);
             }
         }
+        if(d.ph==="intro"){this.phaseTimer=d.pt||0;this._introSnapshotAt=performance.now();}
         this.updateRoundMarks();
         this.updateNameplates();
         this.updateHUD();
@@ -934,17 +973,17 @@ class Game {
         const isLocal = this.mode === "local";
         // P1 键位：本地用 WASD+字母键，联机双方一致（都用 P1 那套）
         const p1Keys = [
-            ["A/D", "移动"], ["W", "跳"], ["S", "防御/受身"],
+            ["A/D", "走 / 双击跑"], ["W+J", "上挑"], ["S", "防御/受身"],
             ["J", "普攻"], ["K", "二段跳"], ["L", "瞬步"],
-            ["U", "远攻技"], ["O", "特殊技/招架"], ["I", "必杀"],
-            ["P+S", "蓄气"],
+            ["U", "远攻/长按蓄力"], ["O", "满资源特殊技"], ["I", "100气大招"],
+            ["P / S+P", "攒气"],
         ];
         // P2 键位：本地用小键盘，联机用与 P1 相同的字母键
         const p2Keys = isLocal ? [
-            ["←/→", "移动"], ["↑", "跳"], ["↓", "防御/受身"],
+            ["←/→", "走 / 双击跑"], ["↑+1", "上挑"], ["↓", "防御/受身"],
             ["1", "普攻"], ["2", "二段跳"], ["3", "瞬步"],
-            ["4", "远攻技"], ["6", "援护(设计中)"], ["5", "必杀"],
-            ["7+↓", "蓄气"],
+            ["4", "远攻/长按蓄力"], ["6", "满资源特殊技"], ["5", "100气大招"],
+            ["7 / ↓+7", "攒气"],
         ] : p1Keys;
 
         const render = (id, keys, cls) => {
@@ -964,7 +1003,7 @@ class Game {
         document.getElementById("p1-name").textContent =
             this.p1.name + "（" + (this.mode === "lan-guest" ? "对方" : this.mode === "lan-host" ? "我方" : "P1") + "）";
         document.getElementById("p2-name").textContent =
-            this.p2.name + "（" + (this.mode === "lan-guest" ? "我方" : this.mode === "lan-host" ? "对方" : "P2") + "）";
+            this.p2.name + "（" + (this.mode === "cpu" ? "人机" : this.mode === "lan-guest" ? "我方" : this.mode === "lan-host" ? "对方" : "P2") + "）";
         // 专属资源（剑契/狼魂等）合并到名字下方提示；双形态角色追加形态标注
         for (const [tag, f] of [["p1", this.p1], ["p2", this.p2]]) {
             const el = document.getElementById(tag + "-special");
@@ -988,14 +1027,14 @@ class Game {
             if (force || el.style.width !== pct) el.style.width = pct;
         };
         const R = CONFIG.resources;
-        setBar("p1-health", this.p1.health / R.maxHealth);
-        setBar("p2-health", this.p2.health / R.maxHealth);
+        setBar("p1-health", this.p1.health / this.p1.maxHealth);
+        setBar("p2-health", this.p2.health / this.p2.maxHealth);
         // 残影条只在血量变化时延迟跟随，避免每帧堆积定时器
         for (const [i, f, tag] of [[0, this.p1, "p1"], [1, this.p2, "p2"]]) {
             if (this._lastHp[i] !== f.health) {
                 this._lastHp[i] = f.health;
                 const ghost = document.getElementById(tag + "-ghost");
-                setTimeout(() => { ghost.style.width = Math.max(0, f.health / R.maxHealth) * 100 + "%"; }, 250);
+                setTimeout(() => { ghost.style.width = Math.max(0, f.health / f.maxHealth) * 100 + "%"; }, 250);
             }
         }
         setBar("p1-meter", this.p1.meter / R.maxMeter);
@@ -1105,6 +1144,7 @@ class Game {
 
     drawProjectiles() {
         for (const p of this.projectiles) {
+            if (window.jiankeFX && ((p.owner?.charId || p.fxChar) === "jianke" || ((p.owner?.charId || p.fxChar) === "shouwang" && window.shouwangFX))) continue;
             if (p.owner?.charId === "noble") {
                 const c = this.ctx, dir = Math.sign(p.vx) || 1, r = Math.max(12, p.size);
                 c.save(); c.translate(p.x, p.y); c.scale(dir, 1);
@@ -1156,15 +1196,14 @@ class Game {
             return;
         }
 
+        if(this.phase==="fight"&&this.tickSuperFreeze?.())return;
         if (this.phase === "menu" || this.phase === "paused" || this.phase === "between" || this.phase === "matchEnd") return;
         this.phaseTimer++;
 
         if (this.phase === "intro") {
-            if (this.phaseTimer === 30) this.announce("FIGHT!", false);
-            if (this.phaseTimer >= CONFIG.round.introFrames) {
-                this.phase = "fight";
-                this.announce("", true);
-            }
+            this.phaseTimer=Math.floor((performance.now()-this._introStartedAt)*.06);
+            if(this.phaseTimer>=CONFIG.round.introFrames){this.phase='fight';this._fightBannerStartedAt=performance.now();this.keysDown={};this.keysPressed={};this._edgeStore={};this._edgeStore1={};this._edgeStore2={};this.announce('',true);}
+            if(this.mode==='lan-host')this.broadcastState();
             return;
         }
 
@@ -1188,9 +1227,11 @@ class Game {
                 this.updatePracticeTarget();
             }
             this.applyInput(this.p1, inp);
-            if (this.mode !== "practice") this.applyInput(this.p2, this.readInput(TEST_KEYS_P2, this._edgeStore2 = this._edgeStore2 || {}));
+            if(this.mode==="cpu")this.applyInput(this.p2,this.readCpuInput());
+            else if (this.mode !== "practice") this.applyInput(this.p2, this.readInput(TEST_KEYS_P2, this._edgeStore2 = this._edgeStore2 || {}));
         }
 
+        if(this.beginSuperCinematic?.())return;
         // ---- 模拟 ----（面向已由方向键手动控制，不再自动转向对手）
         // 瞬步时缓：检测任意一方刚瞬步，进入慢动作窗口
         for (const f of [this.p1, this.p2]) {
@@ -1229,6 +1270,7 @@ class Game {
         this.updateSkillCasts(this.p1);
         this.updateSkillCasts(this.p2);
         this.updateProjectiles();
+        this.updateCombatV2?.();
 
         // 防重叠
         const b1 = this.p1.getBodyBox(), b2 = this.p2.getBodyBox();
@@ -1261,14 +1303,20 @@ class Game {
         if (this.mode === "lan-host") this.broadcastState();
     }
 
+    practiceCamera(){
+        const W=CONFIG.canvas.width,H=CONFIG.canvas.height,top=Math.min(this.p1.y-this.p1.height,this.p2.y-this.p2.height),bottom=Math.max(this.p1.y,this.p2.y);
+        const horizontal=Math.max(1,Math.min(1.65,W*.7/Math.max(1,Math.abs(this.p1.x-this.p2.x))));
+        const scale=Math.max(.8,Math.min(horizontal,(H-95)/Math.max(1,bottom-top)));
+        let y=H*.84-bottom*scale;if(top*scale+y<28)y=28-top*scale;
+        return {scale,x:W/2-(this.p1.x+this.p2.x)/2*scale,y};
+    }
+
     render() {
+        if (window.jiankeFX && this.phase === "menu") window.jiankeFX.clear();
         const ctx = this.ctx;
         ctx.save();
         if (this.mode === "practice" && this.p1 && this.p2) {
-            const zoom = Math.max(1, Math.min(1.65, CONFIG.canvas.width * 0.7 / Math.max(1, Math.abs(this.p1.x - this.p2.x))));
-            ctx.translate(CONFIG.canvas.width / 2, CONFIG.canvas.height * 0.84);
-            ctx.scale(zoom, zoom);
-            ctx.translate(-(this.p1.x + this.p2.x) / 2, -CONFIG.canvas.groundY);
+            const view=this.practiceCamera();ctx.translate(view.x,view.y);ctx.scale(view.scale,view.scale);
         }
         if (this.shake > 0.5) {
             ctx.translate((Math.random() - 0.5) * this.shake, (Math.random() - 0.5) * this.shake);
@@ -1277,10 +1325,12 @@ class Game {
         if (this.p1 && this.p2 && this.phase !== "menu") {
             this.drawShadow(this.p1);
             this.drawShadow(this.p2);
-            this.p1.draw(ctx);
-            this.p2.draw(ctx);
+            if(this.phase==='intro'&&window.roundEntrance){const t=window.roundEntrance.tick(this);window.roundEntrance.actor(ctx,this.p1,t);window.roundEntrance.actor(ctx,this.p2,t);}else{window.blinkFX?.draw(this,ctx,this.p1);window.blinkFX?.draw(this,ctx,this.p2);this.p1.draw(ctx);this.p2.draw(ctx);}
+            if (this.phase!=="intro" && window.rainWeather?.enabled(this)) { window.rainWeather.active = true; window.rainWeather.wet(ctx,this.p1); window.rainWeather.wet(ctx,this.p2); }
+            this.drawCombatV2?.(ctx);
             this.drawProjectiles();
             this.drawSparks();
+            if (window.jiankeFX) window.jiankeFX.render(this, ctx);
             // 调试：角色头顶显示朝向箭头（开碰撞框时生效）
             if (CONFIG.debug) {
                 for (const p of [this.p1, this.p2]) {
@@ -1290,6 +1340,8 @@ class Game {
                 }
             }
         }
+        if (window.rainWeather) window.rainWeather.render(this,ctx);
+        if(window.roundEntrance&&(this.phase==="intro"||(this.phase==="fight"&&this._fightBannerStartedAt!=null&&performance.now()-this._fightBannerStartedAt<600)))window.roundEntrance.overlay(ctx,this);
         // 瞬步时缓：边缘淡蓝光晕提示「慢动作」
         if (this.slowmoFrames > 0 && this.phase === "fight") {
             const a = Math.min(0.5, this.slowmoFrames / CONFIG.resources.slowmoFrames * 0.6);
@@ -1302,6 +1354,7 @@ class Game {
             ctx.fillRect(0, 0, CONFIG.canvas.width, CONFIG.canvas.height);
         }
         ctx.restore();
+        this.drawSuperCinematic?.(ctx);
     }
 
     /** 脚下投影（悬空时缩小变淡，增强材质感） */
