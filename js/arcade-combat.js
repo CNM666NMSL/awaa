@@ -8,12 +8,13 @@ Game.prototype.readCpuInput=function(){
  const delay=level==='easy'?14:level==='hard'?5:9;
  if(brain.tick%delay!==1)return {...brain.hold};
  const distance=Math.abs(enemy.x-f.x),dir=enemy.x<f.x?-1:1,r=Math.random(),input={};
- const threat=enemy.currentAttack&&['attack','super'].includes(enemy.state)&&distance<170;
+ const ultimate={...f.def.super_,...f.def.super_.forms?.[f.form]},superReach=ultimate.signatureArt==='tracking-meteors'||ultimate.lockOn?CONFIG.canvas.width:ultimate.range;
+ const threat=enemy.currentAttack&&['attack','super'].includes(enemy.state)&&distance<enemy.currentAttack.range+(enemy.width+f.width)/2;
  const wave=this.projectiles.some(p=>p.owner===enemy&&Math.abs(p.x-f.x)<160&&Math.abs(p.y-(f.y-f.height/2))<100);
  const defense=level==='easy'?.28:level==='hard'?.8:.55;
  if(f.state==='charge'&&distance>280&&f.meter<100)input.chgHeld=true;
  else if((wave||threat)&&r<defense){if(wave&&f.dashCooldownLeft===0){input.l=dir<0;input.r=dir>0;input.dsh=true;}else{input.d=true;if(r<defense*.3)input.spc=true;}}
- else if(distance<215&&f.meter>=100&&f.canAct())input.sup=true;
+ else if(distance<superReach+(f.width+enemy.width)/2&&f.meter>=100&&f.canAct())input.sup=true;
  else if(distance<105){input.l=dir<0;input.r=dir>0;if(!brain.cool){input.atk=true;input.u=r<.22;input.d=r>.8;brain.cool=level==='easy'?30:level==='hard'?15:21;}}
  else if(distance<360&&!brain.cool&&r<.45){input.l=dir<0;input.r=dir>0;input.skl=true;brain.cool=level==='easy'?100:65;}
  else if(distance>330&&f.meter<100&&r<.25)input.chgHeld=true;
@@ -25,7 +26,6 @@ Game.prototype.beginSuperCinematic=function(){
  for(const [side,f] of [[1,this.p1],[2,this.p2]])if(f?.state==='super'&&(f.superSerial||0)>(this._superSeen.get(f)||0)){
   this._superSeen.set(f,f.superSerial);this.superFreeze={side,id:f.superSerial,left:24,total:24,char:f.charId};
   if(this.roundStartMs!==null)this.roundStartMs+=1000/60;
-  window.awaAudio?.tone('effects',650,.35,.13,'triangle');
   if(this.mode==='lan-host')this.broadcastState();return true;
  }return false;
 };
@@ -37,7 +37,7 @@ Game.prototype.tickSuperFreeze=function(){
 const palettes={noble:['#f5d999','#a79bde','七星芒阵 · 终焉七重刺'],jianke:['#c7efff','#4385a3','大剑 · 沧澜断水'],shouwang:['#d0ecff','#658ec0','圣印魔法 · 银铠裁决']};
 Game.prototype.drawSuperCinematic=function(ctx){
  const s=this.superFreeze;if(!s||s.left<=0||!['fight','paused'].includes(this.phase))return;
- const f=s.side===1?this.p1:this.p2;if(!f)return;const [gold,tint,title]=palettes[f.charId]||palettes.noble;
+ const f=s.side===1?this.p1:this.p2;if(!f)return;const [gold,tint,oldTitle]=f.def.cyberChinese?[f.def.color,f.def.colorDark,f.def.super_.name]:palettes[f.charId]||palettes.noble;const title=f.currentAttack?.name||f.def.super_.name||oldTitle;
  const progress=1-s.left/s.total;ctx.save();ctx.fillStyle='rgba(5,10,16,.86)';ctx.fillRect(0,0,1200,540);
  const grad=ctx.createLinearGradient(0,110,1200,430);grad.addColorStop(0,tint+'55');grad.addColorStop(.55,'#142322');grad.addColorStop(1,gold+'66');ctx.fillStyle=grad;ctx.beginPath();ctx.moveTo(0,185);ctx.lineTo(1200,95);ctx.lineTo(1200,400);ctx.lineTo(0,490);ctx.fill();
  ctx.strokeStyle=gold;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,185);ctx.lineTo(1200,95);ctx.moveTo(0,490);ctx.lineTo(1200,400);ctx.stroke();
@@ -53,7 +53,7 @@ window.arcadeParticles={previous:new WeakMap(),render(fx,game,dt){
  if(window.characterMagic)return window.characterMagic.render(fx,game,dt);
  if(dt<=0)return;fx.maxEvents=matchMedia('(pointer:coarse)').matches?160:240;
  for(const f of [game.p1,game.p2])if(f){const t=f.stateTimer,state=f.state,old=this.previous.get(f)||{},reset=old.state!==state||t<old.t||old.attack!==f.currentAttack;
- const superMove=state==='super',charge=state==='charge',active=['attack','skill','parry'].includes(state);
+ if(state==='super'&&f.currentAttack?.signatureArt)continue;const superMove=state==='super',charge=state==='charge',active=['attack','skill','parry'].includes(state);
  const bucket=Math.floor(t/(superMove?5:charge?9:12));
  if((superMove||charge||active)&&(reset||bucket!==old.bucket)){
  const power=superMove?2.5:charge?.7:1,count=superMove?18:charge?7:7;

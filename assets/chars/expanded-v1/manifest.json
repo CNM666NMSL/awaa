@@ -1,0 +1,5937 @@
+{
+  "version": 1,
+  "targets": {
+    "basic": 10,
+    "skill": 12,
+    "super": 25
+  },
+  "identities": {
+    "noble": {
+      "idle": {
+        "frames": 10,
+        "originalFrames": 8,
+        "newDrawings": 2,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/idle/00.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/idle/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 2,
+            "group": "idle"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/idle/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/idle/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/idle/04.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/idle/05.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 8,
+            "group": "idle"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/idle/06.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/idle/07.png"
+          }
+        ]
+      },
+      "walk": {
+        "frames": 10,
+        "originalFrames": 8,
+        "newDrawings": 2,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/walk/00.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/walk/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 2,
+            "group": "walk"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/walk/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/walk/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/walk/04.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/walk/05.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 8,
+            "group": "walk"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/walk/06.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/walk/07.png"
+          }
+        ]
+      },
+      "run": {
+        "frames": 10,
+        "originalFrames": 8,
+        "newDrawings": 2,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/run/00.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/run/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 2,
+            "group": "run"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/run/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/run/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/run/04.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/run/05.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 8,
+            "group": "run"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/run/06.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/run/07.png"
+          }
+        ]
+      },
+      "jump": {
+        "frames": 10,
+        "originalFrames": 9,
+        "newDrawings": 1,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/jump/00.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/jump/01.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/jump/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/jump/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 4,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/jump/04.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/jump/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/jump/06.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/jump/07.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/jump/08.png"
+          }
+        ]
+      },
+      "dash": {
+        "frames": 10,
+        "originalFrames": 4,
+        "newDrawings": 6,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 1,
+            "group": "dash"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 2,
+            "group": "dash"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 4,
+            "group": "dash"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 5,
+            "group": "dash"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 6,
+            "group": "dash"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 7,
+            "group": "dash"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/05.png"
+          }
+        ]
+      },
+      "j1": {
+        "frames": 10,
+        "originalFrames": 9,
+        "newDrawings": 1,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j1/00.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j1/01.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j1/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j1/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 4,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j1/04.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j1/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j1/06.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j1/07.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j1/08.png"
+          }
+        ]
+      },
+      "j2": {
+        "frames": 10,
+        "originalFrames": 9,
+        "newDrawings": 1,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j2/00.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j2/01.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j2/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j2/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 2,
+            "group": "j2"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j2/04.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j2/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j2/06.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j2/07.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j2/08.png"
+          }
+        ]
+      },
+      "j3": {
+        "frames": 10,
+        "originalFrames": 9,
+        "newDrawings": 1,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j3/00.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j3/01.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j3/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j3/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 2,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j3/04.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j3/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j3/06.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j3/07.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j3/08.png"
+          }
+        ]
+      },
+      "j4": {
+        "frames": 10,
+        "originalFrames": 7,
+        "newDrawings": 3,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/j4/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 1,
+            "group": "j4"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/j4/01.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/j4/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 2,
+            "group": "j4"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/j4/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/j4/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 4,
+            "group": "j4"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/j4/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/j4/06.png"
+          }
+        ]
+      },
+      "low": {
+        "frames": 10,
+        "originalFrames": 9,
+        "newDrawings": 1,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/low/00.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/low/01.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/low/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/low/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 2,
+            "group": "low"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/low/04.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/low/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/low/06.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/low/07.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/low/08.png"
+          }
+        ]
+      },
+      "dashAttack": {
+        "frames": 10,
+        "originalFrames": 9,
+        "newDrawings": 1,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/00.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/01.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 4,
+            "group": "dashAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/04.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/06.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/07.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/08.png"
+          }
+        ]
+      },
+      "airAttack": {
+        "frames": 10,
+        "originalFrames": 6,
+        "newDrawings": 4,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/airAttack/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 1,
+            "group": "airAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/airAttack/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 2,
+            "group": "airAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/airAttack/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/airAttack/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 3,
+            "group": "airAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/airAttack/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 4,
+            "group": "airAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/airAttack/05.png"
+          }
+        ]
+      },
+      "block": {
+        "frames": 12,
+        "originalFrames": 6,
+        "newDrawings": 6,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/block/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 1,
+            "group": "block"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/block/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 3,
+            "group": "block"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/block/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 5,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 7,
+            "group": "block"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/block/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 9,
+            "group": "block"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/block/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 11,
+            "group": "block"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/block/05.png"
+          }
+        ]
+      },
+      "charge": {
+        "frames": 12,
+        "originalFrames": 3,
+        "newDrawings": 9,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/block/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 1,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 2,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 3,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 4,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 5,
+            "group": "charge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/block/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 8,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 9,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 10,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 11,
+            "group": "charge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/block/05.png"
+          }
+        ]
+      },
+      "uCharge": {
+        "frames": 12,
+        "originalFrames": 4,
+        "newDrawings": 8,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/uCharge/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 1,
+            "group": "uCharge"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 2,
+            "group": "uCharge"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 3,
+            "group": "uCharge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/uCharge/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 5,
+            "group": "uCharge"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 7,
+            "group": "uCharge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/uCharge/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 9,
+            "group": "uCharge"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 10,
+            "group": "uCharge"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 11,
+            "group": "uCharge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/uCharge/03.png"
+          }
+        ]
+      },
+      "u": {
+        "frames": 12,
+        "originalFrames": 6,
+        "newDrawings": 6,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/u/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "u"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/u/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 3,
+            "group": "u"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/u/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 5,
+            "group": "u"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 7,
+            "group": "u"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/u/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 9,
+            "group": "u"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/u/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 11,
+            "group": "u"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/u/05.png"
+          }
+        ]
+      },
+      "uCharged": {
+        "frames": 12,
+        "originalFrames": 7,
+        "newDrawings": 5,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/uCharged/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 1,
+            "group": "uCharged"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/uCharged/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 3,
+            "group": "uCharged"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/uCharged/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 5,
+            "group": "uCharged"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/uCharged/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/uCharged/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 9,
+            "group": "uCharged"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/uCharged/05.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 11,
+            "group": "uCharged"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/noble/uCharged/06.png"
+          }
+        ]
+      },
+      "superLunge": {
+        "frames": 12,
+        "originalFrames": 9,
+        "newDrawings": 3,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/00.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 2,
+            "group": "superLunge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 5,
+            "group": "superLunge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/04.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/06.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 9,
+            "group": "superLunge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/07.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/08.png"
+          }
+        ]
+      },
+      "superWave": {
+        "frames": 12,
+        "originalFrames": 9,
+        "newDrawings": 3,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/00.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 6,
+            "column": 2,
+            "group": "superWave"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 6,
+            "column": 5,
+            "group": "superWave"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/04.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/06.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 6,
+            "column": 10,
+            "group": "superWave"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/07.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/u/08.png"
+          }
+        ]
+      },
+      "doubleJump": {
+        "frames": 10,
+        "originalFrames": 4,
+        "newDrawings": 6,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/doubleJump/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 2,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/doubleJump/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 4,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 5,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/doubleJump/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 7,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 8,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/doubleJump/03.png"
+          }
+        ]
+      },
+      "airMove": {
+        "frames": 10,
+        "originalFrames": 4,
+        "newDrawings": 6,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/airMove/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 2,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/airMove/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 4,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 5,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/airMove/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 7,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 8,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/noble/airMove/03.png"
+          }
+        ]
+      },
+      "launcher": {
+        "frames": 10,
+        "originalFrames": 9,
+        "newDrawings": 1,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j3/00.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j3/01.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j3/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j3/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 2,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j3/04.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j3/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j3/06.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j3/07.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j3/08.png"
+          }
+        ]
+      },
+      "parry": {
+        "frames": 12,
+        "originalFrames": 5,
+        "newDrawings": 7,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/block/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 1,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 2,
+            "group": "block"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/block/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 4,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 5,
+            "group": "block"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/block/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 8,
+            "group": "block"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/block/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 10,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 11,
+            "group": "block"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/block/05.png"
+          }
+        ]
+      },
+      "parryCounter": {
+        "frames": 10,
+        "originalFrames": 9,
+        "newDrawings": 1,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j1/00.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j1/01.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j1/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j1/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 4,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j1/04.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j1/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j1/06.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j1/07.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/j1/08.png"
+          }
+        ]
+      },
+      "super_": {
+        "frames": 25,
+        "originalFrames": 9,
+        "newDrawings": 16,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/super_/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 1,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/super_/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 3,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 4,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/super_/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 1,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/super_/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/super_/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 4,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 0,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 1,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 2,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 3,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 4,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 0,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 2,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/super_/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/super_/06.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 0,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 1,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/super_/07.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 3,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/noble/v3/super_/08.png"
+          }
+        ]
+      }
+    },
+    "jianke": {
+      "idle": {
+        "frames": 10,
+        "originalFrames": 4,
+        "newDrawings": 6,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/idle/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 1,
+            "group": "idle"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 2,
+            "group": "idle"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/idle/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 4,
+            "group": "idle"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 6,
+            "group": "idle"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/idle/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 8,
+            "group": "idle"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 9,
+            "group": "idle"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/idle/03.png"
+          }
+        ]
+      },
+      "walk": {
+        "frames": 10,
+        "originalFrames": 8,
+        "newDrawings": 2,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/walk-v3/00.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/walk-v3/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 2,
+            "group": "walk"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/walk-v3/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/walk-v3/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/walk-v3/04.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/walk-v3/05.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 8,
+            "group": "walk"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/walk-v3/06.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/walk-v3/07.png"
+          }
+        ]
+      },
+      "run": {
+        "frames": 10,
+        "originalFrames": 8,
+        "newDrawings": 2,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/run/00.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/run/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 2,
+            "group": "run"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/run/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/run/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/run/04.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/run/05.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 8,
+            "group": "run"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/run/06.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/run/07.png"
+          }
+        ]
+      },
+      "jump": {
+        "frames": 10,
+        "originalFrames": 7,
+        "newDrawings": 3,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/jump/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/jump/01.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/jump/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 4,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/jump/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/jump/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 8,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/jump/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/jump/06.png"
+          }
+        ]
+      },
+      "dash": {
+        "frames": 10,
+        "originalFrames": 4,
+        "newDrawings": 6,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/dash/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 1,
+            "group": "dash"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 2,
+            "group": "dash"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/dash/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 4,
+            "group": "dash"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 6,
+            "group": "dash"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/dash/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 8,
+            "group": "dash"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 9,
+            "group": "dash"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/dash/03.png"
+          }
+        ]
+      },
+      "j1": {
+        "frames": 10,
+        "originalFrames": 5,
+        "newDrawings": 5,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/j1/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 1,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/j1/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 3,
+            "group": "j1"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 4,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/j1/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 6,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/j1/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 8,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/j1/04.png"
+          }
+        ]
+      },
+      "j2": {
+        "frames": 10,
+        "originalFrames": 6,
+        "newDrawings": 4,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/j2/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 1,
+            "group": "j2"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/j2/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 2,
+            "group": "j2"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/j2/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/j2/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 3,
+            "group": "j2"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/j2/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 4,
+            "group": "j2"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/j2/05.png"
+          }
+        ]
+      },
+      "j3": {
+        "frames": 10,
+        "originalFrames": 6,
+        "newDrawings": 4,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/j3/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 1,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/j3/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 2,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/j3/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/j3/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 3,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/j3/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 4,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/j3/05.png"
+          }
+        ]
+      },
+      "j4": {
+        "frames": 10,
+        "originalFrames": 7,
+        "newDrawings": 3,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/j4/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 1,
+            "group": "j4"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/j4/01.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/j4/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 2,
+            "group": "j4"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/j4/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/j4/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 4,
+            "group": "j4"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/j4/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/j4/06.png"
+          }
+        ]
+      },
+      "low": {
+        "frames": 10,
+        "originalFrames": 5,
+        "newDrawings": 5,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/low/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "low"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/low/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 2,
+            "group": "low"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 3,
+            "group": "low"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/low/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 4,
+            "group": "low"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/low/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 5,
+            "group": "low"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/low/04.png"
+          }
+        ]
+      },
+      "dashAttack": {
+        "frames": 10,
+        "originalFrames": 5,
+        "newDrawings": 5,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/dashAttack/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 1,
+            "group": "dashAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/dashAttack/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 2,
+            "group": "dashAttack"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 3,
+            "group": "dashAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/dashAttack/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 4,
+            "group": "dashAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/dashAttack/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 5,
+            "group": "dashAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/dashAttack/04.png"
+          }
+        ]
+      },
+      "airAttack": {
+        "frames": 10,
+        "originalFrames": 6,
+        "newDrawings": 4,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/airAttack/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 1,
+            "group": "airAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/airAttack/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 2,
+            "group": "airAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/airAttack/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/airAttack/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 3,
+            "group": "airAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/airAttack/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 4,
+            "group": "airAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/airAttack/05.png"
+          }
+        ]
+      },
+      "block": {
+        "frames": 12,
+        "originalFrames": 1,
+        "newDrawings": 11,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/block/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 1,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 2,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 4,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 5,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 6,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 7,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 8,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 9,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 11,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 12,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 13,
+            "group": "block"
+          }
+        ]
+      },
+      "charge": {
+        "frames": 12,
+        "originalFrames": 4,
+        "newDrawings": 8,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/charge/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 1,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 2,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 4,
+            "group": "charge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/charge/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 6,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 7,
+            "group": "charge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/charge/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 9,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 11,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 12,
+            "group": "charge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/charge/03.png"
+          }
+        ]
+      },
+      "uCharge": {
+        "frames": 12,
+        "originalFrames": 4,
+        "newDrawings": 8,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/uCharge/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 1,
+            "group": "uCharge"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 2,
+            "group": "uCharge"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 4,
+            "group": "uCharge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/uCharge/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 6,
+            "group": "uCharge"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 7,
+            "group": "uCharge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/uCharge/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 9,
+            "group": "uCharge"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 11,
+            "group": "uCharge"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 12,
+            "group": "uCharge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/uCharge/03.png"
+          }
+        ]
+      },
+      "u": {
+        "frames": 12,
+        "originalFrames": 6,
+        "newDrawings": 6,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/u/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "u"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/u/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 3,
+            "group": "u"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/u/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 5,
+            "group": "u"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 7,
+            "group": "u"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/u/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 9,
+            "group": "u"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/u/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 11,
+            "group": "u"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/u/05.png"
+          }
+        ]
+      },
+      "uCharged": {
+        "frames": 12,
+        "originalFrames": 7,
+        "newDrawings": 5,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/uCharged/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 1,
+            "group": "uCharged"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/uCharged/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 3,
+            "group": "uCharged"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/uCharged/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 5,
+            "group": "uCharged"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/uCharged/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/uCharged/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 9,
+            "group": "uCharged"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/uCharged/05.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 11,
+            "group": "uCharged"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/jianke/uCharged/06.png"
+          }
+        ]
+      },
+      "superLunge": {
+        "frames": 12,
+        "originalFrames": 5,
+        "newDrawings": 7,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/superLunge/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 1,
+            "group": "superLunge"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 2,
+            "group": "superLunge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/superLunge/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 4,
+            "group": "superLunge"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 5,
+            "group": "superLunge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/superLunge/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 8,
+            "group": "superLunge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/superLunge/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 10,
+            "group": "superLunge"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 11,
+            "group": "superLunge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/superLunge/04.png"
+          }
+        ]
+      },
+      "superWave": {
+        "frames": 12,
+        "originalFrames": 5,
+        "newDrawings": 7,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/superWave/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 1,
+            "group": "superWave"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 2,
+            "group": "superWave"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/superWave/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 4,
+            "group": "superWave"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 5,
+            "group": "superWave"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/superWave/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 8,
+            "group": "superWave"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/superWave/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 10,
+            "group": "superWave"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 11,
+            "group": "superWave"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/superWave/04.png"
+          }
+        ]
+      },
+      "walkBack": {
+        "frames": 10,
+        "originalFrames": 4,
+        "newDrawings": 6,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/movement/walkBack/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 1,
+            "group": "walk"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 2,
+            "group": "walk"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/movement/walkBack/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 4,
+            "group": "walk"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 6,
+            "group": "walk"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/movement/walkBack/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 8,
+            "group": "walk"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 9,
+            "group": "walk"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/movement/walkBack/03.png"
+          }
+        ]
+      },
+      "doubleJump": {
+        "frames": 10,
+        "originalFrames": 4,
+        "newDrawings": 6,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/doubleJump/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 2,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/doubleJump/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 4,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 6,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/doubleJump/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 8,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 9,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/doubleJump/03.png"
+          }
+        ]
+      },
+      "airMove": {
+        "frames": 10,
+        "originalFrames": 4,
+        "newDrawings": 6,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/airMove/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 2,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/airMove/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 4,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 6,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/airMove/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 8,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 9,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/jianke/airMove/03.png"
+          }
+        ]
+      },
+      "launcher": {
+        "frames": 10,
+        "originalFrames": 5,
+        "newDrawings": 5,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/launcher/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 1,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/launcher/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 2,
+            "group": "j3"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 3,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/launcher/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 4,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/launcher/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 5,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/launcher/04.png"
+          }
+        ]
+      },
+      "parry": {
+        "frames": 12,
+        "originalFrames": 3,
+        "newDrawings": 9,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/parry/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 1,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 2,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 4,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 5,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 6,
+            "group": "block"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/parry/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 8,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 9,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 11,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 12,
+            "group": "block"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/parry/02.png"
+          }
+        ]
+      },
+      "super_": {
+        "frames": 25,
+        "originalFrames": 7,
+        "newDrawings": 18,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/super_/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 1,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/super_/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 3,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 4,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/super_/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 1,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/super_/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/super_/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 4,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 0,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 1,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 2,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 3,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 4,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 0,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 2,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 3,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/super_/05.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 0,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 1,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 2,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 3,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/jianke/v2/super_/06.png"
+          }
+        ]
+      }
+    },
+    "armored": {
+      "idle": {
+        "frames": 10,
+        "originalFrames": 1,
+        "newDrawings": 9,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/idle/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 1,
+            "group": "idle"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 2,
+            "group": "idle"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 3,
+            "group": "idle"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 4,
+            "group": "idle"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 5,
+            "group": "idle"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 6,
+            "group": "idle"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 7,
+            "group": "idle"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 8,
+            "group": "idle"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 9,
+            "group": "idle"
+          }
+        ]
+      },
+      "run": {
+        "frames": 10,
+        "originalFrames": 8,
+        "newDrawings": 2,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/run/00.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/run/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 2,
+            "group": "run"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/run/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/run/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/run/04.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/run/05.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 7,
+            "group": "run"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/run/06.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/run/07.png"
+          }
+        ]
+      },
+      "jump": {
+        "frames": 10,
+        "originalFrames": 7,
+        "newDrawings": 3,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/jump/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/jump/01.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/jump/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 4,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/jump/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/jump/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 7,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/jump/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/jump/06.png"
+          }
+        ]
+      },
+      "dash": {
+        "frames": 10,
+        "originalFrames": 4,
+        "newDrawings": 6,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/dash/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 1,
+            "group": "dash"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 2,
+            "group": "dash"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/dash/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 4,
+            "group": "dash"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 5,
+            "group": "dash"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/dash/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 6,
+            "group": "dash"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 7,
+            "group": "dash"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/dash/03.png"
+          }
+        ]
+      },
+      "j1": {
+        "frames": 10,
+        "originalFrames": 6,
+        "newDrawings": 4,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/j1/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 1,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/j1/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 3,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/j1/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/j1/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 5,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/j1/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 7,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/j1/05.png"
+          }
+        ]
+      },
+      "j2": {
+        "frames": 10,
+        "originalFrames": 6,
+        "newDrawings": 4,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/j2/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 1,
+            "group": "j2"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/j2/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 2,
+            "group": "j2"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/j2/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/j2/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 3,
+            "group": "j2"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/j2/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 4,
+            "group": "j2"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/j2/05.png"
+          }
+        ]
+      },
+      "j3": {
+        "frames": 10,
+        "originalFrames": 7,
+        "newDrawings": 3,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/j3/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 1,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/j3/01.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/j3/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 2,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/j3/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/j3/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 4,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/j3/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/j3/06.png"
+          }
+        ]
+      },
+      "j4": {
+        "frames": 10,
+        "originalFrames": 7,
+        "newDrawings": 3,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/j4/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 1,
+            "group": "j4"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/j4/01.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/j4/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 2,
+            "group": "j4"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/j4/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/j4/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 4,
+            "group": "j4"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/j4/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/j4/06.png"
+          }
+        ]
+      },
+      "low": {
+        "frames": 10,
+        "originalFrames": 6,
+        "newDrawings": 4,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/low/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "low"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/low/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 2,
+            "group": "low"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/low/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/low/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 3,
+            "group": "low"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/low/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 4,
+            "group": "low"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/low/05.png"
+          }
+        ]
+      },
+      "dashAttack": {
+        "frames": 10,
+        "originalFrames": 6,
+        "newDrawings": 4,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/dashAttack/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 1,
+            "group": "dashAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/dashAttack/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 3,
+            "group": "dashAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/dashAttack/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/dashAttack/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 5,
+            "group": "dashAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/dashAttack/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 7,
+            "group": "dashAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/dashAttack/05.png"
+          }
+        ]
+      },
+      "airAttack": {
+        "frames": 10,
+        "originalFrames": 6,
+        "newDrawings": 4,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/airAttack/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 1,
+            "group": "airAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/airAttack/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 2,
+            "group": "airAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/airAttack/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/airAttack/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 3,
+            "group": "airAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/airAttack/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 4,
+            "group": "airAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/airAttack/05.png"
+          }
+        ]
+      },
+      "block": {
+        "frames": 12,
+        "originalFrames": 1,
+        "newDrawings": 11,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/block/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 1,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 2,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 3,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 4,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 5,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 6,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 7,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 8,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 9,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 10,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 11,
+            "group": "block"
+          }
+        ]
+      },
+      "charge": {
+        "frames": 12,
+        "originalFrames": 1,
+        "newDrawings": 11,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/charge/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 1,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 2,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 3,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 4,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 5,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 6,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 7,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 8,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 9,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 10,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 11,
+            "group": "charge"
+          }
+        ]
+      },
+      "uCharge": {
+        "frames": 12,
+        "originalFrames": 4,
+        "newDrawings": 8,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/uCharge/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 1,
+            "group": "uCharge"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 2,
+            "group": "uCharge"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 3,
+            "group": "uCharge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/uCharge/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 5,
+            "group": "uCharge"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 6,
+            "group": "uCharge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/uCharge/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 8,
+            "group": "uCharge"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 9,
+            "group": "uCharge"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 10,
+            "group": "uCharge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/uCharge/03.png"
+          }
+        ]
+      },
+      "u": {
+        "frames": 12,
+        "originalFrames": 6,
+        "newDrawings": 6,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/u/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "u"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/u/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 3,
+            "group": "u"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/u/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 5,
+            "group": "u"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 6,
+            "group": "u"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/u/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 7,
+            "group": "u"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/u/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 9,
+            "group": "u"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/u/05.png"
+          }
+        ]
+      },
+      "uCharged": {
+        "frames": 12,
+        "originalFrames": 7,
+        "newDrawings": 5,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/uCharged/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 1,
+            "group": "uCharged"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/uCharged/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 3,
+            "group": "uCharged"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/uCharged/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 5,
+            "group": "uCharged"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/uCharged/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/uCharged/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 7,
+            "group": "uCharged"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/uCharged/05.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 9,
+            "group": "uCharged"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/armored/uCharged/06.png"
+          }
+        ]
+      },
+      "doubleJump": {
+        "frames": 10,
+        "originalFrames": 4,
+        "newDrawings": 6,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/doubleJump/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 2,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/doubleJump/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 4,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 5,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/doubleJump/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 7,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 8,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/doubleJump/03.png"
+          }
+        ]
+      },
+      "airMove": {
+        "frames": 10,
+        "originalFrames": 4,
+        "newDrawings": 6,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/airMove/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 2,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/airMove/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 4,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 5,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/airMove/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 7,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 8,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/armored/airMove/03.png"
+          }
+        ]
+      },
+      "launcher": {
+        "frames": 10,
+        "originalFrames": 6,
+        "newDrawings": 4,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/launcher/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 1,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/launcher/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 2,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/launcher/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/launcher/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 3,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/launcher/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 4,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/launcher/05.png"
+          }
+        ]
+      },
+      "parry": {
+        "frames": 12,
+        "originalFrames": 3,
+        "newDrawings": 9,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/parry/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 1,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 2,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 3,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 4,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 5,
+            "group": "block"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/parry/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 7,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 8,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 9,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 10,
+            "group": "block"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/parry/02.png"
+          }
+        ]
+      },
+      "parryCounter": {
+        "frames": 10,
+        "originalFrames": 6,
+        "newDrawings": 4,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/parryCounter/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 1,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/parryCounter/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 3,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/parryCounter/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/parryCounter/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 5,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/parryCounter/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 7,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/parryCounter/05.png"
+          }
+        ]
+      },
+      "super_": {
+        "frames": 25,
+        "originalFrames": 9,
+        "newDrawings": 16,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/super_/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 1,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/super_/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 3,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 4,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/super_/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 1,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/super_/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/super_/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 4,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 0,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 1,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 2,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 3,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 4,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 0,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 2,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/super_/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/super_/06.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 0,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 1,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/super_/07.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 3,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/armored/super_/08.png"
+          }
+        ]
+      }
+    },
+    "unarmored": {
+      "idle": {
+        "frames": 10,
+        "originalFrames": 1,
+        "newDrawings": 9,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/idle/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 1,
+            "group": "idle"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 2,
+            "group": "idle"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 3,
+            "group": "idle"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 4,
+            "group": "idle"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 6,
+            "group": "idle"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 7,
+            "group": "idle"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 8,
+            "group": "idle"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 9,
+            "group": "idle"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 10,
+            "group": "idle"
+          }
+        ]
+      },
+      "run": {
+        "frames": 10,
+        "originalFrames": 8,
+        "newDrawings": 2,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/run/00.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/run/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 2,
+            "group": "run"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/run/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/run/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/run/04.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/run/05.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 7,
+            "group": "run"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/run/06.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/run/07.png"
+          }
+        ]
+      },
+      "jump": {
+        "frames": 10,
+        "originalFrames": 7,
+        "newDrawings": 3,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/jump/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/jump/01.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/jump/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 4,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/jump/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/jump/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 7,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/jump/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/jump/06.png"
+          }
+        ]
+      },
+      "dash": {
+        "frames": 10,
+        "originalFrames": 4,
+        "newDrawings": 6,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/dash/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 1,
+            "group": "dash"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 2,
+            "group": "dash"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/dash/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 4,
+            "group": "dash"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 5,
+            "group": "dash"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/dash/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 6,
+            "group": "dash"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 7,
+            "group": "dash"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/dash/03.png"
+          }
+        ]
+      },
+      "j1": {
+        "frames": 10,
+        "originalFrames": 6,
+        "newDrawings": 4,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/j1/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 1,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/j1/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 3,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/j1/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/j1/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 6,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/j1/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 8,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/j1/05.png"
+          }
+        ]
+      },
+      "j2": {
+        "frames": 10,
+        "originalFrames": 6,
+        "newDrawings": 4,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/j2/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 1,
+            "group": "j2"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/j2/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 2,
+            "group": "j2"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/j2/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/j2/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 3,
+            "group": "j2"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/j2/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 4,
+            "group": "j2"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/j2/05.png"
+          }
+        ]
+      },
+      "j3": {
+        "frames": 10,
+        "originalFrames": 7,
+        "newDrawings": 3,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/j3/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 1,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/j3/01.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/j3/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 2,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/j3/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/j3/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 4,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/j3/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/j3/06.png"
+          }
+        ]
+      },
+      "j4": {
+        "frames": 10,
+        "originalFrames": 7,
+        "newDrawings": 3,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/j4/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 1,
+            "group": "j4"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/j4/01.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/j4/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 2,
+            "group": "j4"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/j4/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/j4/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 4,
+            "group": "j4"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/j4/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/j4/06.png"
+          }
+        ]
+      },
+      "low": {
+        "frames": 10,
+        "originalFrames": 6,
+        "newDrawings": 4,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/low/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "low"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/low/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 2,
+            "group": "low"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/low/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/low/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 3,
+            "group": "low"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/low/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 4,
+            "group": "low"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/low/05.png"
+          }
+        ]
+      },
+      "dashAttack": {
+        "frames": 10,
+        "originalFrames": 6,
+        "newDrawings": 4,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/dashAttack/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 1,
+            "group": "dashAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/dashAttack/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 3,
+            "group": "dashAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/dashAttack/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/dashAttack/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 5,
+            "group": "dashAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/dashAttack/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 7,
+            "group": "dashAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/dashAttack/05.png"
+          }
+        ]
+      },
+      "airAttack": {
+        "frames": 10,
+        "originalFrames": 6,
+        "newDrawings": 4,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/airAttack/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 1,
+            "group": "airAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/airAttack/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 2,
+            "group": "airAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/airAttack/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/airAttack/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 3,
+            "group": "airAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/airAttack/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 4,
+            "group": "airAttack"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/airAttack/05.png"
+          }
+        ]
+      },
+      "block": {
+        "frames": 12,
+        "originalFrames": 1,
+        "newDrawings": 11,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/block/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 1,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 2,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 3,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 4,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 5,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 7,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 8,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 9,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 10,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 11,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 12,
+            "group": "block"
+          }
+        ]
+      },
+      "charge": {
+        "frames": 12,
+        "originalFrames": 1,
+        "newDrawings": 11,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/charge/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 1,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 2,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 3,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 4,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 5,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 7,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 8,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 9,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 10,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 11,
+            "group": "charge"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 12,
+            "group": "charge"
+          }
+        ]
+      },
+      "uCharge": {
+        "frames": 12,
+        "originalFrames": 4,
+        "newDrawings": 8,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/uCharge/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 1,
+            "group": "uCharge"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 2,
+            "group": "uCharge"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 3,
+            "group": "uCharge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/uCharge/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 5,
+            "group": "uCharge"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 7,
+            "group": "uCharge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/uCharge/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 9,
+            "group": "uCharge"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 10,
+            "group": "uCharge"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 11,
+            "group": "uCharge"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/uCharge/03.png"
+          }
+        ]
+      },
+      "u": {
+        "frames": 12,
+        "originalFrames": 6,
+        "newDrawings": 6,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/u/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "u"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/u/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 3,
+            "group": "u"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/u/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 5,
+            "group": "u"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 7,
+            "group": "u"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/u/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 9,
+            "group": "u"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/u/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 11,
+            "group": "u"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/u/05.png"
+          }
+        ]
+      },
+      "uCharged": {
+        "frames": 12,
+        "originalFrames": 7,
+        "newDrawings": 5,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/uCharged/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 1,
+            "group": "uCharged"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/uCharged/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 3,
+            "group": "uCharged"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/uCharged/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 5,
+            "group": "uCharged"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/uCharged/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/uCharged/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 9,
+            "group": "uCharged"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/uCharged/05.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 4,
+            "column": 11,
+            "group": "uCharged"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/combat-v2/unarmored/uCharged/06.png"
+          }
+        ]
+      },
+      "doubleJump": {
+        "frames": 10,
+        "originalFrames": 4,
+        "newDrawings": 6,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/doubleJump/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 2,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/doubleJump/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 4,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 5,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/doubleJump/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 7,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 8,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/doubleJump/03.png"
+          }
+        ]
+      },
+      "airMove": {
+        "frames": 10,
+        "originalFrames": 4,
+        "newDrawings": 6,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/airMove/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 2,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/airMove/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 4,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 5,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/airMove/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 7,
+            "group": "jump"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 8,
+            "group": "jump"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/mobility-v1/unarmored/airMove/03.png"
+          }
+        ]
+      },
+      "launcher": {
+        "frames": 10,
+        "originalFrames": 6,
+        "newDrawings": 4,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/launcher/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 1,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/launcher/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 2,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/launcher/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/launcher/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 3,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/launcher/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 4,
+            "group": "j3"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/launcher/05.png"
+          }
+        ]
+      },
+      "parry": {
+        "frames": 12,
+        "originalFrames": 3,
+        "newDrawings": 9,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/parry/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 1,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 2,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 3,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 4,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 5,
+            "group": "block"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/parry/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 8,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 9,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 10,
+            "group": "block"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 11,
+            "group": "block"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/parry/02.png"
+          }
+        ]
+      },
+      "parryCounter": {
+        "frames": 10,
+        "originalFrames": 6,
+        "newDrawings": 4,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/parryCounter/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 1,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/parryCounter/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 3,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/parryCounter/02.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/parryCounter/03.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 6,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/parryCounter/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 5,
+            "column": 8,
+            "group": "j1"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/parryCounter/05.png"
+          }
+        ]
+      },
+      "super_": {
+        "frames": 25,
+        "originalFrames": 9,
+        "newDrawings": 16,
+        "files": [
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/super_/00.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 1,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/super_/01.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 2,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 0,
+            "column": 3,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/super_/02.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 0,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/super_/03.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/super_/04.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 2,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 3,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 1,
+            "column": 4,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 0,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 1,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 2,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 3,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 2,
+            "column": 4,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 0,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/super_/05.png"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/super_/06.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 1,
+            "group": "super_"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 2,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/super_/07.png"
+          },
+          {
+            "kind": "drawn",
+            "row": 3,
+            "column": 3,
+            "group": "super_"
+          },
+          {
+            "kind": "original",
+            "source": "assets/chars/shouwang/v1/unarmored/super_/08.png"
+          }
+        ]
+      }
+    }
+  },
+  "generator": "built-in image_gen; original key poses retained with newly drawn inbetweens",
+  "totalFrames": 1056,
+  "newDrawings": 517
+}

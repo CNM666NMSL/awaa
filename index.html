@@ -8,8 +8,20 @@
 <link rel="stylesheet" href="practice.css?v=practice-all2">
 <link rel="stylesheet" href="dusk-theme.css?v=c1">
 <link rel="stylesheet" href="responsive.css?v=mobile3">
+<link rel="stylesheet" href="stage-select.css?v=stages1">
+<link rel="stylesheet" href="loading.css?v=load1"><link rel="stylesheet" href="arena-ui.css?v=arena2">
 </head>
-<body>
+<body class="assets-loading">
+<section id="resource-loading" role="status" aria-live="polite" aria-busy="true" aria-label="正在加载游戏资源">
+    <span class="loading-kicker">AWA / PREPARING THE ARENA</span>
+    <div class="loading-seal" aria-hidden="true"></div>
+    <h1 class="loading-brand">残街对决</h1>
+    <p id="loading-description">正在准备游戏资源…</p>
+    <progress id="loading-progress" max="100" value="0" aria-label="资源加载进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></progress>
+    <span id="loading-percent">0%</span>
+    <button id="loading-retry" type="button" hidden>重新加载失败资源</button>
+</section>
+<script src="js/resource-loader.js?v=load1"></script>
 <div id="game-wrapper">
 <button id="quick-settings" aria-label="打开设置">⚙ 设置</button>
     <!-- 顶部 HUD -->
@@ -58,7 +70,7 @@
             <button id="practice-change-character">重新选人</button><button id="practice-contract">叠满资源</button><button id="practice-reset">重置位置</button>
             <span id="practice-stats" aria-live="polite">自由练习</span>
         </div>
-        <p class="practice-help">A / D 移动，双击快跑 · K 二段跳（方向键空中可控） · 空中方向 + J 追击 · J 四段连击 · W + J 上攻 · S + J 下攻 · L → J 瞬身攻击 · U 短按远攻 / 长按蓄力 / 空中可用 · O 满资源特殊技 · I 必杀 · P / S + P 攒气。点击出招表中的「演示」可直接试招。</p>
+        <p class="practice-help">A / D 移动，双击快跑 · K 二段跳（方向键空中可控） · 空中方向 + J 追击 · J 角色专属连击 · W + J 上攻 · S + J 下攻 · L → J 瞬身攻击 · U 短按远攻 / 长按蓄力 / 空中可用 · O 满资源特殊技 · I 必杀 · P / S + P 攒气。点击出招表中的「演示」可直接试招。</p>
         <details open><summary id="practice-move-title">出招表与参数</summary><div class="move-table-wrap"><table id="noble-moves"><thead><tr><th>招式 / 操作</th><th>基础伤害</th><th>耗气</th><th>前摇</th><th>判定</th><th>收招</th><th>射程</th><th></th></tr></thead><tbody></tbody></table></div><p class="practice-help">帧数以 60 FPS、0 层资源计；射程从角色中心计算，单位为游戏像素。实际伤害受资源、形态和连段影响。练习靶桩会自动恢复。</p></details>
     </section>
 
@@ -126,6 +138,7 @@
             <section><h3>操控角色 · P1</h3><div class="char-grid" id="practice-grid-player"></div><label id="practice-player-form-label" class="practice-form-label hidden">守望者形态 <select id="practice-player-form"><option value="armored">穿甲 · 银铠守望</option><option value="unarmored">脱甲 · 符文重剑</option></select></label></section>
             <section><h3>陪练角色</h3><div class="char-grid" id="practice-grid-target"></div><label id="practice-target-form-label" class="practice-form-label hidden">守望者形态 <select id="practice-target-form"><option value="armored">穿甲 · 银铠守望</option><option value="unarmored">脱甲 · 符文重剑</option></select></label></section>
         </div>
+        <section class="stage-section" aria-label="练习场景"><h3>选择场景</h3><div id="practice-stage-picker"></div></section>
         <div class="practice-pick-footer"><p id="practice-pick-summary" aria-live="polite"></p><button id="btn-practice-start" class="menu-btn">进入练习</button><button id="btn-practice-select-back" class="menu-btn back">返回</button></div>
     </div>
 
@@ -143,6 +156,7 @@
             </div>
         </div>
         <label id="cpu-options" class="hidden">人机难度 <select id="cpu-level"><option value="easy">入门</option><option value="normal" selected>标准</option><option value="hard">挑战</option></select></label>
+        <section class="stage-section" aria-label="对决场景"><h3>选择场景</h3><div id="local-stage-picker"></div></section>
         <div class="lobby-footer">
             <span id="local-picks">P1：贵族决斗者 VS P2：江湖剑客</span>
             <button class="menu-btn" id="btn-local-start">开始战斗</button>
@@ -207,15 +221,16 @@
                 <h3>键位操作 / 手机按键对照</h3><p>手机：左侧方向键移动与防御；右侧普攻、跳跃、瞬身、远攻、特殊、大招与蓄气。横屏体验更佳。</p><p>P2：← → 移动，↓ 防御，↑+1 上挑；1 普攻 / 2 跳跃 / 3 瞬身 / 4 远攻 / 5 大招 / 6 特殊 / 7 蓄气。</p>
                 <p>A / D 移动 &nbsp; W + J 上挑（W 单按不跳） &nbsp; S 防御/受身</p>
                 <p>J 普攻(三段) &nbsp; K 跳跃(方向二段跳，空中可移动攻击) &nbsp; L 瞬步</p>
-                <p>U 远攻、L 瞬步、O 特殊技均不耗气；气槽仅用于满气大招</p>
-                <p>I / 5：满100气释放大招；不足100气无法释放。</p>
+                <p>剑客、贵族、守望者：按住U 1秒进入二段，2.5秒进入三段，最多蓄力7秒自动释放。U 普通与蓄力远攻共用 2 秒释放间隔；L 瞬步不耗气，O 满资源施放特殊技。</p>
+                <p>I / 5：满100气释放大招；不足100气无法释放。剑客：8秒剑阵；贵族：6秒无敌六斩；守望者：6秒内3次陨石／石柱攻击。</p>
                 <p>守望者：S+I 不耗气从穿甲(减伤/慢) → 脱甲(攻速+10%，单向不可逆)</p>
                 <p>P / 7 长按攒气，S+P / ↓+7 同样可用；松键或受击中断。</p>
                 <p>命中 +5 / 受击约 +3.33 / 格挡 +4 气（上限100点）</p>
                 <p>W+J 上攻 &nbsp; S+J 下攻(破防) &nbsp; Esc 暂停</p>
             </div>
         </div>
-        <button class="menu-btn back" id="btn-settings-back">返回主界面</button>
+        <button class="menu-btn back" id="btn-settings-back">返回</button>
+        <button class="menu-btn" id="btn-settings-home">退出战斗，返回主界面</button>
     </div>
 
     <!-- ================= 退出游戏 ================= -->
@@ -246,20 +261,22 @@
     </div>
 </div>
 
-<script src="js/config.js?v=arcade1"></script>
+<script src="js/config.js?v=motion2"></script>
 <script src="js/jianke-anims.js?v=20261023-rain1"></script>
-<script src="js/jianke-movement.js?v=move1"></script><script src="js/jianke-walk.js?v=walk3"></script><script src="js/shouwang-anims.js?v=watch1"></script><script src="js/mobility-anims.js?v=mobility1"></script><script src="js/combat-v2-config.js?v=combat4"></script><script src="js/fighter.js?v=combat4"></script>
+<script src="js/jianke-movement.js?v=move1"></script><script src="js/jianke-walk.js?v=walk3"></script><script src="js/shouwang-anims.js?v=watch1"></script><script src="js/mobility-anims.js?v=mobility1"></script><script src="js/combat-v2-config.js?v=combat4"></script><script src="js/expanded-anims.js?v=frames1"></script><script src="js/gait-v2.js?v=idle1"></script><script src="js/cyber-anims.js?v=cyber1"></script><script src="js/cyber-roster.js?v=combo1"></script><script src="js/motion-v2.js?v=motion2"></script><script src="js/ultimate-ranges.js?v=range1"></script><script src="js/wuxiang-revolver.js?v=gun1"></script><script src="js/ranged-arts-config.js?v=arts1"></script><script src="js/signature-arts-config.js?v=mobile-super2"></script><script src="js/fighter.js?v=signature1"></script>
 <script src="js/net.js?v=20261023-rain1"></script>
-<script type="module" src="js/rain-weather.js?v=arcade2"></script>
-<script type="module" src="js/jianke-fx.js?v=arcade1"></script>
-<script type="module" src="js/shouwang-fx.js?v=magic1"></script>
-<script type="module" src="js/character-magic.js?v=combat4"></script>
+<script type="module" src="js/rain-weather.js?v=load1"></script>
+<script type="module" src="js/jianke-fx.js?v=signature1"></script>
+<script type="module" src="js/shouwang-fx.js?v=signature1"></script>
+<script type="module" src="js/character-magic.js?v=signature1"></script>
 <script src="js/round-entrance.js?v=theme-c1"></script>
 <script src="js/blink-fx.js?v=arcade2"></script>
-<script src="js/game.js?v=combat4"></script>
-<script src="js/arcade-combat.js?v=magic1"></script>
-<script src="js/noble-practice.js?v=combat4"></script>
-<script src="js/combat-v2.js?v=combat4"></script>
-<script src="js/mobile-ui.js?v=combat4"></script>
+<script src="js/game.js?v=combo1"></script>
+<script src="js/stage-select.js?v=stages1"></script>
+<script src="js/arcade-combat.js?v=arena2"></script>
+<script src="js/noble-practice.js?v=combo1"></script>
+<script src="js/combat-v2.js?v=arts1"></script>
+<script src="js/cyber-combat.js?v=arts1"></script><script src="js/ranged-arts.js?v=signature1"></script><script src="js/signature-combat.js?v=combo1"></script><script src="js/mobile-supers.js?v=mobile-super2"></script><script src="js/signature-fx.js?v=combo1"></script><script src="js/mobile-ui.js?v=signature1"></script>
+<script src="js/combo-rework.js?v=combo1"></script><script src="js/arena-ui.js?v=combo1"></script><script>window.gameAssets.finishBootstrap();</script>
 </body>
 </html>

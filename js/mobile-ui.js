@@ -24,6 +24,18 @@ function openSettings(){releaseAll();if(!$('menu-settings').classList.contains('
 $('quick-settings').onclick=openSettings;$('btn-ingame-settings').onclick=openSettings;
 const mainMenu=g.onMainMenu;g.onMainMenu=function(target){if(target==='settings')return openSettings();return mainMenu.call(this,target);};
 $('btn-settings-back').onclick=()=>{if(pausedHere&&g.phase==='paused')g.togglePause();else g.show(settingsReturn);pausedHere=false;};
+g.returnToMainMenu=function(){
+ releaseAll();pausedHere=false;settingsReturn='menu-main';
+ if(this.net){for(const callback of ['onOpen','onCreated','onJoined','onPeerJoined','onPeerLeft','onRelay','onError','onStatus'])this.net[callback]=null;this.net.close();this.net=null;}
+ this.phase='menu';this.mode=null;this.keysDown={};this.keysPressed={};this._edgeStore={};this._edgeStore1={};this._edgeStore2={};
+ this.projectiles=[];this.specialObjects=[];this.cyberObjects=[];this.signatureObjects=[];this.superFreeze=null;this.cpuBrain=null;this.remoteInput=null;this.practiceReturnToFight=false;this.roundStartMs=null;this.phaseTimer=0;
+ this.p1=null;this.p2=null;this.sparks=[];this.shake=0;
+ this.isHost=false;this.lobby.myReady=false;this.lobby.oppReady=false;this.lobby.oppChar=null;
+ for(const media of document.querySelectorAll('video,audio')){media.pause();if(media.readyState)media.currentTime=0;}
+ window.jiankeFX?.clear();$('noble-practice').classList.add('hidden');this.show('menu-main');
+};
+$('btn-settings-home').onclick=()=>g.returnToMainMenu();
+$('btn-quit').onclick=()=>g.returnToMainMenu();
 window.addEventListener('keydown',e=>{if(e.code==='Escape'&&!$('menu-settings').classList.contains('hidden')){e.stopImmediatePropagation();$('btn-settings-back').click();}},true);
 
 // Three independent gain buses. No character speech exists yet; videos and future voice assets use the voice bus.
@@ -39,6 +51,6 @@ for(const event of ['pointerdown','keydown'])document.addEventListener(event,()=
 document.querySelectorAll('video').forEach(v=>v.addEventListener('play',()=>v.volume=audio.values.voice));
 let note=0;const melody=[146.83,174.61,220,196,146.83,130.81,174.61,164.81];
 setInterval(()=>{if(document.hidden||g.phase==='paused'||!$('menu-settings').classList.contains('hidden')||[...document.querySelectorAll('video')].some(v=>!v.paused))return;audio.tone('music',melody[note++%melody.length],1.5,.045);},650);
-const previous=new WeakMap(),update=g.update;g.update=function(...args){const result=update.apply(this,args);if(this.phase==='fight')for(const f of [this.p1,this.p2])if(f){const p=previous.get(f);if(p&&p.health>f.health)audio.tone('effects',90,.14,.16,'triangle');if(p&&p.state!==f.state&&['attack','skill','super','dash'].includes(f.state))audio.tone('effects',f.state==='super'?480:300,.12,.06,'triangle');previous.set(f,{state:f.state,health:f.health});}return result;};
+const previous=new WeakMap(),update=g.update;g.update=function(...args){const result=update.apply(this,args);if(this.phase==='fight')for(const f of [this.p1,this.p2])if(f){const p=previous.get(f);if(p&&p.health>f.health)audio.tone('effects',90,.14,.16,'triangle');if(p&&p.state!==f.state&&['attack','skill','dash'].includes(f.state))audio.tone('effects',300,.12,.06,'triangle');previous.set(f,{state:f.state,health:f.health});}return result;};
 })();
 

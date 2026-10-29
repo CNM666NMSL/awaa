@@ -1,0 +1,140 @@
+{
+  "motong": {
+    "source": "sheets/motong-walk-corrected.png",
+    "scale": 0.6648936170212766,
+    "cells": [
+      {
+        "row": 0,
+        "column": 0
+      },
+      {
+        "row": 0,
+        "column": 1
+      },
+      {
+        "row": 0,
+        "column": 2
+      },
+      {
+        "row": 0,
+        "column": 3
+      },
+      {
+        "row": 0,
+        "column": 4
+      },
+      {
+        "row": 1,
+        "column": 0
+      },
+      {
+        "row": 1,
+        "column": 1
+      },
+      {
+        "row": 1,
+        "column": 2
+      },
+      {
+        "row": 1,
+        "column": 3
+      },
+      {
+        "row": 1,
+        "column": 4
+      }
+    ]
+  },
+  "liequan": {
+    "source": "sheets/liequan-walk-corrected.png",
+    "scale": 0.6510416666666666,
+    "cells": [
+      {
+        "row": 0,
+        "column": 0
+      },
+      {
+        "row": 0,
+        "column": 1
+      },
+      {
+        "row": 0,
+        "column": 2
+      },
+      {
+        "row": 0,
+        "column": 3
+      },
+      {
+        "row": 0,
+        "column": 4
+      },
+      {
+        "row": 1,
+        "column": 0
+      },
+      {
+        "row": 1,
+        "column": 1
+      },
+      {
+        "row": 1,
+        "column": 2
+      },
+      {
+        "row": 1,
+        "column": 3
+      },
+      {
+        "row": 1,
+        "column": 4
+      }
+    ]
+  },
+  "wuxiang": {
+    "source": "sheets/wuxiang-walk-corrected.png",
+    "scale": 0.6648936170212766,
+    "cells": [
+      {
+        "row": 0,
+        "column": 0
+      },
+      {
+        "row": 0,
+        "column": 1
+      },
+      {
+        "row": 0,
+        "column": 2
+      },
+      {
+        "row": 0,
+        "column": 3
+      },
+      {
+        "row": 0,
+        "column": 4
+      },
+      {
+        "row": 1,
+        "column": 0
+      },
+      {
+        "row": 1,
+        "column": 1
+      },
+      {
+        "row": 1,
+        "column": 2
+      },
+      {
+        "row": 1,
+        "column": 3
+      },
+      {
+        "row": 1,
+        "column": 4
+      }
+    ]
+  }
+}

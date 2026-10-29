@@ -1,0 +1,22 @@
+[
+  {
+    "id": "jianke",
+    "path": "C:\\Users\\Lenovo\\.codex\\generated_images\\01a17cd3-f1b7-74a2-b860-174cd017cf2a\\exec-68a3bf29-1d30-4836-bf95-5c1f0d4942bb.png",
+    "ref": "E:/游戏1/AWA/assets/chars/jianke/v2/portrait.png"
+  },
+  {
+    "id": "unarmored",
+    "path": "C:\\Users\\Lenovo\\.codex\\generated_images\\01a17cd3-f1b7-74a2-b860-174cd017cf2a\\exec-865210e2-45e7-4b73-aff7-54cb78544d89.png",
+    "ref": "E:/游戏1/AWA/assets/chars/shouwang.png"
+  },
+  {
+    "id": "armored",
+    "path": "C:\\Users\\Lenovo\\.codex\\generated_images\\01a17cd3-f1b7-74a2-b860-174cd017cf2a\\exec-83fcf219-479c-49e0-a84c-bbd49ca28d36.png",
+    "ref": "E:/游戏1/AWA/assets/chars/shouwang_armed.png"
+  },
+  {
+    "id": "noble",
+    "path": "C:\\Users\\Lenovo\\.codex\\generated_images\\01a17cd3-f1b7-74a2-b860-174cd017cf2a\\exec-736e3286-8020-4695-b61c-95414d5f2fbd.png",
+    "ref": "E:/游戏1/AWA/assets/chars/noble/v3/idle/00.png"
+  }
+]

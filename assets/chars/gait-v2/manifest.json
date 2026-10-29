@@ -1,0 +1,397 @@
+{
+  "generator": "built-in image_gen",
+  "identities": {
+    "noble": {
+      "walk": {
+        "frames": 10,
+        "fps": 24,
+        "scale": 0.7966573816155988,
+        "source": "sheets/noble-walk.png",
+        "cells": [
+          {
+            "row": 0,
+            "column": 0
+          },
+          {
+            "row": 0,
+            "column": 1
+          },
+          {
+            "row": 0,
+            "column": 2
+          },
+          {
+            "row": 0,
+            "column": 3
+          },
+          {
+            "row": 0,
+            "column": 4
+          },
+          {
+            "row": 1,
+            "column": 0
+          },
+          {
+            "row": 1,
+            "column": 1
+          },
+          {
+            "row": 1,
+            "column": 2
+          },
+          {
+            "row": 1,
+            "column": 3
+          },
+          {
+            "row": 1,
+            "column": 4
+          }
+        ]
+      },
+      "run": {
+        "frames": 10,
+        "fps": 32,
+        "scale": 0.5690140845070423,
+        "source": "sheets/noble-run-v3.png",
+        "cells": [
+          {
+            "row": 0,
+            "column": 0
+          },
+          {
+            "row": 0,
+            "column": 1
+          },
+          {
+            "row": 0,
+            "column": 2
+          },
+          {
+            "row": 0,
+            "column": 3
+          },
+          {
+            "row": 0,
+            "column": 4
+          },
+          {
+            "row": 1,
+            "column": 0
+          },
+          {
+            "row": 1,
+            "column": 1
+          },
+          {
+            "row": 1,
+            "column": 2
+          },
+          {
+            "row": 1,
+            "column": 3
+          },
+          {
+            "row": 1,
+            "column": 4
+          }
+        ]
+      }
+    },
+    "jianke": {
+      "walk": {
+        "frames": 10,
+        "fps": 24,
+        "scale": 0.6858789625360231,
+        "source": "sheets/jianke-walk.png",
+        "cells": [
+          {
+            "row": 0,
+            "column": 0
+          },
+          {
+            "row": 0,
+            "column": 1
+          },
+          {
+            "row": 0,
+            "column": 2
+          },
+          {
+            "row": 0,
+            "column": 3
+          },
+          {
+            "row": 0,
+            "column": 4
+          },
+          {
+            "row": 1,
+            "column": 0
+          },
+          {
+            "row": 1,
+            "column": 1
+          },
+          {
+            "row": 1,
+            "column": 2
+          },
+          {
+            "row": 1,
+            "column": 3
+          },
+          {
+            "row": 1,
+            "column": 4
+          }
+        ]
+      },
+      "run": {
+        "frames": 10,
+        "fps": 32,
+        "scale": 0.6231003039513677,
+        "source": "sheets/jianke-run-v3.png",
+        "cells": [
+          {
+            "row": 0,
+            "column": 0
+          },
+          {
+            "row": 0,
+            "column": 1
+          },
+          {
+            "row": 0,
+            "column": 2
+          },
+          {
+            "row": 0,
+            "column": 3
+          },
+          {
+            "row": 0,
+            "column": 4
+          },
+          {
+            "row": 1,
+            "column": 0
+          },
+          {
+            "row": 1,
+            "column": 1
+          },
+          {
+            "row": 1,
+            "column": 2
+          },
+          {
+            "row": 1,
+            "column": 3
+          },
+          {
+            "row": 1,
+            "column": 4
+          }
+        ]
+      }
+    },
+    "armored": {
+      "walk": {
+        "frames": 10,
+        "fps": 24,
+        "scale": 0.7207207207207207,
+        "source": "sheets/armored-walk.png",
+        "cells": [
+          {
+            "row": 0,
+            "column": 0
+          },
+          {
+            "row": 0,
+            "column": 1
+          },
+          {
+            "row": 0,
+            "column": 2
+          },
+          {
+            "row": 0,
+            "column": 3
+          },
+          {
+            "row": 0,
+            "column": 4
+          },
+          {
+            "row": 1,
+            "column": 0
+          },
+          {
+            "row": 1,
+            "column": 1
+          },
+          {
+            "row": 1,
+            "column": 2
+          },
+          {
+            "row": 1,
+            "column": 3
+          },
+          {
+            "row": 1,
+            "column": 4
+          }
+        ]
+      },
+      "run": {
+        "frames": 10,
+        "fps": 32,
+        "scale": 0.640625,
+        "source": "sheets/armored-run-v3.png",
+        "cells": [
+          {
+            "row": 0,
+            "column": 0
+          },
+          {
+            "row": 0,
+            "column": 1
+          },
+          {
+            "row": 0,
+            "column": 2
+          },
+          {
+            "row": 0,
+            "column": 3
+          },
+          {
+            "row": 0,
+            "column": 4
+          },
+          {
+            "row": 1,
+            "column": 0
+          },
+          {
+            "row": 1,
+            "column": 1
+          },
+          {
+            "row": 1,
+            "column": 2
+          },
+          {
+            "row": 1,
+            "column": 3
+          },
+          {
+            "row": 1,
+            "column": 4
+          }
+        ]
+      }
+    },
+    "unarmored": {
+      "walk": {
+        "frames": 10,
+        "fps": 24,
+        "scale": 0.7058823529411765,
+        "source": "sheets/unarmored-walk.png",
+        "cells": [
+          {
+            "row": 0,
+            "column": 0
+          },
+          {
+            "row": 0,
+            "column": 1
+          },
+          {
+            "row": 0,
+            "column": 2
+          },
+          {
+            "row": 0,
+            "column": 3
+          },
+          {
+            "row": 0,
+            "column": 4
+          },
+          {
+            "row": 1,
+            "column": 0
+          },
+          {
+            "row": 1,
+            "column": 1
+          },
+          {
+            "row": 1,
+            "column": 2
+          },
+          {
+            "row": 1,
+            "column": 3
+          },
+          {
+            "row": 1,
+            "column": 4
+          }
+        ]
+      },
+      "run": {
+        "frames": 10,
+        "fps": 32,
+        "scale": 0.5878962536023055,
+        "source": "sheets/unarmored-run-v3.png",
+        "cells": [
+          {
+            "row": 0,
+            "column": 0
+          },
+          {
+            "row": 0,
+            "column": 1
+          },
+          {
+            "row": 0,
+            "column": 2
+          },
+          {
+            "row": 0,
+            "column": 3
+          },
+          {
+            "row": 0,
+            "column": 4
+          },
+          {
+            "row": 1,
+            "column": 0
+          },
+          {
+            "row": 1,
+            "column": 1
+          },
+          {
+            "row": 1,
+            "column": 2
+          },
+          {
+            "row": 1,
+            "column": 3
+          },
+          {
+            "row": 1,
+            "column": 4
+          }
+        ]
+      }
+    }
+  }
+}

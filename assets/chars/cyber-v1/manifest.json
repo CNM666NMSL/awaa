@@ -1,0 +1,1920 @@
+{
+  "identities": {
+    "motong": {
+      "walk": {
+        "drawings": 10,
+        "source": "sheets/motong-mobility.png",
+        "cells": [
+          {
+            "row": 0,
+            "column": 0
+          },
+          {
+            "row": 0,
+            "column": 1
+          },
+          {
+            "row": 0,
+            "column": 2
+          },
+          {
+            "row": 0,
+            "column": 4
+          },
+          {
+            "row": 0,
+            "column": 5
+          },
+          {
+            "row": 1,
+            "column": 0
+          },
+          {
+            "row": 1,
+            "column": 1
+          },
+          {
+            "row": 1,
+            "column": 3
+          },
+          {
+            "row": 1,
+            "column": 4
+          },
+          {
+            "row": 1,
+            "column": 5
+          }
+        ]
+      },
+      "run": {
+        "drawings": 10,
+        "source": "sheets/motong-mobility.png",
+        "cells": [
+          {
+            "row": 2,
+            "column": 0
+          },
+          {
+            "row": 2,
+            "column": 1
+          },
+          {
+            "row": 2,
+            "column": 2
+          },
+          {
+            "row": 2,
+            "column": 4
+          },
+          {
+            "row": 2,
+            "column": 5
+          },
+          {
+            "row": 3,
+            "column": 0
+          },
+          {
+            "row": 3,
+            "column": 1
+          },
+          {
+            "row": 3,
+            "column": 3
+          },
+          {
+            "row": 3,
+            "column": 4
+          },
+          {
+            "row": 3,
+            "column": 5
+          }
+        ]
+      },
+      "jump": {
+        "drawings": 10,
+        "source": "sheets/motong-mobility.png",
+        "cells": [
+          {
+            "row": 4,
+            "column": 0
+          },
+          {
+            "row": 4,
+            "column": 1
+          },
+          {
+            "row": 4,
+            "column": 2
+          },
+          {
+            "row": 4,
+            "column": 4
+          },
+          {
+            "row": 4,
+            "column": 5
+          },
+          {
+            "row": 5,
+            "column": 0
+          },
+          {
+            "row": 5,
+            "column": 1
+          },
+          {
+            "row": 5,
+            "column": 3
+          },
+          {
+            "row": 5,
+            "column": 4
+          },
+          {
+            "row": 5,
+            "column": 5
+          }
+        ]
+      },
+      "dash": {
+        "drawings": 10,
+        "source": "sheets/motong-mobility.png",
+        "cells": [
+          {
+            "row": 6,
+            "column": 0
+          },
+          {
+            "row": 6,
+            "column": 1
+          },
+          {
+            "row": 6,
+            "column": 2
+          },
+          {
+            "row": 6,
+            "column": 3
+          },
+          {
+            "row": 6,
+            "column": 4
+          },
+          {
+            "row": 7,
+            "column": 0
+          },
+          {
+            "row": 7,
+            "column": 1
+          },
+          {
+            "row": 7,
+            "column": 2
+          },
+          {
+            "row": 7,
+            "column": 3
+          },
+          {
+            "row": 7,
+            "column": 4
+          }
+        ]
+      },
+      "j1": {
+        "drawings": 10,
+        "source": "sheets/motong-combat.png",
+        "cells": [
+          {
+            "row": 0,
+            "column": 0
+          },
+          {
+            "row": 0,
+            "column": 1
+          },
+          {
+            "row": 0,
+            "column": 2
+          },
+          {
+            "row": 0,
+            "column": 3
+          },
+          {
+            "row": 0,
+            "column": 4
+          },
+          {
+            "row": 1,
+            "column": 0
+          },
+          {
+            "row": 1,
+            "column": 1
+          },
+          {
+            "row": 1,
+            "column": 2
+          },
+          {
+            "row": 1,
+            "column": 3
+          },
+          {
+            "row": 1,
+            "column": 4
+          }
+        ]
+      },
+      "j2": {
+        "drawings": 10,
+        "source": "sheets/motong-combat.png",
+        "cells": [
+          {
+            "row": 2,
+            "column": 0
+          },
+          {
+            "row": 2,
+            "column": 1
+          },
+          {
+            "row": 2,
+            "column": 2
+          },
+          {
+            "row": 2,
+            "column": 3
+          },
+          {
+            "row": 2,
+            "column": 4
+          },
+          {
+            "row": 3,
+            "column": 0
+          },
+          {
+            "row": 3,
+            "column": 1
+          },
+          {
+            "row": 3,
+            "column": 2
+          },
+          {
+            "row": 3,
+            "column": 3
+          },
+          {
+            "row": 3,
+            "column": 4
+          }
+        ]
+      },
+      "j3": {
+        "drawings": 10,
+        "source": "sheets/motong-combat.png",
+        "cells": [
+          {
+            "row": 4,
+            "column": 0
+          },
+          {
+            "row": 4,
+            "column": 1
+          },
+          {
+            "row": 4,
+            "column": 2
+          },
+          {
+            "row": 4,
+            "column": 3
+          },
+          {
+            "row": 4,
+            "column": 4
+          },
+          {
+            "row": 5,
+            "column": 0
+          },
+          {
+            "row": 5,
+            "column": 1
+          },
+          {
+            "row": 5,
+            "column": 2
+          },
+          {
+            "row": 5,
+            "column": 3
+          },
+          {
+            "row": 5,
+            "column": 4
+          }
+        ]
+      },
+      "j4": {
+        "drawings": 10,
+        "source": "sheets/motong-combat.png",
+        "cells": [
+          {
+            "row": 6,
+            "column": 0
+          },
+          {
+            "row": 6,
+            "column": 1
+          },
+          {
+            "row": 6,
+            "column": 2
+          },
+          {
+            "row": 6,
+            "column": 3
+          },
+          {
+            "row": 6,
+            "column": 4
+          },
+          {
+            "row": 7,
+            "column": 0
+          },
+          {
+            "row": 7,
+            "column": 1
+          },
+          {
+            "row": 7,
+            "column": 2
+          },
+          {
+            "row": 7,
+            "column": 3
+          },
+          {
+            "row": 7,
+            "column": 4
+          }
+        ]
+      },
+      "block": {
+        "drawings": 12,
+        "source": "sheets/motong-skills.png",
+        "cells": [
+          {
+            "row": 0,
+            "column": 0
+          },
+          {
+            "row": 0,
+            "column": 1
+          },
+          {
+            "row": 0,
+            "column": 2
+          },
+          {
+            "row": 0,
+            "column": 3
+          },
+          {
+            "row": 0,
+            "column": 4
+          },
+          {
+            "row": 0,
+            "column": 5
+          },
+          {
+            "row": 1,
+            "column": 0
+          },
+          {
+            "row": 1,
+            "column": 1
+          },
+          {
+            "row": 1,
+            "column": 2
+          },
+          {
+            "row": 1,
+            "column": 3
+          },
+          {
+            "row": 1,
+            "column": 4
+          },
+          {
+            "row": 1,
+            "column": 5
+          }
+        ]
+      },
+      "charge": {
+        "drawings": 12,
+        "source": "sheets/motong-skills.png",
+        "cells": [
+          {
+            "row": 2,
+            "column": 0
+          },
+          {
+            "row": 2,
+            "column": 1
+          },
+          {
+            "row": 2,
+            "column": 2
+          },
+          {
+            "row": 2,
+            "column": 3
+          },
+          {
+            "row": 2,
+            "column": 4
+          },
+          {
+            "row": 2,
+            "column": 5
+          },
+          {
+            "row": 3,
+            "column": 0
+          },
+          {
+            "row": 3,
+            "column": 1
+          },
+          {
+            "row": 3,
+            "column": 2
+          },
+          {
+            "row": 3,
+            "column": 3
+          },
+          {
+            "row": 3,
+            "column": 4
+          },
+          {
+            "row": 3,
+            "column": 5
+          }
+        ]
+      },
+      "u": {
+        "drawings": 12,
+        "source": "sheets/motong-skills.png",
+        "cells": [
+          {
+            "row": 4,
+            "column": 0
+          },
+          {
+            "row": 4,
+            "column": 1
+          },
+          {
+            "row": 4,
+            "column": 2
+          },
+          {
+            "row": 4,
+            "column": 3
+          },
+          {
+            "row": 4,
+            "column": 4
+          },
+          {
+            "row": 4,
+            "column": 5
+          },
+          {
+            "row": 5,
+            "column": 0
+          },
+          {
+            "row": 5,
+            "column": 1
+          },
+          {
+            "row": 5,
+            "column": 2
+          },
+          {
+            "row": 5,
+            "column": 3
+          },
+          {
+            "row": 5,
+            "column": 4
+          },
+          {
+            "row": 5,
+            "column": 5
+          }
+        ]
+      },
+      "super_": {
+        "drawings": 25,
+        "source": "sheets/motong-super.png",
+        "cells": [
+          {
+            "row": 0,
+            "column": 0
+          },
+          {
+            "row": 0,
+            "column": 1
+          },
+          {
+            "row": 0,
+            "column": 2
+          },
+          {
+            "row": 0,
+            "column": 3
+          },
+          {
+            "row": 0,
+            "column": 4
+          },
+          {
+            "row": 1,
+            "column": 0
+          },
+          {
+            "row": 1,
+            "column": 1
+          },
+          {
+            "row": 1,
+            "column": 2
+          },
+          {
+            "row": 1,
+            "column": 3
+          },
+          {
+            "row": 1,
+            "column": 4
+          },
+          {
+            "row": 2,
+            "column": 0
+          },
+          {
+            "row": 2,
+            "column": 1
+          },
+          {
+            "row": 2,
+            "column": 2
+          },
+          {
+            "row": 2,
+            "column": 3
+          },
+          {
+            "row": 2,
+            "column": 4
+          },
+          {
+            "row": 3,
+            "column": 0
+          },
+          {
+            "row": 3,
+            "column": 1
+          },
+          {
+            "row": 3,
+            "column": 2
+          },
+          {
+            "row": 3,
+            "column": 3
+          },
+          {
+            "row": 3,
+            "column": 4
+          },
+          {
+            "row": 4,
+            "column": 0
+          },
+          {
+            "row": 4,
+            "column": 1
+          },
+          {
+            "row": 4,
+            "column": 2
+          },
+          {
+            "row": 4,
+            "column": 3
+          },
+          {
+            "row": 4,
+            "column": 4
+          }
+        ]
+      }
+    },
+    "liequan": {
+      "walk": {
+        "drawings": 10,
+        "source": "sheets/liequan-mobility.png",
+        "cells": [
+          {
+            "row": 0,
+            "column": 0
+          },
+          {
+            "row": 0,
+            "column": 1
+          },
+          {
+            "row": 0,
+            "column": 2
+          },
+          {
+            "row": 0,
+            "column": 3
+          },
+          {
+            "row": 0,
+            "column": 4
+          },
+          {
+            "row": 1,
+            "column": 0
+          },
+          {
+            "row": 1,
+            "column": 1
+          },
+          {
+            "row": 1,
+            "column": 2
+          },
+          {
+            "row": 1,
+            "column": 3
+          },
+          {
+            "row": 1,
+            "column": 4
+          }
+        ]
+      },
+      "run": {
+        "drawings": 10,
+        "source": "sheets/liequan-mobility.png",
+        "cells": [
+          {
+            "row": 2,
+            "column": 0
+          },
+          {
+            "row": 2,
+            "column": 1
+          },
+          {
+            "row": 2,
+            "column": 2
+          },
+          {
+            "row": 2,
+            "column": 3
+          },
+          {
+            "row": 2,
+            "column": 4
+          },
+          {
+            "row": 3,
+            "column": 0
+          },
+          {
+            "row": 3,
+            "column": 1
+          },
+          {
+            "row": 3,
+            "column": 2
+          },
+          {
+            "row": 3,
+            "column": 3
+          },
+          {
+            "row": 3,
+            "column": 4
+          }
+        ]
+      },
+      "jump": {
+        "drawings": 10,
+        "source": "sheets/liequan-mobility.png",
+        "cells": [
+          {
+            "row": 4,
+            "column": 0
+          },
+          {
+            "row": 4,
+            "column": 1
+          },
+          {
+            "row": 4,
+            "column": 2
+          },
+          {
+            "row": 4,
+            "column": 3
+          },
+          {
+            "row": 4,
+            "column": 4
+          },
+          {
+            "row": 5,
+            "column": 0
+          },
+          {
+            "row": 5,
+            "column": 1
+          },
+          {
+            "row": 5,
+            "column": 2
+          },
+          {
+            "row": 5,
+            "column": 3
+          },
+          {
+            "row": 5,
+            "column": 4
+          }
+        ]
+      },
+      "dash": {
+        "drawings": 10,
+        "source": "sheets/liequan-mobility.png",
+        "cells": [
+          {
+            "row": 6,
+            "column": 0
+          },
+          {
+            "row": 6,
+            "column": 1
+          },
+          {
+            "row": 6,
+            "column": 2
+          },
+          {
+            "row": 6,
+            "column": 3
+          },
+          {
+            "row": 6,
+            "column": 4
+          },
+          {
+            "row": 7,
+            "column": 0
+          },
+          {
+            "row": 7,
+            "column": 1
+          },
+          {
+            "row": 7,
+            "column": 2
+          },
+          {
+            "row": 7,
+            "column": 3
+          },
+          {
+            "row": 7,
+            "column": 4
+          }
+        ]
+      },
+      "j1": {
+        "drawings": 10,
+        "source": "sheets/liequan-combat.png",
+        "cells": [
+          {
+            "row": 0,
+            "column": 0
+          },
+          {
+            "row": 0,
+            "column": 1
+          },
+          {
+            "row": 0,
+            "column": 2
+          },
+          {
+            "row": 0,
+            "column": 3
+          },
+          {
+            "row": 0,
+            "column": 4
+          },
+          {
+            "row": 1,
+            "column": 0
+          },
+          {
+            "row": 1,
+            "column": 1
+          },
+          {
+            "row": 1,
+            "column": 2
+          },
+          {
+            "row": 1,
+            "column": 3
+          },
+          {
+            "row": 1,
+            "column": 4
+          }
+        ]
+      },
+      "j2": {
+        "drawings": 10,
+        "source": "sheets/liequan-combat.png",
+        "cells": [
+          {
+            "row": 2,
+            "column": 0
+          },
+          {
+            "row": 2,
+            "column": 1
+          },
+          {
+            "row": 2,
+            "column": 2
+          },
+          {
+            "row": 2,
+            "column": 3
+          },
+          {
+            "row": 2,
+            "column": 4
+          },
+          {
+            "row": 3,
+            "column": 0
+          },
+          {
+            "row": 3,
+            "column": 1
+          },
+          {
+            "row": 3,
+            "column": 2
+          },
+          {
+            "row": 3,
+            "column": 3
+          },
+          {
+            "row": 3,
+            "column": 4
+          }
+        ]
+      },
+      "j3": {
+        "drawings": 10,
+        "source": "sheets/liequan-combat.png",
+        "cells": [
+          {
+            "row": 4,
+            "column": 0
+          },
+          {
+            "row": 4,
+            "column": 1
+          },
+          {
+            "row": 4,
+            "column": 2
+          },
+          {
+            "row": 4,
+            "column": 3
+          },
+          {
+            "row": 4,
+            "column": 4
+          },
+          {
+            "row": 5,
+            "column": 0
+          },
+          {
+            "row": 5,
+            "column": 1
+          },
+          {
+            "row": 5,
+            "column": 2
+          },
+          {
+            "row": 5,
+            "column": 3
+          },
+          {
+            "row": 5,
+            "column": 4
+          }
+        ]
+      },
+      "j4": {
+        "drawings": 10,
+        "source": "sheets/liequan-combat.png",
+        "cells": [
+          {
+            "row": 6,
+            "column": 0
+          },
+          {
+            "row": 6,
+            "column": 1
+          },
+          {
+            "row": 6,
+            "column": 2
+          },
+          {
+            "row": 6,
+            "column": 3
+          },
+          {
+            "row": 6,
+            "column": 4
+          },
+          {
+            "row": 7,
+            "column": 0
+          },
+          {
+            "row": 7,
+            "column": 1
+          },
+          {
+            "row": 7,
+            "column": 2
+          },
+          {
+            "row": 7,
+            "column": 3
+          },
+          {
+            "row": 7,
+            "column": 4
+          }
+        ]
+      },
+      "block": {
+        "drawings": 12,
+        "source": "sheets/liequan-skills.png",
+        "cells": [
+          {
+            "row": 0,
+            "column": 0
+          },
+          {
+            "row": 0,
+            "column": 1
+          },
+          {
+            "row": 0,
+            "column": 2
+          },
+          {
+            "row": 0,
+            "column": 3
+          },
+          {
+            "row": 0,
+            "column": 4
+          },
+          {
+            "row": 0,
+            "column": 5
+          },
+          {
+            "row": 1,
+            "column": 0
+          },
+          {
+            "row": 1,
+            "column": 1
+          },
+          {
+            "row": 1,
+            "column": 2
+          },
+          {
+            "row": 1,
+            "column": 3
+          },
+          {
+            "row": 1,
+            "column": 4
+          },
+          {
+            "row": 1,
+            "column": 5
+          }
+        ]
+      },
+      "charge": {
+        "drawings": 12,
+        "source": "sheets/liequan-skills.png",
+        "cells": [
+          {
+            "row": 2,
+            "column": 0
+          },
+          {
+            "row": 2,
+            "column": 1
+          },
+          {
+            "row": 2,
+            "column": 2
+          },
+          {
+            "row": 2,
+            "column": 3
+          },
+          {
+            "row": 2,
+            "column": 4
+          },
+          {
+            "row": 2,
+            "column": 5
+          },
+          {
+            "row": 3,
+            "column": 0
+          },
+          {
+            "row": 3,
+            "column": 1
+          },
+          {
+            "row": 3,
+            "column": 2
+          },
+          {
+            "row": 3,
+            "column": 3
+          },
+          {
+            "row": 3,
+            "column": 4
+          },
+          {
+            "row": 3,
+            "column": 5
+          }
+        ]
+      },
+      "u": {
+        "drawings": 12,
+        "source": "sheets/liequan-skills.png",
+        "cells": [
+          {
+            "row": 4,
+            "column": 0
+          },
+          {
+            "row": 4,
+            "column": 1
+          },
+          {
+            "row": 4,
+            "column": 2
+          },
+          {
+            "row": 4,
+            "column": 3
+          },
+          {
+            "row": 4,
+            "column": 4
+          },
+          {
+            "row": 4,
+            "column": 5
+          },
+          {
+            "row": 5,
+            "column": 0
+          },
+          {
+            "row": 5,
+            "column": 1
+          },
+          {
+            "row": 5,
+            "column": 2
+          },
+          {
+            "row": 5,
+            "column": 3
+          },
+          {
+            "row": 5,
+            "column": 4
+          },
+          {
+            "row": 5,
+            "column": 5
+          }
+        ]
+      },
+      "super_": {
+        "drawings": 25,
+        "source": "sheets/liequan-super.png",
+        "cells": [
+          {
+            "row": 0,
+            "column": 0
+          },
+          {
+            "row": 0,
+            "column": 1
+          },
+          {
+            "row": 0,
+            "column": 2
+          },
+          {
+            "row": 0,
+            "column": 3
+          },
+          {
+            "row": 0,
+            "column": 4
+          },
+          {
+            "row": 1,
+            "column": 0
+          },
+          {
+            "row": 1,
+            "column": 1
+          },
+          {
+            "row": 1,
+            "column": 2
+          },
+          {
+            "row": 1,
+            "column": 3
+          },
+          {
+            "row": 1,
+            "column": 4
+          },
+          {
+            "row": 2,
+            "column": 0
+          },
+          {
+            "row": 2,
+            "column": 1
+          },
+          {
+            "row": 2,
+            "column": 2
+          },
+          {
+            "row": 2,
+            "column": 3
+          },
+          {
+            "row": 2,
+            "column": 4
+          },
+          {
+            "row": 3,
+            "column": 0
+          },
+          {
+            "row": 3,
+            "column": 1
+          },
+          {
+            "row": 3,
+            "column": 2
+          },
+          {
+            "row": 3,
+            "column": 3
+          },
+          {
+            "row": 3,
+            "column": 4
+          },
+          {
+            "row": 4,
+            "column": 0
+          },
+          {
+            "row": 4,
+            "column": 1
+          },
+          {
+            "row": 4,
+            "column": 2
+          },
+          {
+            "row": 4,
+            "column": 3
+          },
+          {
+            "row": 4,
+            "column": 4
+          }
+        ]
+      }
+    },
+    "wuxiang": {
+      "walk": {
+        "drawings": 10,
+        "source": "sheets/wuxiang-mobility.png",
+        "cells": [
+          {
+            "row": 0,
+            "column": 0
+          },
+          {
+            "row": 0,
+            "column": 1
+          },
+          {
+            "row": 0,
+            "column": 3
+          },
+          {
+            "row": 0,
+            "column": 4
+          },
+          {
+            "row": 0,
+            "column": 6
+          },
+          {
+            "row": 1,
+            "column": 0
+          },
+          {
+            "row": 1,
+            "column": 2
+          },
+          {
+            "row": 1,
+            "column": 3
+          },
+          {
+            "row": 1,
+            "column": 5
+          },
+          {
+            "row": 1,
+            "column": 6
+          }
+        ]
+      },
+      "run": {
+        "drawings": 10,
+        "source": "sheets/wuxiang-mobility.png",
+        "cells": [
+          {
+            "row": 2,
+            "column": 0
+          },
+          {
+            "row": 2,
+            "column": 1
+          },
+          {
+            "row": 2,
+            "column": 2
+          },
+          {
+            "row": 2,
+            "column": 3
+          },
+          {
+            "row": 2,
+            "column": 4
+          },
+          {
+            "row": 3,
+            "column": 0
+          },
+          {
+            "row": 3,
+            "column": 1
+          },
+          {
+            "row": 3,
+            "column": 2
+          },
+          {
+            "row": 3,
+            "column": 3
+          },
+          {
+            "row": 3,
+            "column": 4
+          }
+        ]
+      },
+      "jump": {
+        "drawings": 10,
+        "source": "sheets/wuxiang-mobility.png",
+        "cells": [
+          {
+            "row": 4,
+            "column": 0
+          },
+          {
+            "row": 4,
+            "column": 1
+          },
+          {
+            "row": 4,
+            "column": 2
+          },
+          {
+            "row": 4,
+            "column": 3
+          },
+          {
+            "row": 4,
+            "column": 4
+          },
+          {
+            "row": 5,
+            "column": 0
+          },
+          {
+            "row": 5,
+            "column": 1
+          },
+          {
+            "row": 5,
+            "column": 2
+          },
+          {
+            "row": 5,
+            "column": 3
+          },
+          {
+            "row": 5,
+            "column": 4
+          }
+        ]
+      },
+      "dash": {
+        "drawings": 10,
+        "source": "sheets/wuxiang-mobility.png",
+        "cells": [
+          {
+            "row": 6,
+            "column": 0
+          },
+          {
+            "row": 6,
+            "column": 1
+          },
+          {
+            "row": 6,
+            "column": 2
+          },
+          {
+            "row": 6,
+            "column": 3
+          },
+          {
+            "row": 6,
+            "column": 4
+          },
+          {
+            "row": 7,
+            "column": 0
+          },
+          {
+            "row": 7,
+            "column": 1
+          },
+          {
+            "row": 7,
+            "column": 2
+          },
+          {
+            "row": 7,
+            "column": 3
+          },
+          {
+            "row": 7,
+            "column": 4
+          }
+        ]
+      },
+      "j1": {
+        "drawings": 10,
+        "source": "sheets/wuxiang-combat.png",
+        "cells": [
+          {
+            "row": 0,
+            "column": 0
+          },
+          {
+            "row": 0,
+            "column": 1
+          },
+          {
+            "row": 0,
+            "column": 2
+          },
+          {
+            "row": 0,
+            "column": 3
+          },
+          {
+            "row": 0,
+            "column": 4
+          },
+          {
+            "row": 1,
+            "column": 0
+          },
+          {
+            "row": 1,
+            "column": 1
+          },
+          {
+            "row": 1,
+            "column": 2
+          },
+          {
+            "row": 1,
+            "column": 3
+          },
+          {
+            "row": 1,
+            "column": 4
+          }
+        ]
+      },
+      "j2": {
+        "drawings": 10,
+        "source": "sheets/wuxiang-combat.png",
+        "cells": [
+          {
+            "row": 2,
+            "column": 0
+          },
+          {
+            "row": 2,
+            "column": 1
+          },
+          {
+            "row": 2,
+            "column": 2
+          },
+          {
+            "row": 2,
+            "column": 3
+          },
+          {
+            "row": 2,
+            "column": 4
+          },
+          {
+            "row": 3,
+            "column": 0
+          },
+          {
+            "row": 3,
+            "column": 1
+          },
+          {
+            "row": 3,
+            "column": 2
+          },
+          {
+            "row": 3,
+            "column": 3
+          },
+          {
+            "row": 3,
+            "column": 4
+          }
+        ]
+      },
+      "j3": {
+        "drawings": 10,
+        "source": "sheets/wuxiang-combat.png",
+        "cells": [
+          {
+            "row": 4,
+            "column": 0
+          },
+          {
+            "row": 4,
+            "column": 1
+          },
+          {
+            "row": 4,
+            "column": 2
+          },
+          {
+            "row": 4,
+            "column": 3
+          },
+          {
+            "row": 4,
+            "column": 4
+          },
+          {
+            "row": 5,
+            "column": 0
+          },
+          {
+            "row": 5,
+            "column": 1
+          },
+          {
+            "row": 5,
+            "column": 2
+          },
+          {
+            "row": 5,
+            "column": 3
+          },
+          {
+            "row": 5,
+            "column": 4
+          }
+        ]
+      },
+      "j4": {
+        "drawings": 10,
+        "source": "sheets/wuxiang-combat.png",
+        "cells": [
+          {
+            "row": 6,
+            "column": 0
+          },
+          {
+            "row": 6,
+            "column": 1
+          },
+          {
+            "row": 6,
+            "column": 2
+          },
+          {
+            "row": 6,
+            "column": 3
+          },
+          {
+            "row": 6,
+            "column": 4
+          },
+          {
+            "row": 7,
+            "column": 0
+          },
+          {
+            "row": 7,
+            "column": 1
+          },
+          {
+            "row": 7,
+            "column": 2
+          },
+          {
+            "row": 7,
+            "column": 3
+          },
+          {
+            "row": 7,
+            "column": 4
+          }
+        ]
+      },
+      "block": {
+        "drawings": 12,
+        "source": "sheets/wuxiang-skills.png",
+        "cells": [
+          {
+            "row": 0,
+            "column": 0
+          },
+          {
+            "row": 0,
+            "column": 1
+          },
+          {
+            "row": 0,
+            "column": 2
+          },
+          {
+            "row": 0,
+            "column": 3
+          },
+          {
+            "row": 0,
+            "column": 4
+          },
+          {
+            "row": 0,
+            "column": 5
+          },
+          {
+            "row": 1,
+            "column": 0
+          },
+          {
+            "row": 1,
+            "column": 1
+          },
+          {
+            "row": 1,
+            "column": 2
+          },
+          {
+            "row": 1,
+            "column": 3
+          },
+          {
+            "row": 1,
+            "column": 4
+          },
+          {
+            "row": 1,
+            "column": 5
+          }
+        ]
+      },
+      "charge": {
+        "drawings": 12,
+        "source": "sheets/wuxiang-skills.png",
+        "cells": [
+          {
+            "row": 2,
+            "column": 0
+          },
+          {
+            "row": 2,
+            "column": 1
+          },
+          {
+            "row": 2,
+            "column": 2
+          },
+          {
+            "row": 2,
+            "column": 3
+          },
+          {
+            "row": 2,
+            "column": 4
+          },
+          {
+            "row": 2,
+            "column": 5
+          },
+          {
+            "row": 3,
+            "column": 0
+          },
+          {
+            "row": 3,
+            "column": 1
+          },
+          {
+            "row": 3,
+            "column": 2
+          },
+          {
+            "row": 3,
+            "column": 3
+          },
+          {
+            "row": 3,
+            "column": 4
+          },
+          {
+            "row": 3,
+            "column": 5
+          }
+        ]
+      },
+      "u": {
+        "drawings": 12,
+        "source": "sheets/wuxiang-skills.png",
+        "cells": [
+          {
+            "row": 4,
+            "column": 0
+          },
+          {
+            "row": 4,
+            "column": 1
+          },
+          {
+            "row": 4,
+            "column": 2
+          },
+          {
+            "row": 4,
+            "column": 3
+          },
+          {
+            "row": 4,
+            "column": 4
+          },
+          {
+            "row": 4,
+            "column": 5
+          },
+          {
+            "row": 5,
+            "column": 0
+          },
+          {
+            "row": 5,
+            "column": 1
+          },
+          {
+            "row": 5,
+            "column": 2
+          },
+          {
+            "row": 5,
+            "column": 3
+          },
+          {
+            "row": 5,
+            "column": 4
+          },
+          {
+            "row": 5,
+            "column": 5
+          }
+        ]
+      },
+      "super_": {
+        "drawings": 25,
+        "source": "sheets/wuxiang-super.png",
+        "cells": [
+          {
+            "row": 0,
+            "column": 0
+          },
+          {
+            "row": 0,
+            "column": 1
+          },
+          {
+            "row": 0,
+            "column": 2
+          },
+          {
+            "row": 0,
+            "column": 3
+          },
+          {
+            "row": 0,
+            "column": 4
+          },
+          {
+            "row": 1,
+            "column": 0
+          },
+          {
+            "row": 1,
+            "column": 1
+          },
+          {
+            "row": 1,
+            "column": 2
+          },
+          {
+            "row": 1,
+            "column": 3
+          },
+          {
+            "row": 1,
+            "column": 4
+          },
+          {
+            "row": 2,
+            "column": 0
+          },
+          {
+            "row": 2,
+            "column": 1
+          },
+          {
+            "row": 2,
+            "column": 2
+          },
+          {
+            "row": 2,
+            "column": 3
+          },
+          {
+            "row": 2,
+            "column": 4
+          },
+          {
+            "row": 3,
+            "column": 0
+          },
+          {
+            "row": 3,
+            "column": 1
+          },
+          {
+            "row": 3,
+            "column": 2
+          },
+          {
+            "row": 3,
+            "column": 3
+          },
+          {
+            "row": 3,
+            "column": 4
+          },
+          {
+            "row": 4,
+            "column": 0
+          },
+          {
+            "row": 4,
+            "column": 1
+          },
+          {
+            "row": 4,
+            "column": 2
+          },
+          {
+            "row": 4,
+            "column": 3
+          },
+          {
+            "row": 4,
+            "column": 4
+          }
+        ]
+      }
+    }
+  },
+  "generator": "built-in image_gen",
+  "reference": "three user-provided design sheets"
+}

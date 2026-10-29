@@ -1,0 +1,11 @@
+# Walking and running, revision 2
+
+Three fighters, including both Shouwang forms, now use complete redrawn 10-pose walking and running cycles. Walk and backstep play at 24 FPS; run plays at 32 FPS. Backstep reverses the walk sequence while retaining the fighter's facing. Legacy Jianke walkStart/walkStop and torso compositing are bypassed/removed so they cannot splice incompatible poses into the new cycle.
+
+Idle now uses a single original pose (frame 00, no loop). This removes silhouette/registration jitter from the previously mixed ten-frame idle cycle, including the idle section of round entrances. Loading fallback sprites also omit idle vertical bobbing.
+
+Art was generated with the built-in image_gen tool. Exact prompts and original generated paths are saved in generation-jobs.json, walk-jobs.json and run-jobs.json. Selected source sheets are copied to sheets/. Walking uses the dedicated walk sheets. Running was replaced again with dedicated run-v3 sheets emphasizing alternating support, bent-knee recovery, toe-off and flight; the initial combined sheets remain for provenance. Runtime run-v3 folders contain ten newly drawn full-body poses per identity. manifest.json records the selected source cells and registration scale. tools/build-gait-v2.cjs rebuilds runtime PNGs and js/gait-v2.js from the saved sheets, with one scale per cycle rather than resizing every pose individually. Feet, hips, knees, fabric and shoulders are drawn as complete figures.
+
+Charge and ranged-charge clips play once at 12 FPS then hold their final pose. CONFIG.resources.maxChargeSeconds sets the seven-second cap. P charging ends and retains meter; U charging automatically casts the charged projectile. Both require key release before another charge can begin. Network snapshots include timers and held-key interruption locks.
+
+Checks: tools/test-charge-gait.cjs, tools/test-combat-v2.cjs, tools/test-expanded-anims.cjs, tools/test-mobility.cjs, tools/test-arcade-combat.cjs. tools/check-gait-browser.cjs additionally holds the real P/U keyboard inputs through both seven-second caps and checks double-tap running in the live practice game. Browser review: /tools/expanded-animation-review.html (defaults to run, current gameplay is on the right).

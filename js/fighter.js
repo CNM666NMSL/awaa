@@ -8,23 +8,22 @@
 
 // ---------- 角色贴图缓存（设定集抠图 + 动作帧序列） ----------
 const SPRITES = {};
-const STABLE_WALK = new WeakMap();
 (function loadSprites() {
     if (typeof CONFIG === "undefined" || !CONFIG.characters) return;
+    const request=(src,callback)=>{
+        if(window.gameAssets)return window.gameAssets.loadImage(src,callback);
+        const img=new Image();img.onload=()=>callback(img);img.src=src;return img;
+    };
     for (const id in CONFIG.characters) {
         const def = CONFIG.characters[id];
         // 单贴图（sprite 字段）→ SPRITES[id]
         if (def.sprite) {
-            const img = new Image();
-            img.onload = () => { SPRITES[id] = img; };
-            img.src = def.sprite + "?v=" + ASSET_VER;   // 带版本号破缓存
+            request(def.sprite+"?v="+ASSET_VER,img=>{SPRITES[id]=img;});
         }
         // 多形态贴图（sprites 字段）→ SPRITES[id_form]
         if (def.sprites) {
             for (const form in def.sprites) {
-                const img = new Image();
-                img.onload = () => { SPRITES[id + "_" + form] = img; };
-                img.src = def.sprites[form] + "?v=" + ASSET_VER;   // 带版本号破缓存
+                request(def.sprites[form]+"?v="+ASSET_VER,img=>{SPRITES[id+"_"+form]=img;});
             }
         }
         // 动作帧序列（anims 字段）：path 为目录，帧文件 00.png 01.png ...
@@ -46,11 +45,9 @@ const STABLE_WALK = new WeakMap();
                         count = a.frames;
                     }
                     for (let i = 0; i < count; i++) {
-                        const img = new Image();
                         const key = `${keyPrefix}_${i}`;
                         const file = `${a.path.replace("{form}", form || "")}/${String(i + offset).padStart(2, "0")}.png`;
-                        img.onload = ((k) => (() => { SPRITES[k] = img; }))(key);
-                        img.src = `${file}?v=${ASSET_VER}`;
+                        request(`${file}?v=${ASSET_VER}`,img=>{SPRITES[key]=img;});
                     }
                 }
             }
@@ -135,16 +132,16 @@ class Fighter {
         const d = this.def;
         if (!d.anims) return null;
         const st = this.state;
-        if (st === "idle" && this.moveStopping && this.stateTimer < 8 && d.anims.walkStop) return "walkStop";
+        if (st === "idle" && this.moveStopping && this.stateTimer < 8 && d.anims.walkStop && !d.anims.walk.gaitCycle) return "walkStop";
         if (st === "walk" && this.running && d.anims.run) return "run";
-        if (st === "walk" && d.anims.walkStart && this.stateTimer < 8) return "walkStart";
+        if (st === "walk" && d.anims.walkStart && this.stateTimer < 8 && !d.anims.walk.gaitCycle) return "walkStart";
         if (st === "walk" && this._walkDirection * this.facing < 0 && d.anims.walkBack) return "walkBack";
         if (st === "idle") return this.landingTicks > 0 && d.anims.land ? "land" : (d.anims.idle ? "idle" : null);
         if (st === "walk") return d.anims.walk ? "walk" : (d.anims.idle ? "idle" : null);
         if (st === "block") return d.anims.block ? "block" : (d.anims.idle ? "idle" : null);
         if (st === "parry") return d.anims.parry ? "parry" : (d.anims.block ? "block" : (d.anims.idle ? "idle" : null));
         if (st === "charge") return d.anims.charge ? "charge" : (d.anims.idle ? "idle" : null);
-        if(st==='jump'&&this.jumpsLeft===0&&this.stateTimer<10&&d.anims.doubleJump)return 'doubleJump';
+        if(st==='jump'&&this.jumpsLeft===0&&d.anims.doubleJump&&this.stateTimer<(d.anims.doubleJump.expandedFrom?Math.ceil(this._animFrameCount(d.anims.doubleJump)*60/d.anims.doubleJump.fps):10))return 'doubleJump';
         if(st==='jump'&&Math.abs(this.vx)>.4&&d.anims.airMove)return 'airMove';
         if (st === "jump") return d.anims.jump ? "jump" : (d.anims.idle ? "idle" : null);
         if (st === "dash") return d.anims.dash ? "dash" : (d.anims.idle ? "idle" : null);
@@ -208,10 +205,23 @@ class Fighter {
         if (!this.animKey) return;
         const a = this.def.anims[this.animKey];
         const count = this._animFrameCount(a);
+        if(this.state==='rangedCharge'&&a.chargeStages){
+            const ticks=this.rangedChargeFrames||0;
+            let stage=0;for(let i=1;i<a.chargeStages.length;i++)if(ticks>=a.chargeStages[i])stage=i;
+            const frames=a.stageFrames||4,elapsed=ticks-a.chargeStages[stage];
+            this.animFrame=Math.min(count-1,stage*frames+Math.min(frames-1,Math.floor(elapsed*frames/(a.stageTransition||18))));
+            return;
+        }
+        if ((a.physics || a.airTravel) && a.expandedFrom && this.state === 'jump') {
+            const speed = Math.abs(CONFIG.physics.jumpForce);
+            this.animFrame = Math.max(0, Math.min(count - 1, Math.floor((this.vy + speed) * count / (2 * speed))));
+            return;
+        }
         if(a.airTravel&&this.state==='jump'){this.animFrame=this.vy< -6?0:this.vy<2?1:this.vy<8?2:3;return;}
         if (a.physics && this.state === "jump") {
             this.animFrame = this.stateTimer < 3 ? 2 : this.vy < -8 ? 3 : this.vy < 3 ? 4 : this.vy < 9 ? 5 : 6;
-            this.animFrame = Math.min(count - 1, this.animFrame);
+            const originalCount = a.expandedFrom || count;
+            this.animFrame = Math.min(count - 1, Math.round(Math.min(originalCount - 1, this.animFrame) * (count - 1) / Math.max(1, originalCount - 1)));
             return;
         }
         if (a.fitHurt && (this.state === "hit" || this.state === "guardbreak")) {
@@ -302,7 +312,13 @@ class Fighter {
 
     /** 攻速加成后的招式帧数（不低于 2 帧） */
     atkDur(a, field) {
-        return Math.max(2, Math.round(a[field] / this.attackSpeedFactor()));
+        // Expanded ultimate poses keep their readable cadence even at maximum attack speed.
+        if (a.fixedAnimationTiming) return a[field];
+        const clip = this.currentAttack === a ? this.def.anims?.[a.anim || this._animForState()] : null;
+        const minimum = clip?.expandedFrom && clip.phases
+            ? field === 'startup' ? clip.phases[0] : field === 'active' ? clip.phases[1] - clip.phases[0] : this._animFrameCount(clip) - clip.phases[1]
+            : 2;
+        return Math.max(2, minimum, Math.round(a[field] / this.attackSpeedFactor()));
     }
 
     /** 5 层触发「纯白剑契」 */
@@ -598,16 +614,16 @@ class Fighter {
     // 蓄气：按住 P + S 进入蓄气姿势，每帧攒气（可被打断，已攒的气保留；蓄气中受伤×1.5）
     // 放招：点按 I 按气量分档（≥100 终式 / ≥66 裂空波 / ≥33 疾影突）
 
-    /** 进入蓄气姿势（需 P+S 触发，气满时不可蓄） */
+    /** 按住 P 蓄气；到时后需松键才能再次起手。 */
     startCharge() {
-        if (!(this.canAct() || this.state === "block") || !this.onGround) return false;
+        if (this.chargeInterrupted || !(this.canAct() || this.state === "block") || !this.onGround) return false;
         this.setState("charge");
         this.chargeHeldFrames = 0;
         this.vx = 0;
         return true;
     }
 
-    /** 结束蓄气（松开 P 或 S） */
+    /** 松开 P 或达到时间上限时结束蓄气。 */
     endCharge() {
         if (this.state !== "charge") return;
         this.setState("idle");
@@ -646,7 +662,7 @@ class Fighter {
     /** 被击中（含连段保护 + 倒地判定） */
     takeHit(attack, attackerFacing, blocked, attackerScale) {
         if (this.isInvulnerable()) return { blocked: false, dmg: 0, ko: false, immune: true };
-        const scale = attackerScale || 1;
+        const scale = attack.fixedDamage ? 1 : (attackerScale || 1);
 
         // 倒地 / 起身无敌中：免疫一切命中，打断连段
         if (this.state === "knockdown" || this.knockdownInvuln > 0) {
@@ -655,7 +671,7 @@ class Fighter {
 
         // 破防判定：格挡中被破防技命中 → 长硬直
         if (blocked && attack.guardBreak) {
-            const dmg = Math.round(attack.damage * 0.5 * scale * this.defenseScale());
+            const dmg = Math.round(attack.damage * 0.5 * scale * (attack.fixedDamage?1:this.defenseScale()));
             this.health = Math.max(0, this.health - dmg);
             this.resource = 0;               // 被重击破防：剑契清零（文档）
             this.sinceHit = 0;
@@ -670,17 +686,17 @@ class Fighter {
             ? attack.damage * CONFIG.mechanics.blockDamageRatio
             : attack.damage;
         // 蓄气破绽惩罚：蓄气状态下受伤 ×1.5（主动攒气的代价）
-        const vuln = this.state === "charge" ? CONFIG.resources.chargeHurtMult : 1;
+        const vuln = !attack.fixedDamage&&this.state === "charge" ? CONFIG.resources.chargeHurtMult : 1;
         // 连段伤害衰减：同一连段内命中越多，单次伤害越低（保底 30%）
-        const decay = Math.max(0.3, 1 - this.comboHits * CONFIG.mechanics.comboDamageDecay);
-        const dmg = Math.round(raw * scale * this.defenseScale() * vuln * decay);
+        const decay = attack.fixedDamage?1:Math.max(0.3, 1 - this.comboHits * CONFIG.mechanics.comboDamageDecay);
+        const dmg = Math.round(raw * scale * (attack.fixedDamage?1:this.defenseScale()) * vuln * decay);
         this.health = Math.max(0, this.health - dmg);
 
         // 攒气（受击 / 成功格挡）
         this.gainMeter(blocked ? CONFIG.resources.meterOnBlock : CONFIG.resources.meterOnHurt);
 
         // 连段累计（仅非格挡命中才计数；格挡不计入连段）
-        if (!blocked) this._recordComboHit(dmg);
+        if (!blocked&&!attack.periodic) this._recordComboHit(dmg);
 
         if (this.health <= 0) {
             this.setState("ko");
@@ -689,6 +705,9 @@ class Fighter {
             this.onGround = false;
             return { blocked, dmg, ko: true };
         }
+
+        // Aura damage does not repeatedly interrupt the victim's movement or casting.
+        if(attack.periodic)return {blocked,dmg,ko:false};
 
         // 倒地判定：连段累计伤害/次数超标，或浮空重击 → 强制倒地脱身
         const shouldKnockdown = !attack.deferKnockdown && (
@@ -814,6 +833,10 @@ class Fighter {
         if (this.state === "charge") {
             this.chargeHeldFrames = (this.chargeHeldFrames || 0) + 1;
             this.meter = Math.min(CONFIG.resources.maxMeter, this.meter + CONFIG.resources.chargePerSecond / 60);
+            if (this.chargeHeldFrames >= CONFIG.resources.maxChargeSeconds * 60) {
+                this.chargeInterrupted = true;
+                this.endCharge();
+            }
         }
 
         // 决斗招架：窗口结束未成功 → 大硬直（文档：格挡失败进入大硬直）
@@ -1015,6 +1038,7 @@ class Fighter {
             fm: this.form,
             rn: !!this.running, wd: this._walkDirection || 0, ms: !!this.moveStopping, an: this.animKey, af: this.animFrame, at: this.animTimer,
             cs: this.currentCast || null, cf: this.currentSkillFrames || 0, lt: this.landingTicks,
+            chf: this.chargeHeldFrames || 0, chi: !!this.chargeInterrupted,
         };
     }
 
@@ -1038,6 +1062,8 @@ class Fighter {
         if (this.state !== s.st) this.setState(s.st);
         this.stateTimer = s.tt;
         this.moveStopping = !!s.ms;
+        this.chargeHeldFrames = s.chf || 0;
+        this.chargeInterrupted = !!s.chi;
         this._walkDirection = s.wd || 0;
         this.running=!!s.rn;
         this.superSerial=s.ss||0;this.blinkInvulnLeft=s.bi||0;this.blinkEvent=s.be||null;this.blinkSerial=s.bs||0;
@@ -1129,29 +1155,31 @@ class Fighter {
         ctx.restore();
     }
 
+    // Continuous upper-body breathing. Source stays stable and both feet stay planted.
+    _drawIdleSprite(ctx, img, x, y, width, height, clip) {
+        const foot=(clip.originY??.94)*height;
+        const body=height*(clip.referenceHeight||img.height)/(clip.canvasHeight||img.height);
+        const hip=foot-body*.43,chest=foot-body*.7;
+        const phase=this.stateTimer*Math.PI*2/192;
+        const breath=(1-Math.cos(phase))*.5;
+        const amplitude=Math.min(.9,body*.008);
+        const shift=at=>-amplitude*breath*Math.max(0,Math.min(1,(hip-at)/(body*.5)));
+        const bands=24;
+        for(let i=0;i<bands;i++){
+            const sy=Math.floor(i*img.height/bands),end=Math.floor((i+1)*img.height/bands);
+            const a=sy/img.height*height,b=end/img.height*height;
+            const expand=.0025*breath*Math.exp(-Math.pow(((a+b)/2-chest)/(body*.2),2));
+            const extra=width*expand;
+            ctx.drawImage(img,0,sy,img.width,end-sy,x-extra/2,y+a+shift(a),width+extra,b-a+shift(b)-shift(a));
+        }
+    }
+
     // ---------- 贴图渲染：设定集立绘 + 状态动效 ----------
     _drawSprite(ctx, img) {
-        // Keep one torso/cape silhouette across AI gait sources; animate the legs below the thigh.
-        if (this.charId === "jianke" && this.animKey === "walk") {
-            const anchor = SPRITES.jianke_walk_0;
-            if (anchor && img !== anchor && typeof document !== "undefined") {
-                let stable = STABLE_WALK.get(img);
-                if (!stable || stable.anchor !== anchor) {
-                    const canvas = document.createElement("canvas"); canvas.width = img.width; canvas.height = img.height;
-                    const paint = canvas.getContext("2d"), split = Math.round(img.height * .63);
-                    paint.drawImage(anchor, 0, 0);
-                    paint.clearRect(0, split, img.width, img.height-split);
-                    paint.drawImage(img, 0, split, img.width, img.height-split, 0, split, img.width, img.height-split);
-                    stable = {canvas,anchor}; STABLE_WALK.set(img, stable);
-                }
-                // Preserve animation metadata lookup, but draw the registered stable frame.
-                this._walkRenderImage = stable.canvas;
-            } else this._walkRenderImage = null;
-        } else this._walkRenderImage = null;
         const t = this.stateTimer, st = this.state;
         const b = this.getBodyBox();
         const animated = !!(this.animKey && this._animImg() === img);
-        const clip = animated ? this.def.anims[this.animKey] : null;
+        const clip = animated ? this.def.anims[this.animKey] : (this.def.cyberChinese ? this.def.anims.idle : null);
         const H = Math.round(b.h * 1.05 * (clip?.canvasHeight && clip?.referenceHeight ? clip.canvasHeight / clip.referenceHeight : 1));
         const W = Math.round(H * (img.width / img.height));
         const origin = clip?.originX ?? 0.5;
@@ -1160,7 +1188,7 @@ class Fighter {
 
         ctx.save();
         ctx.translate(Math.round(this.x), Math.round(this.y));
-        if (!animated && st === "ko" && this.onGround) ctx.rotate(this.facing * Math.PI / 2 * 0.85);
+        if ((!animated || this.def.cyberChinese) && st === "ko" && this.onGround) ctx.rotate(this.facing * Math.PI / 2 * 0.85);
         // 立绘统一约定：所有立绘素材必须原始朝右（贴图文件本身镜像调好），
         // 这里只按 facing 镜像，特效/判定框/立绘共用同一坐标系，保证方向永远一致。
         // SPRITE_FLIP：设置面板的「翻转立绘」调试开关（素材朝向存疑时人工校正用）
@@ -1168,15 +1196,15 @@ class Fighter {
 
         // 状态偏移
         let dx = 0, dy = 0, rot = 0;
-        if (!animated && (st === "idle" || st === "parry")) dy = -Math.abs(Math.sin(t * 0.12)) * 1.5;
+        if (!animated && st === "parry") dy = -Math.abs(Math.sin(t * 0.12)) * 1.5;
         if (!animated && st === "walk") { dy = -Math.abs(Math.sin(t * 0.35)) * 2.5; rot = Math.sin(t * 0.35) * 0.03; }
         if (!animated && st === "jump") rot = 0.06;
         if (st === "turn") rot = -0.12;
         if (!animated && st === "charge") { dy = 3; rot = 0.05; }
-        if (!animated && st === "hit") { rot = -0.07; dx = -3; }
-        if (!animated && st === "guardbreak") { rot = -0.14; dx = -4; }
+        if ((!animated || this.def.cyberChinese) && st === "hit") { rot = -0.07; dx = -3; }
+        if ((!animated || this.def.cyberChinese) && st === "guardbreak") { rot = -0.14; dx = -4; }
         // 倒地：躺平（旋转 90° + 下沉贴地）
-        if (!animated && st === "knockdown") {
+        if ((!animated || this.def.cyberChinese) && st === "knockdown") {
             rot = this.facing * Math.PI / 2 * 0.9;
             dy = -H * 0.28;
             dx = this.facing * H * 0.12;
@@ -1200,7 +1228,8 @@ class Fighter {
             ctx.fill();
         }
 
-        ctx.drawImage(this._walkRenderImage || img, cx + dx - W / 2, dy - H, W, H);
+        if(st==='idle'&&this.animKey==='idle'&&clip?.breathing)this._drawIdleSprite(ctx,img,cx+dx-W/2,dy-H,W,H,clip);
+        else ctx.drawImage(img, cx + dx - W / 2, dy - H, W, H);
 
         // 受击 / 破防：整体提亮闪烁
         if (st === "hit" || st === "guardbreak") {
@@ -1211,14 +1240,14 @@ class Fighter {
             ctx.globalAlpha = 1;
         }
         // 格挡：身前护盾
-        if (st === "block" && this.charId !== "noble" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX)) {
+        if (st === "block" && !this.def.cyberChinese && this.charId !== "noble" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX)) {
             ctx.fillStyle = "rgba(140,190,255,0.30)";
             ctx.beginPath();
             ctx.ellipse(W * 0.30, -H * 0.5, W * 0.28, H * 0.48, 0, 0, Math.PI * 2);
             ctx.fill();
         }
         // 攻击 / 超必杀：白色刀光弧
-        if (this.charId !== "noble" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX) && this.currentAttack && this.isAttackActive && this.isAttackActive()) {
+        if (!this.def.cyberChinese && this.charId !== "noble" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX) && this.currentAttack && this.isAttackActive && this.isAttackActive()) {
             ctx.strokeStyle = st === "super" ? "rgba(255,209,102,0.9)" : "rgba(255,255,255,0.85)";
             ctx.lineWidth = 5;
             ctx.beginPath();
@@ -1226,7 +1255,7 @@ class Fighter {
             ctx.stroke();
         }
         // 超必杀外圈
-        if (st === "super" && this.charId !== "noble" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX)) {
+        if (st === "super" && !this.def.cyberChinese && this.charId !== "noble" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX)) {
             ctx.strokeStyle = "rgba(255,209,102,0.85)";
             ctx.lineWidth = 3;
             ctx.beginPath();
@@ -1234,7 +1263,7 @@ class Fighter {
             ctx.stroke();
         }
         // 招架成功白闪
-        if (st === "parry" && this.charId !== "noble" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX) && Math.floor(t / 4) % 2 === 0) {
+        if (st === "parry" && !this.def.cyberChinese && this.charId !== "noble" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX) && Math.floor(t / 4) % 2 === 0) {
             ctx.fillStyle = "rgba(255,255,255,0.35)";
             ctx.fillRect(-W / 2, -H, W, H);
         }
@@ -1358,12 +1387,12 @@ class Fighter {
             ctx.globalAlpha = 1;
         }
 
-        const bob = (st === "idle" || st === "parry") ? Math.floor(t / 16) % 2 : 0;
+        const bob = st === "parry" ? Math.floor(t / 16) % 2 : 0;
         const step = (st === "walk") ? (Math.floor(t / 5) % 2 ? 1 : -1) : 0;
         const lean = (st === "turn") ? -1 : 0;   // 转身时身体前倾
 
         // ---- 披风（身后，渐变 + 描边 + 金色内衬，转身时大幅扬起） ----
-        const sway = st === "turn" ? -3 : Math.floor(Math.sin(t * 0.12) * 1);
+        const sway = st === "turn" ? -3 : st === "idle" ? 0 : Math.floor(Math.sin(t * 0.12) * 1);
         pGrad(-6 + sway + lean, 6 + bob, 4, 13, shade(P.cape, 1.25), shade(P.cape, 0.65));
         pLine(-6 + sway + lean, 6 + bob, 4, 13, shade(P.cape, 0.45));
         px(-7 + sway + lean, 6 + bob, 1, 9, P.accent);
@@ -1407,7 +1436,7 @@ class Fighter {
         pHi(-3 + lean, hy + 9, 6, shade(P.hat, 1.8));
         px(-3 + lean, hy + 7, 6, 1, P.accent);                                    // 金带
         // 羽饰：双色 + 微摆
-        const fsway = Math.floor(Math.sin(t * 0.15) * 1);
+        const fsway = st === "idle" ? 0 : Math.floor(Math.sin(t * 0.15) * 1);
         px(-4 + lean, hy + 9, 1, 4, P.feather);
         px(-5 + lean + fsway, hy + 11, 1, 2, shade(P.feather, 0.85));
         px(0 + lean, hy, 3, 1, P.shirt);                                          // 领口
@@ -1535,12 +1564,12 @@ class Fighter {
             ctx.globalAlpha = 1;
         }
 
-        const bob = (st === "idle" || st === "parry") ? Math.floor(t / 16) % 2 : 0;
+        const bob = st === "parry" ? Math.floor(t / 16) % 2 : 0;
         const step = (st === "walk") ? (Math.floor(t / 5) % 2 ? 1 : -1) : 0;
         const lean = (st === "turn") ? -1 : 0;
 
         // ---- 蓑衣（草条披挂，层叠 + 描边） ----
-        const sway = st === "turn" ? -3 : Math.floor(Math.sin(t * 0.12) * 1);
+        const sway = st === "turn" ? -3 : st === "idle" ? 0 : Math.floor(Math.sin(t * 0.12) * 1);
         for (let i = 0; i < 7; i++) {
             const sx = -7 + i * 2 + sway + lean;
             const len = 10 + (i % 3);
@@ -1703,12 +1732,12 @@ class Fighter {
             ctx.globalAlpha = 1;
         }
 
-        const bob = (st === "idle" || st === "parry") ? Math.floor(t / 16) % 2 : 0;
+        const bob = st === "parry" ? Math.floor(t / 16) % 2 : 0;
         const step = (st === "walk") ? (Math.floor(t / 5) % 2 ? 1 : -1) : 0;
         const lean = (st === "turn") ? -1 : 0;
 
         // ---- 银色高马尾（长发条，随动作飘动） ----
-        const flow = Math.floor(Math.sin(t * 0.14) * 1.5) + (st === "walk" ? -step : 0) + (st === "turn" ? -3 : 0);
+        const flow = st === "idle" ? 0 : Math.floor(Math.sin(t * 0.14) * 1.5) + (st === "walk" ? -step : 0) + (st === "turn" ? -3 : 0);
         for (let i = 0; i < 4; i++) {
             pGrad(-4 + i + flow + lean, 8 + bob, 1, 12 + (i % 2), shade(HAIR, 1.05), shade(HAIR, 0.75));
         }

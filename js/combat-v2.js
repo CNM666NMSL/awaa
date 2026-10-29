@@ -3,7 +3,15 @@
 Fighter.prototype.combatPlatforms=function(){return [...(CONFIG.platforms||[]),...(window.game?.specialObjects||[]).filter(o=>o.type==='shouwang'&&o.age>=18).map(o=>({x:o.x-26,y:o.y-110,w:52,h:110}))];};
 const baseAnim=Fighter.prototype._animForState;
 Fighter.prototype._animForState=function(){if(this.state==='rangedCharge')return 'uCharge';return baseAnim.call(this);};
-Fighter.prototype.castSkill=function(charged=false){if(!['idle','walk','block','jump','rangedCharge'].includes(this.state)||(this.rangedCooldown||0)>0)return null;const base=this.def.skill,s={...base,charged,anim:charged?'uCharged':'u',damage:Math.round(base.damage*(charged?1.8:1)),projSize:base.projSize*(charged?1.5:1),projSpeed:base.projSpeed*(charged?.85:1),startup:base.startup+(charged?5:0),recovery:base.recovery+(charged?7:0),fullGuardBreak:false};this.setState('skill');this.currentCast=s;this.currentSkillFrames=s.startup+s.recovery;this.vx=0;this.rangedCooldown=charged?35:20;return s;};
+Fighter.prototype.castSkill=function(charged=false){
+ if(!['idle','walk','block','jump','rangedCharge'].includes(this.state)||(this.rangedCooldown||0)>0)return null;
+ const {forms,...common}=this.def.skill,base={...common,...forms?.[this.form]};
+ let level=charged?2:1;
+ if(base.chargeThresholds){level=charged?3:1;if(this.state==='rangedCharge'){level=1;for(let i=1;i<base.chargeThresholds.length;i++)if((this.rangedChargeFrames||0)>=base.chargeThresholds[i])level=i+1;}charged=level>1;}
+ const sizeScale=base.chargeThresholds?1+(level-1)*.25:charged?1.5:1;
+ const s={...base,charged,chargeLevel:level,anim:charged?'uCharged':'u',damage:Math.round(base.damage*(base.stageMultipliers?.[level-1]??(charged?1.8:1))),projSize:base.projSize*sizeScale,projHitWidth:base.projHitWidth?base.projHitWidth*sizeScale:undefined,projHitHeight:base.projHitHeight?base.projHitHeight*sizeScale:undefined,projSpeed:base.projSpeed*(base.chargeThresholds?1+(level-1)*.12:charged?.85:1),startup:base.startup+(charged?5:0),recovery:base.recovery+(charged?7:0),fullGuardBreak:false};
+ this.setState('skill');this.currentCast=s;this.currentSkillFrames=s.startup+s.recovery;this.vx=0;this.rangedCooldown=Math.ceil(CONFIG.resources.rangedCooldownSeconds*60)+s.startup;return s;
+};
 Game.prototype.handleRangedInput=function(f,inp){
  const held=!!inp.sklHeld;
  if(f.rangedInterrupted&&!held)f.rangedInterrupted=false;
@@ -13,7 +21,7 @@ Game.prototype.handleRangedInput=function(f,inp){
 };
 Fighter.prototype.castSpecial=function(){if(!this.canAct()||!this.onGround||this.resource<this.resourceMax)return false;this.resource=0;this.specialSerial=(this.specialSerial||0)+1;this.specialPending={id:this.specialSerial,type:this.charId,x:this.x,y:this.y,dir:this.facing};this.setState('skill');this.currentCast={anim:'uCharged',startup:12,recovery:18,special:true};this.currentSkillFrames=30;this.vx=0;return true;};
 const update=Fighter.prototype.update;
-Fighter.prototype.update=function(){if(this.rangedCooldown>0)this.rangedCooldown--;if(this.state==='rangedCharge')this.rangedChargeFrames=Math.min(60,(this.rangedChargeFrames||0)+1);update.call(this);if(this.rootLeft>0){this.rootLeft--;this.x=this.rootX;this.y=this.rootY;this.vx=0;this.vy=0;}if(!this.onGround&&this.state==='idle')this.setState('jump');};
+Fighter.prototype.update=function(){if(this.rangedCooldown>0)this.rangedCooldown--;const cap=CONFIG.resources.maxChargeSeconds*60;if(this.state==='rangedCharge')this.rangedChargeFrames=Math.min(cap,(this.rangedChargeFrames||0)+1);update.call(this);if(this.state==='rangedCharge'&&this.rangedChargeFrames>=cap){this.rangedInterrupted=true;const shot=this.castSkill(true);if(shot)this.pendingProj=shot;}if(this.rootLeft>0){this.rootLeft--;this.x=this.rootX;this.y=this.rootY;this.vx=0;this.vy=0;}if(!this.onGround&&this.state==='idle')this.setState('jump');};
 const takeHit=Fighter.prototype.takeHit;
 Fighter.prototype.takeHit=function(...args){if(args[0]?.comboChain&&args[0]?.deferKnockdown&&this.comboHits>=3)args[0]={...args[0],deferKnockdown:false};const charging=this.state==='rangedCharge',r=takeHit.apply(this,args);if(charging&&!r.immune){this.rangedInterrupted=true;this.rangedChargeFrames=0;}return r;};
 const apply=Game.prototype.applyInput;
@@ -21,8 +29,8 @@ Game.prototype.applyInput=function(f,inp){if(f.rootLeft>0&&this.phase==='fight')
 const reset=Fighter.prototype.resetForRound;
 Fighter.prototype.resetForRound=function(...args){reset.apply(this,args);this.rangedCooldown=0;this.rangedChargeFrames=0;this.rangedInterrupted=false;this.rootLeft=0;this.specialPending=null;};
 const snap=Fighter.prototype.toSnapshot,applySnap=Fighter.prototype.applySnapshot;
-Fighter.prototype.toSnapshot=function(){return {...snap.call(this),v2:{rc:this.rangedChargeFrames||0,cd:this.rangedCooldown||0,root:this.rootLeft||0,rx:this.rootX,ry:this.rootY,sp:this.specialPending,ss:this.specialSerial||0}};};
-Fighter.prototype.applySnapshot=function(s){applySnap.call(this,s);const v=s.v2||{};this.rangedChargeFrames=v.rc||0;this.rangedCooldown=v.cd||0;this.rootLeft=v.root||0;this.rootX=v.rx;this.rootY=v.ry;this.specialPending=v.sp;this.specialSerial=v.ss||0;if(this.currentCast&&this.currentCast.special)this.pendingProj=null;};
+Fighter.prototype.toSnapshot=function(){return {...snap.call(this),v2:{rc:this.rangedChargeFrames||0,ri:!!this.rangedInterrupted,cd:this.rangedCooldown||0,root:this.rootLeft||0,rx:this.rootX,ry:this.rootY,sp:this.specialPending,ss:this.specialSerial||0}};};
+Fighter.prototype.applySnapshot=function(s){applySnap.call(this,s);const v=s.v2||{};this.rangedChargeFrames=v.rc||0;this.rangedInterrupted=!!v.ri;this.rangedCooldown=v.cd||0;this.rootLeft=v.root||0;this.rootX=v.rx;this.rootY=v.ry;this.specialPending=v.sp;this.specialSerial=v.ss||0;if(this.currentCast&&this.currentCast.special)this.pendingProj=null;};
 Game.prototype.updateCombatV2=function(){
  this.specialObjects ||= [];
  for(const f of [this.p1,this.p2])if(f.specialPending){const cast=f.specialPending;f.specialPending=null;this.specialObjects=this.specialObjects.filter(o=>o.owner!==f||o.type!=='shouwang');const enemy=f===this.p1?this.p2:this.p1;let x=f.x+f.facing*125;if(f.charId==='noble')x=f.x+Math.max(-320,Math.min(320,enemy.x-f.x));this.specialObjects.push({...cast,owner:f,side:f===this.p1?1:2,x:Math.max(60,Math.min(1140,x)),y:CONFIG.canvas.groundY,age:0,life:f.charId==='shouwang'?258:f.charId==='noble'?110:32,hit:false,range:f.width*2});}
@@ -49,6 +57,6 @@ Game.prototype.drawCombatV2=function(ctx){
  else if(o.type==='jianke'){ctx.translate(o.owner?.x||o.x,o.owner?.y||o.y);ctx.scale(o.dir,1);ctx.fillStyle='#bcecff';ctx.strokeStyle='#f1fcff';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(12,-68);ctx.lineTo(o.range-14,-77);ctx.lineTo(o.range+12,-60);ctx.lineTo(o.range-14,-44);ctx.lineTo(12,-53);ctx.closePath();ctx.fill();ctx.stroke();}
  else{const h=active?110:Math.min(110,o.age/18*110),grad=ctx.createLinearGradient(o.x-26,0,o.x+26,0);grad.addColorStop(0,'#355276');grad.addColorStop(.5,'#bad6e8');grad.addColorStop(1,'#24405b');ctx.fillStyle=grad;ctx.strokeStyle='#cbe9ff';ctx.lineWidth=2;ctx.fillRect(o.x-26,o.y-h,52,h);ctx.strokeRect(o.x-26,o.y-h,52,h);ctx.fillStyle='#ffedba';ctx.fillRect(o.x-33,o.y-h,66,8);ctx.fillRect(o.x-33,o.y-8,66,8);ctx.beginPath();ctx.moveTo(o.x,o.y-h+24);ctx.lineTo(o.x,o.y-28);ctx.moveTo(o.x-12,o.y-h+45);ctx.lineTo(o.x+12,o.y-h+45);ctx.stroke();}
  ctx.restore();}
- for(const f of [this.p1,this.p2])if(f?.state==='rangedCharge'){ctx.save();ctx.fillStyle='#10211e';ctx.fillRect(f.x-25,f.y-f.height-16,50,5);ctx.fillStyle=f.rangedChargeFrames>=30?'#f2d799':'#91d4e9';ctx.fillRect(f.x-25,f.y-f.height-16,50*Math.min(1,f.rangedChargeFrames/60),5);ctx.restore();}
+ for(const f of [this.p1,this.p2])if(f?.state==='rangedCharge'){ctx.save();ctx.fillStyle='#10211e';ctx.fillRect(f.x-25,f.y-f.height-16,50,5);const staged=!!f.def.skill.chargeThresholds,t=f.rangedChargeFrames||0;ctx.fillStyle=staged?(f.def.skill.projectileColor||'#91d4e9'):t>=30?'#f2d799':'#91d4e9';ctx.fillRect(f.x-25,f.y-f.height-16,50*Math.min(1,t/(staged?150:60)),5);if(staged){ctx.fillStyle='#faf5d8';ctx.fillRect(f.x-5,f.y-f.height-17,1,7);ctx.font='10px sans-serif';ctx.textAlign='center';ctx.fillText((t>=150?'三':t>=60?'二':'一')+'段蓄力',f.x,f.y-f.height-20);}ctx.restore();}
 };
 })();

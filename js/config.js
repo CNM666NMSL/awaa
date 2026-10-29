@@ -5,7 +5,7 @@
 
 // 素材缓存版本号：每次替换/修改 assets 下的图片后，把这个值 +1
 // （JS/CSS 靠 index.html 的 ?v= 刷新，图片靠这个）
-const ASSET_VER = "20261023-jianke-v2";
+const ASSET_VER = "20261028-motion-v2";
 
 const CONFIG = {
     // ---------- 画布与场景 ----------
@@ -43,6 +43,8 @@ const CONFIG = {
 
     // ---------- 核心资源（设计文档 三.1） ----------
     resources: {
+        maxChargeSeconds: 7,
+        rangedCooldownSeconds: 2,
         maxHealth: 2000,       // 基础血量
         maxMeter: 100,         // 气槽上限：300 点（连续一条，UI 切 3 色分区）
         meterOnHit: 5,        // 普攻/技能命中攒气（点）
@@ -88,7 +90,7 @@ const CONFIG = {
         skill:   "KeyU",   // 远攻技能
         super_:  "KeyI",   // 超必杀（按气量放三档必杀，满气=终式）
         special: "KeyO",   // 特殊机制技
-        charge:  "KeyP",   // 蓄气（需同时按住 S/下蹲防御键才生效）
+        charge:  "KeyP",   // 按住蓄气，最多 7 秒，到时需松键后再次起手
     },
 
     // ---------- 通用战斗机制（设计文档 三.3） ----------
@@ -343,8 +345,12 @@ const CONFIG = {
         yanhuang:  { name: "炎荒熔窟",   sky: ["#3d0c02", "#8a2408", "#1a0501"], ground: "#45251a", hazard: "岩浆喷涌" },
         tianque:   { name: "天阙云台",   sky: ["#0b3d5c", "#1e6f9e", "#87ceeb"], ground: "#5c7a8a", hazard: "罡风" },
         wangsheng: { name: "往生花海",   sky: ["#2d1b4e", "#6b3a8a", "#c86b9e"], ground: "#4a2b45", hazard: "花毒" },
+        astral: { name: "星辉王城", style: "western", description: "浮空尖塔与星环映照的王城露台。", sky: ["#10152f", "#354778", "#172335"], ground: "#30394b", img: "assets/stages/new-scenes/astral.webp" },
+        arcane: { name: "秘法回廊", style: "western", description: "水晶与星象仪点亮的魔法学院庭院。", sky: ["#151d2d", "#3b5268", "#192a30"], ground: "#303c42", img: "assets/stages/new-scenes/arcane.webp" },
+        neoncity: { name: "霓雨旧城", style: "chinese", description: "飞檐老街与都市霓虹交织，雨色映入街面。", sky: ["#102b39", "#28515c", "#15272d"], ground: "#263b3e", img: "assets/stages/new-scenes/neoncity.webp", weather: "rain" },
+        lanterncity: { name: "灯河夜市", style: "chinese", description: "灯笼、青瓦与远处楼群围绕的滨河广场。", sky: ["#153c43", "#436664", "#1e3c3c"], ground: "#3b4945", img: "assets/stages/new-scenes/lanterncity.webp" },
     },
-    stageOrder: ["lingxia", "youdu", "cangshan", "yanhuang", "tianque", "wangsheng"],
+    stageOrder: ["lingxia", "astral", "arcane", "neoncity", "lanterncity", "youdu", "cangshan", "yanhuang", "tianque", "wangsheng"],
 
     // ---------- 剧情模式章节 ----------
     // 视频文件放进 assets/videos/ 即可自动加载；占位文件名可随意改

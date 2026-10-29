@@ -1,0 +1,26 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
+const root=path.resolve(__dirname,'..'),el=()=>({value:'normal',checked:false,textContent:'',classList:{add(){},remove(){},toggle(){}},querySelector(){return{style:{}};}}),c={Image:class{},window:{addEventListener(){}},console,performance:{now:()=>10000},document:{getElementById:el},setTimeout(){},matchMedia:()=>({matches:false})};vm.createContext(c);
+const load=name=>vm.runInContext(fs.readFileSync(path.join(root,'js',name+'.js'),'utf8').replace('window.game = new Game();',''),c);
+for(const name of ['config','jianke-anims','jianke-movement','jianke-walk','shouwang-anims','mobility-anims','combat-v2-config','expanded-anims','gait-v2','cyber-anims','cyber-roster','motion-v2','ultimate-ranges','wuxiang-revolver','ranged-arts-config'])load(name);
+vm.runInContext('globalThis.C=CONFIG',c);const oldDamage=c.C.characters.jianke.combo[0].damage,oldRanged=c.C.characters.jianke.skill.damage;load('signature-arts-config');load('fighter');load('game');vm.runInContext('globalThis.F=Fighter;globalThis.G=Game',c);
+const g=Object.create(c.G.prototype);c.window.game=g;for(const name of ['combat-v2','cyber-combat','signature-combat','mobile-supers'])load(name);Object.assign(g,{phase:'fight',mode:'local',keysDown:{},keysPressed:{},projectiles:[],specialObjects:[],cyberObjects:[],signatureObjects:[],sparks:[],spawnHitSpark(){},updateHUD(){},onKO(){},announce(){}});
+load('combo-rework');
+for(const [id,count] of Object.entries({noble:5,jianke:6,shouwang:5,wuxiang:5,liequan:6,motong:6})){
+ const f=new c.F(id,300,1);g.p1=f;g.p2=new c.F('noble',700,-1);f.attack();assert.equal(f.def.combo.length,count);
+ for(let i=1;i<count;i++){f.stateTimer=f.atkDur(f.currentAttack,'startup')+f.atkDur(f.currentAttack,'active');f.attack();assert.equal(f.comboIndex,i);assert.equal(f.currentAttack,f.def.combo[i]);}
+ const peer=new c.F(id,0,1);peer.applySnapshot(JSON.parse(JSON.stringify(f.toSnapshot())));assert.equal(peer.currentAttack.name,f.currentAttack.name);
+}
+let f=new c.F('wuxiang',300,1);g.p1=f;g.p2=new c.F('noble',650,-1);g.applyInput(f,{d:true,skl:true,sklHeld:true});assert(f.rangedNormals);assert.equal(f.def.combo.length,6);g.applyInput(f,{d:true,sklHeld:true});assert(f.rangedNormals);g.applyInput(f,{});f.attack();for(let i=1;i<=3;i++){f.stateTimer=13;f.attack();}assert(f.currentAttack.bullet);f.stateTimer=8;g.updateSkillCasts(f);assert.equal(g.projectiles.at(-1).kind,'revolver');assert.equal(f.getAttackBox(),null);const shotCount=g.projectiles.length;g.updateSkillCasts(f);assert.equal(g.projectiles.length,shotCount);
+const peer=new c.F('wuxiang',0,1);peer.applySnapshot(JSON.parse(JSON.stringify(f.toSnapshot())));assert(peer.rangedNormals);assert(peer.currentAttack.bullet);f.setState('idle');g.applyInput(f,{d:true,sklHeld:true});assert(!f.rangedNormals);
+f=new c.F('shouwang',250,1);f.form='unarmored';g.p1=f;g.p2=new c.F('noble',1000,-1);f.attack();assert.equal(f.def.combo.length,4);f.setState('idle');f.meter=100;f.castSuper();g.signatureObjects=[];for(let i=0;i<21;i++){f.x+=2;f.facing=-1;g.updateSignatureArts();}assert.equal(g.signatureObjects[0].x,250);assert.equal(g.signatureObjects[0].dir,1);assert.equal(g.signatureObjects[0].reach,c.C.canvas.width/2);
+f=new c.F('jianke',300,1);g.p1=f;g.p2=new c.F('noble',330,-1);g.signatureObjects=[];f.meter=100;f.castSuper();for(let i=0;i<60;i++)g.updateSignatureArts();assert.equal(g.p2.health,1600);
+f=new c.F('wuxiang',300,1);f.dash();assert.equal(f.blinkInvulnLeft,30);for(let i=0;i<29;i++)f.update();assert(f.isInvulnerable());f.update();assert(!f.isInvulnerable());
+const victim=new c.F('noble',400,1);victim.takeHit({damage:10,hitstun:18,knockback:0,control:true,deferKnockdown:true},1,false,1);assert.equal(victim.hitstunLeft,18);
+assert.equal(c.C.characters.motong.name,'伊芙琳');
+console.log('PASS combo lengths and chaining, snapshots, mode toggle, revolver bullets, fixed half-map pillars, 400 DPS, 30-frame blink and 18-frame control');// Every hit of the authored long strings must survive the old four-hit protection.
+for(const id of c.C.roster){const a=new c.F(id,300,1),b=new c.F('noble',360,-1);for(const step of a.def.combo){const r=b.takeHit(a.effAttack(step),1,false,1);assert(!r.knockdown,id+' prematurely knocked down');assert.equal(b.hitstunLeft,18);}}
+// A blink can evade a scheduled lock-on slash, rather than only ordinary attacks.
+f=new c.F('noble',300,1);g.p1=f;g.p2=new c.F('jianke',600,-1);f.meter=100;f.castSuper();f.activeUltimate.age=29;g.p2.dash();const hp=g.p2.health;g.signatureObjects=[];g.updateSignatureArts();assert.equal(g.p2.health,hp);
+// Thrown heavy sword travels and does not damage distant targets at release time.
+g.p1=new c.F('jianke',200,1);g.p2=new c.F('noble',700,-1);g.signatureObjects=[];c.window.signatureArts.spawn(g,g.p1,'heavy-cleave',{startX:200,x:200,damage:100,life:80,impactAt:12,reach:700});for(let i=0;i<12;i++)g.updateSignatureArts();assert.equal(g.p2.health,2000);for(let i=0;i<35;i++)g.updateSignatureArts();assert(g.p2.health<2000);

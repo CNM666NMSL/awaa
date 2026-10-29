@@ -1,0 +1,2433 @@
+{
+  "identities": {
+    "noble": {
+      "id": "noble",
+      "form": null
+    },
+    "jianke": {
+      "id": "jianke",
+      "form": null
+    },
+    "armored": {
+      "id": "shouwang",
+      "form": "armored"
+    },
+    "unarmored": {
+      "id": "shouwang",
+      "form": "unarmored"
+    }
+  },
+  "targets": {
+    "basic": 10,
+    "skill": 12,
+    "super": 25
+  },
+  "source": "gitee/main",
+  "clips": {
+    "noble": {
+      "idle": {
+        "original": {
+          "frames": 8,
+          "path": "assets/chars/noble/v3/idle",
+          "fps": 8,
+          "loop": true,
+          "referenceHeight": 288,
+          "canvasHeight": 448,
+          "originX": 0.425,
+          "originY": 0.9285714285714286
+        },
+        "sourceFiles": [
+          "assets/chars/noble/v3/idle/00.png",
+          "assets/chars/noble/v3/idle/01.png",
+          "assets/chars/noble/v3/idle/02.png",
+          "assets/chars/noble/v3/idle/03.png",
+          "assets/chars/noble/v3/idle/04.png",
+          "assets/chars/noble/v3/idle/05.png",
+          "assets/chars/noble/v3/idle/06.png",
+          "assets/chars/noble/v3/idle/07.png"
+        ],
+        "sourceCount": 8,
+        "target": 10,
+        "group": "idle"
+      },
+      "walk": {
+        "original": {
+          "frames": 8,
+          "path": "assets/chars/noble/v3/walk",
+          "fps": 14,
+          "loop": true,
+          "referenceHeight": 288,
+          "canvasHeight": 448,
+          "originX": 0.425,
+          "originY": 0.9285714285714286
+        },
+        "sourceFiles": [
+          "assets/chars/noble/v3/walk/00.png",
+          "assets/chars/noble/v3/walk/01.png",
+          "assets/chars/noble/v3/walk/02.png",
+          "assets/chars/noble/v3/walk/03.png",
+          "assets/chars/noble/v3/walk/04.png",
+          "assets/chars/noble/v3/walk/05.png",
+          "assets/chars/noble/v3/walk/06.png",
+          "assets/chars/noble/v3/walk/07.png"
+        ],
+        "sourceCount": 8,
+        "target": 10,
+        "group": "walk"
+      },
+      "run": {
+        "original": {
+          "frames": 8,
+          "path": "assets/chars/mobility-v1/noble/run",
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.41015625,
+          "originY": 0.93125,
+          "fps": 18,
+          "loop": true
+        },
+        "sourceFiles": [
+          "assets/chars/mobility-v1/noble/run/00.png",
+          "assets/chars/mobility-v1/noble/run/01.png",
+          "assets/chars/mobility-v1/noble/run/02.png",
+          "assets/chars/mobility-v1/noble/run/03.png",
+          "assets/chars/mobility-v1/noble/run/04.png",
+          "assets/chars/mobility-v1/noble/run/05.png",
+          "assets/chars/mobility-v1/noble/run/06.png",
+          "assets/chars/mobility-v1/noble/run/07.png"
+        ],
+        "sourceCount": 8,
+        "target": 10,
+        "group": "run"
+      },
+      "jump": {
+        "original": {
+          "frames": 9,
+          "path": "assets/chars/noble/v3/jump",
+          "fps": 18,
+          "loop": false,
+          "referenceHeight": 288,
+          "canvasHeight": 448,
+          "originX": 0.425,
+          "originY": 0.9285714285714286,
+          "physics": true
+        },
+        "sourceFiles": [
+          "assets/chars/noble/v3/jump/00.png",
+          "assets/chars/noble/v3/jump/01.png",
+          "assets/chars/noble/v3/jump/02.png",
+          "assets/chars/noble/v3/jump/03.png",
+          "assets/chars/noble/v3/jump/04.png",
+          "assets/chars/noble/v3/jump/05.png",
+          "assets/chars/noble/v3/jump/06.png",
+          "assets/chars/noble/v3/jump/07.png",
+          "assets/chars/noble/v3/jump/08.png"
+        ],
+        "sourceCount": 9,
+        "target": 10,
+        "group": "jump"
+      },
+      "dash": {
+        "original": {
+          "frames": {
+            "offset": 2,
+            "count": 4
+          },
+          "path": "assets/chars/noble/v3/u",
+          "fps": 24,
+          "loop": false,
+          "referenceHeight": 288,
+          "canvasHeight": 448,
+          "originX": 0.425,
+          "originY": 0.9285714285714286,
+          "fitState": false,
+          "contact": 4
+        },
+        "sourceFiles": [
+          "assets/chars/noble/v3/u/02.png",
+          "assets/chars/noble/v3/u/03.png",
+          "assets/chars/noble/v3/u/04.png",
+          "assets/chars/noble/v3/u/05.png"
+        ],
+        "sourceCount": 4,
+        "target": 10,
+        "group": "dash"
+      },
+      "j1": {
+        "original": {
+          "frames": 9,
+          "path": "assets/chars/noble/v3/j1",
+          "fps": 18,
+          "loop": false,
+          "referenceHeight": 288,
+          "canvasHeight": 448,
+          "originX": 0.425,
+          "originY": 0.9285714285714286,
+          "phases": [
+            4,
+            6
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/noble/v3/j1/00.png",
+          "assets/chars/noble/v3/j1/01.png",
+          "assets/chars/noble/v3/j1/02.png",
+          "assets/chars/noble/v3/j1/03.png",
+          "assets/chars/noble/v3/j1/04.png",
+          "assets/chars/noble/v3/j1/05.png",
+          "assets/chars/noble/v3/j1/06.png",
+          "assets/chars/noble/v3/j1/07.png",
+          "assets/chars/noble/v3/j1/08.png"
+        ],
+        "sourceCount": 9,
+        "target": 10,
+        "group": "j1"
+      },
+      "j2": {
+        "original": {
+          "frames": 9,
+          "path": "assets/chars/noble/v3/j2",
+          "fps": 18,
+          "loop": false,
+          "referenceHeight": 288,
+          "canvasHeight": 448,
+          "originX": 0.425,
+          "originY": 0.9285714285714286,
+          "phases": [
+            4,
+            6
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/noble/v3/j2/00.png",
+          "assets/chars/noble/v3/j2/01.png",
+          "assets/chars/noble/v3/j2/02.png",
+          "assets/chars/noble/v3/j2/03.png",
+          "assets/chars/noble/v3/j2/04.png",
+          "assets/chars/noble/v3/j2/05.png",
+          "assets/chars/noble/v3/j2/06.png",
+          "assets/chars/noble/v3/j2/07.png",
+          "assets/chars/noble/v3/j2/08.png"
+        ],
+        "sourceCount": 9,
+        "target": 10,
+        "group": "j2"
+      },
+      "j3": {
+        "original": {
+          "frames": 9,
+          "path": "assets/chars/noble/v3/j3",
+          "fps": 18,
+          "loop": false,
+          "referenceHeight": 288,
+          "canvasHeight": 448,
+          "originX": 0.425,
+          "originY": 0.9285714285714286,
+          "phases": [
+            4,
+            6
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/noble/v3/j3/00.png",
+          "assets/chars/noble/v3/j3/01.png",
+          "assets/chars/noble/v3/j3/02.png",
+          "assets/chars/noble/v3/j3/03.png",
+          "assets/chars/noble/v3/j3/04.png",
+          "assets/chars/noble/v3/j3/05.png",
+          "assets/chars/noble/v3/j3/06.png",
+          "assets/chars/noble/v3/j3/07.png",
+          "assets/chars/noble/v3/j3/08.png"
+        ],
+        "sourceCount": 9,
+        "target": 10,
+        "group": "j3"
+      },
+      "j4": {
+        "original": {
+          "frames": 7,
+          "path": "assets/chars/combat-v2/noble/j4",
+          "contact": 3,
+          "fps": 18,
+          "loop": false,
+          "phases": [
+            3,
+            5
+          ],
+          "fitState": false,
+          "referenceHeight": 210,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/combat-v2/noble/j4/00.png",
+          "assets/chars/combat-v2/noble/j4/01.png",
+          "assets/chars/combat-v2/noble/j4/02.png",
+          "assets/chars/combat-v2/noble/j4/03.png",
+          "assets/chars/combat-v2/noble/j4/04.png",
+          "assets/chars/combat-v2/noble/j4/05.png",
+          "assets/chars/combat-v2/noble/j4/06.png"
+        ],
+        "sourceCount": 7,
+        "target": 10,
+        "group": "j4"
+      },
+      "low": {
+        "original": {
+          "frames": 9,
+          "path": "assets/chars/noble/v3/low",
+          "fps": 18,
+          "loop": false,
+          "referenceHeight": 288,
+          "canvasHeight": 448,
+          "originX": 0.425,
+          "originY": 0.9285714285714286,
+          "phases": [
+            4,
+            6
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/noble/v3/low/00.png",
+          "assets/chars/noble/v3/low/01.png",
+          "assets/chars/noble/v3/low/02.png",
+          "assets/chars/noble/v3/low/03.png",
+          "assets/chars/noble/v3/low/04.png",
+          "assets/chars/noble/v3/low/05.png",
+          "assets/chars/noble/v3/low/06.png",
+          "assets/chars/noble/v3/low/07.png",
+          "assets/chars/noble/v3/low/08.png"
+        ],
+        "sourceCount": 9,
+        "target": 10,
+        "group": "low"
+      },
+      "dashAttack": {
+        "original": {
+          "frames": 9,
+          "path": "assets/chars/noble/v3/u",
+          "fps": 18,
+          "loop": false,
+          "referenceHeight": 288,
+          "canvasHeight": 448,
+          "originX": 0.425,
+          "originY": 0.9285714285714286,
+          "fitState": false,
+          "contact": 4,
+          "phases": [
+            4,
+            6
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/noble/v3/u/00.png",
+          "assets/chars/noble/v3/u/01.png",
+          "assets/chars/noble/v3/u/02.png",
+          "assets/chars/noble/v3/u/03.png",
+          "assets/chars/noble/v3/u/04.png",
+          "assets/chars/noble/v3/u/05.png",
+          "assets/chars/noble/v3/u/06.png",
+          "assets/chars/noble/v3/u/07.png",
+          "assets/chars/noble/v3/u/08.png"
+        ],
+        "sourceCount": 9,
+        "target": 10,
+        "group": "dashAttack"
+      },
+      "airAttack": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/mobility-v1/noble/airAttack",
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.41015625,
+          "originY": 0.93125,
+          "fps": 18,
+          "loop": false,
+          "phases": [
+            2,
+            4
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/mobility-v1/noble/airAttack/00.png",
+          "assets/chars/mobility-v1/noble/airAttack/01.png",
+          "assets/chars/mobility-v1/noble/airAttack/02.png",
+          "assets/chars/mobility-v1/noble/airAttack/03.png",
+          "assets/chars/mobility-v1/noble/airAttack/04.png",
+          "assets/chars/mobility-v1/noble/airAttack/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 10,
+        "group": "airAttack"
+      },
+      "block": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/noble/v3/block",
+          "fps": 24,
+          "loop": false,
+          "referenceHeight": 288,
+          "canvasHeight": 448,
+          "originX": 0.425,
+          "originY": 0.9285714285714286
+        },
+        "sourceFiles": [
+          "assets/chars/noble/v3/block/00.png",
+          "assets/chars/noble/v3/block/01.png",
+          "assets/chars/noble/v3/block/02.png",
+          "assets/chars/noble/v3/block/03.png",
+          "assets/chars/noble/v3/block/04.png",
+          "assets/chars/noble/v3/block/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 12,
+        "group": "block"
+      },
+      "charge": {
+        "original": {
+          "frames": {
+            "offset": 3,
+            "count": 3
+          },
+          "path": "assets/chars/noble/v3/block",
+          "fps": 5,
+          "loop": true,
+          "referenceHeight": 288,
+          "canvasHeight": 448,
+          "originX": 0.425,
+          "originY": 0.9285714285714286
+        },
+        "sourceFiles": [
+          "assets/chars/noble/v3/block/03.png",
+          "assets/chars/noble/v3/block/04.png",
+          "assets/chars/noble/v3/block/05.png"
+        ],
+        "sourceCount": 3,
+        "target": 12,
+        "group": "charge"
+      },
+      "uCharge": {
+        "original": {
+          "frames": 4,
+          "path": "assets/chars/combat-v2/noble/uCharge",
+          "contact": 3,
+          "fps": 18,
+          "loop": true,
+          "phases": null,
+          "fitState": false,
+          "referenceHeight": 210,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/combat-v2/noble/uCharge/00.png",
+          "assets/chars/combat-v2/noble/uCharge/01.png",
+          "assets/chars/combat-v2/noble/uCharge/02.png",
+          "assets/chars/combat-v2/noble/uCharge/03.png"
+        ],
+        "sourceCount": 4,
+        "target": 12,
+        "group": "uCharge"
+      },
+      "u": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/combat-v2/noble/u",
+          "contact": 3,
+          "fps": 18,
+          "loop": false,
+          "phases": [
+            3,
+            4
+          ],
+          "fitState": true,
+          "referenceHeight": 210,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/combat-v2/noble/u/00.png",
+          "assets/chars/combat-v2/noble/u/01.png",
+          "assets/chars/combat-v2/noble/u/02.png",
+          "assets/chars/combat-v2/noble/u/03.png",
+          "assets/chars/combat-v2/noble/u/04.png",
+          "assets/chars/combat-v2/noble/u/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 12,
+        "group": "u"
+      },
+      "uCharged": {
+        "original": {
+          "frames": 7,
+          "path": "assets/chars/combat-v2/noble/uCharged",
+          "contact": 4,
+          "fps": 18,
+          "loop": false,
+          "phases": [
+            4,
+            5
+          ],
+          "fitState": true,
+          "referenceHeight": 210,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/combat-v2/noble/uCharged/00.png",
+          "assets/chars/combat-v2/noble/uCharged/01.png",
+          "assets/chars/combat-v2/noble/uCharged/02.png",
+          "assets/chars/combat-v2/noble/uCharged/03.png",
+          "assets/chars/combat-v2/noble/uCharged/04.png",
+          "assets/chars/combat-v2/noble/uCharged/05.png",
+          "assets/chars/combat-v2/noble/uCharged/06.png"
+        ],
+        "sourceCount": 7,
+        "target": 12,
+        "group": "uCharged"
+      },
+      "superLunge": {
+        "original": {
+          "frames": 9,
+          "path": "assets/chars/noble/v3/u",
+          "fps": 18,
+          "loop": false,
+          "referenceHeight": 288,
+          "canvasHeight": 448,
+          "originX": 0.425,
+          "originY": 0.9285714285714286,
+          "fitState": false,
+          "contact": 4,
+          "phases": [
+            4,
+            6
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/noble/v3/u/00.png",
+          "assets/chars/noble/v3/u/01.png",
+          "assets/chars/noble/v3/u/02.png",
+          "assets/chars/noble/v3/u/03.png",
+          "assets/chars/noble/v3/u/04.png",
+          "assets/chars/noble/v3/u/05.png",
+          "assets/chars/noble/v3/u/06.png",
+          "assets/chars/noble/v3/u/07.png",
+          "assets/chars/noble/v3/u/08.png"
+        ],
+        "sourceCount": 9,
+        "target": 12,
+        "group": "superLunge"
+      },
+      "superWave": {
+        "original": {
+          "frames": 9,
+          "path": "assets/chars/noble/v3/u",
+          "fps": 18,
+          "loop": false,
+          "referenceHeight": 288,
+          "canvasHeight": 448,
+          "originX": 0.425,
+          "originY": 0.9285714285714286,
+          "fitState": true,
+          "contact": 4
+        },
+        "sourceFiles": [
+          "assets/chars/noble/v3/u/00.png",
+          "assets/chars/noble/v3/u/01.png",
+          "assets/chars/noble/v3/u/02.png",
+          "assets/chars/noble/v3/u/03.png",
+          "assets/chars/noble/v3/u/04.png",
+          "assets/chars/noble/v3/u/05.png",
+          "assets/chars/noble/v3/u/06.png",
+          "assets/chars/noble/v3/u/07.png",
+          "assets/chars/noble/v3/u/08.png"
+        ],
+        "sourceCount": 9,
+        "target": 12,
+        "group": "superWave"
+      },
+      "doubleJump": {
+        "original": {
+          "frames": 4,
+          "path": "assets/chars/mobility-v1/noble/doubleJump",
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.41015625,
+          "originY": 0.93125,
+          "fps": 24,
+          "loop": false
+        },
+        "sourceFiles": [
+          "assets/chars/mobility-v1/noble/doubleJump/00.png",
+          "assets/chars/mobility-v1/noble/doubleJump/01.png",
+          "assets/chars/mobility-v1/noble/doubleJump/02.png",
+          "assets/chars/mobility-v1/noble/doubleJump/03.png"
+        ],
+        "sourceCount": 4,
+        "target": 10,
+        "group": "jump"
+      },
+      "airMove": {
+        "original": {
+          "frames": 4,
+          "path": "assets/chars/mobility-v1/noble/airMove",
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.41015625,
+          "originY": 0.93125,
+          "fps": 12,
+          "loop": false,
+          "airTravel": true
+        },
+        "sourceFiles": [
+          "assets/chars/mobility-v1/noble/airMove/00.png",
+          "assets/chars/mobility-v1/noble/airMove/01.png",
+          "assets/chars/mobility-v1/noble/airMove/02.png",
+          "assets/chars/mobility-v1/noble/airMove/03.png"
+        ],
+        "sourceCount": 4,
+        "target": 10,
+        "group": "jump"
+      },
+      "launcher": {
+        "original": {
+          "frames": 9,
+          "path": "assets/chars/noble/v3/j3",
+          "fps": 18,
+          "loop": false,
+          "referenceHeight": 288,
+          "canvasHeight": 448,
+          "originX": 0.425,
+          "originY": 0.9285714285714286,
+          "phases": [
+            4,
+            6
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/noble/v3/j3/00.png",
+          "assets/chars/noble/v3/j3/01.png",
+          "assets/chars/noble/v3/j3/02.png",
+          "assets/chars/noble/v3/j3/03.png",
+          "assets/chars/noble/v3/j3/04.png",
+          "assets/chars/noble/v3/j3/05.png",
+          "assets/chars/noble/v3/j3/06.png",
+          "assets/chars/noble/v3/j3/07.png",
+          "assets/chars/noble/v3/j3/08.png"
+        ],
+        "sourceCount": 9,
+        "target": 10,
+        "group": "j3"
+      },
+      "parry": {
+        "original": {
+          "frames": {
+            "offset": 1,
+            "count": 5
+          },
+          "path": "assets/chars/noble/v3/block",
+          "fps": 24,
+          "loop": false,
+          "referenceHeight": 288,
+          "canvasHeight": 448,
+          "originX": 0.425,
+          "originY": 0.9285714285714286
+        },
+        "sourceFiles": [
+          "assets/chars/noble/v3/block/01.png",
+          "assets/chars/noble/v3/block/02.png",
+          "assets/chars/noble/v3/block/03.png",
+          "assets/chars/noble/v3/block/04.png",
+          "assets/chars/noble/v3/block/05.png"
+        ],
+        "sourceCount": 5,
+        "target": 12,
+        "group": "block"
+      },
+      "parryCounter": {
+        "original": {
+          "frames": 9,
+          "path": "assets/chars/noble/v3/j1",
+          "fps": 18,
+          "loop": false,
+          "referenceHeight": 288,
+          "canvasHeight": 448,
+          "originX": 0.425,
+          "originY": 0.9285714285714286,
+          "phases": [
+            4,
+            6
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/noble/v3/j1/00.png",
+          "assets/chars/noble/v3/j1/01.png",
+          "assets/chars/noble/v3/j1/02.png",
+          "assets/chars/noble/v3/j1/03.png",
+          "assets/chars/noble/v3/j1/04.png",
+          "assets/chars/noble/v3/j1/05.png",
+          "assets/chars/noble/v3/j1/06.png",
+          "assets/chars/noble/v3/j1/07.png",
+          "assets/chars/noble/v3/j1/08.png"
+        ],
+        "sourceCount": 9,
+        "target": 10,
+        "group": "j1"
+      },
+      "super_": {
+        "original": {
+          "frames": 9,
+          "path": "assets/chars/noble/v3/super_",
+          "fps": 18,
+          "loop": false,
+          "referenceHeight": 288,
+          "canvasHeight": 448,
+          "originX": 0.425,
+          "originY": 0.9285714285714286,
+          "phases": [
+            4,
+            6
+          ],
+          "activeLoop": true
+        },
+        "sourceFiles": [
+          "assets/chars/noble/v3/super_/00.png",
+          "assets/chars/noble/v3/super_/01.png",
+          "assets/chars/noble/v3/super_/02.png",
+          "assets/chars/noble/v3/super_/03.png",
+          "assets/chars/noble/v3/super_/04.png",
+          "assets/chars/noble/v3/super_/05.png",
+          "assets/chars/noble/v3/super_/06.png",
+          "assets/chars/noble/v3/super_/07.png",
+          "assets/chars/noble/v3/super_/08.png"
+        ],
+        "sourceCount": 9,
+        "target": 25,
+        "group": "super_"
+      }
+    },
+    "jianke": {
+      "idle": {
+        "original": {
+          "frames": 4,
+          "path": "assets/chars/jianke/v2/idle",
+          "fps": 6,
+          "loop": true,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.4296875,
+          "originY": 0.925
+        },
+        "sourceFiles": [
+          "assets/chars/jianke/v2/idle/00.png",
+          "assets/chars/jianke/v2/idle/01.png",
+          "assets/chars/jianke/v2/idle/02.png",
+          "assets/chars/jianke/v2/idle/03.png"
+        ],
+        "sourceCount": 4,
+        "target": 10,
+        "group": "idle"
+      },
+      "walk": {
+        "original": {
+          "path": "assets/chars/jianke/walk-v3",
+          "frames": 8,
+          "canvasHeight": 320,
+          "referenceHeight": 240,
+          "originX": 0.4296875,
+          "originY": 0.925,
+          "fps": 12,
+          "loop": true
+        },
+        "sourceFiles": [
+          "assets/chars/jianke/walk-v3/00.png",
+          "assets/chars/jianke/walk-v3/01.png",
+          "assets/chars/jianke/walk-v3/02.png",
+          "assets/chars/jianke/walk-v3/03.png",
+          "assets/chars/jianke/walk-v3/04.png",
+          "assets/chars/jianke/walk-v3/05.png",
+          "assets/chars/jianke/walk-v3/06.png",
+          "assets/chars/jianke/walk-v3/07.png"
+        ],
+        "sourceCount": 8,
+        "target": 10,
+        "group": "walk"
+      },
+      "run": {
+        "original": {
+          "frames": 8,
+          "path": "assets/chars/mobility-v1/jianke/run",
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.41015625,
+          "originY": 0.93125,
+          "fps": 18,
+          "loop": true
+        },
+        "sourceFiles": [
+          "assets/chars/mobility-v1/jianke/run/00.png",
+          "assets/chars/mobility-v1/jianke/run/01.png",
+          "assets/chars/mobility-v1/jianke/run/02.png",
+          "assets/chars/mobility-v1/jianke/run/03.png",
+          "assets/chars/mobility-v1/jianke/run/04.png",
+          "assets/chars/mobility-v1/jianke/run/05.png",
+          "assets/chars/mobility-v1/jianke/run/06.png",
+          "assets/chars/mobility-v1/jianke/run/07.png"
+        ],
+        "sourceCount": 8,
+        "target": 10,
+        "group": "run"
+      },
+      "jump": {
+        "original": {
+          "frames": 7,
+          "path": "assets/chars/jianke/v2/jump",
+          "fps": 12,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.4296875,
+          "originY": 0.925,
+          "physics": true
+        },
+        "sourceFiles": [
+          "assets/chars/jianke/v2/jump/00.png",
+          "assets/chars/jianke/v2/jump/01.png",
+          "assets/chars/jianke/v2/jump/02.png",
+          "assets/chars/jianke/v2/jump/03.png",
+          "assets/chars/jianke/v2/jump/04.png",
+          "assets/chars/jianke/v2/jump/05.png",
+          "assets/chars/jianke/v2/jump/06.png"
+        ],
+        "sourceCount": 7,
+        "target": 10,
+        "group": "jump"
+      },
+      "dash": {
+        "original": {
+          "frames": 4,
+          "path": "assets/chars/jianke/v2/dash",
+          "fps": 18,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.4296875,
+          "originY": 0.925
+        },
+        "sourceFiles": [
+          "assets/chars/jianke/v2/dash/00.png",
+          "assets/chars/jianke/v2/dash/01.png",
+          "assets/chars/jianke/v2/dash/02.png",
+          "assets/chars/jianke/v2/dash/03.png"
+        ],
+        "sourceCount": 4,
+        "target": 10,
+        "group": "dash"
+      },
+      "j1": {
+        "original": {
+          "frames": 5,
+          "path": "assets/chars/jianke/v2/j1",
+          "fps": 12,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.4296875,
+          "originY": 0.925,
+          "phases": [
+            2,
+            3
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/jianke/v2/j1/00.png",
+          "assets/chars/jianke/v2/j1/01.png",
+          "assets/chars/jianke/v2/j1/02.png",
+          "assets/chars/jianke/v2/j1/03.png",
+          "assets/chars/jianke/v2/j1/04.png"
+        ],
+        "sourceCount": 5,
+        "target": 10,
+        "group": "j1"
+      },
+      "j2": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/jianke/v2/j2",
+          "fps": 12,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.4296875,
+          "originY": 0.925,
+          "phases": [
+            3,
+            4
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/jianke/v2/j2/00.png",
+          "assets/chars/jianke/v2/j2/01.png",
+          "assets/chars/jianke/v2/j2/02.png",
+          "assets/chars/jianke/v2/j2/03.png",
+          "assets/chars/jianke/v2/j2/04.png",
+          "assets/chars/jianke/v2/j2/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 10,
+        "group": "j2"
+      },
+      "j3": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/jianke/v2/j3",
+          "fps": 12,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.4296875,
+          "originY": 0.925,
+          "phases": [
+            3,
+            4
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/jianke/v2/j3/00.png",
+          "assets/chars/jianke/v2/j3/01.png",
+          "assets/chars/jianke/v2/j3/02.png",
+          "assets/chars/jianke/v2/j3/03.png",
+          "assets/chars/jianke/v2/j3/04.png",
+          "assets/chars/jianke/v2/j3/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 10,
+        "group": "j3"
+      },
+      "j4": {
+        "original": {
+          "frames": 7,
+          "path": "assets/chars/combat-v2/jianke/j4",
+          "contact": 3,
+          "fps": 18,
+          "loop": false,
+          "phases": [
+            3,
+            5
+          ],
+          "fitState": false,
+          "referenceHeight": 210,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/combat-v2/jianke/j4/00.png",
+          "assets/chars/combat-v2/jianke/j4/01.png",
+          "assets/chars/combat-v2/jianke/j4/02.png",
+          "assets/chars/combat-v2/jianke/j4/03.png",
+          "assets/chars/combat-v2/jianke/j4/04.png",
+          "assets/chars/combat-v2/jianke/j4/05.png",
+          "assets/chars/combat-v2/jianke/j4/06.png"
+        ],
+        "sourceCount": 7,
+        "target": 10,
+        "group": "j4"
+      },
+      "low": {
+        "original": {
+          "frames": 5,
+          "path": "assets/chars/jianke/v2/low",
+          "fps": 12,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.4296875,
+          "originY": 0.925,
+          "phases": [
+            2,
+            3
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/jianke/v2/low/00.png",
+          "assets/chars/jianke/v2/low/01.png",
+          "assets/chars/jianke/v2/low/02.png",
+          "assets/chars/jianke/v2/low/03.png",
+          "assets/chars/jianke/v2/low/04.png"
+        ],
+        "sourceCount": 5,
+        "target": 10,
+        "group": "low"
+      },
+      "dashAttack": {
+        "original": {
+          "frames": 5,
+          "path": "assets/chars/jianke/v2/dashAttack",
+          "fps": 12,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.4296875,
+          "originY": 0.925,
+          "phases": [
+            2,
+            3
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/jianke/v2/dashAttack/00.png",
+          "assets/chars/jianke/v2/dashAttack/01.png",
+          "assets/chars/jianke/v2/dashAttack/02.png",
+          "assets/chars/jianke/v2/dashAttack/03.png",
+          "assets/chars/jianke/v2/dashAttack/04.png"
+        ],
+        "sourceCount": 5,
+        "target": 10,
+        "group": "dashAttack"
+      },
+      "airAttack": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/mobility-v1/jianke/airAttack",
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.41015625,
+          "originY": 0.93125,
+          "fps": 18,
+          "loop": false,
+          "phases": [
+            2,
+            4
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/mobility-v1/jianke/airAttack/00.png",
+          "assets/chars/mobility-v1/jianke/airAttack/01.png",
+          "assets/chars/mobility-v1/jianke/airAttack/02.png",
+          "assets/chars/mobility-v1/jianke/airAttack/03.png",
+          "assets/chars/mobility-v1/jianke/airAttack/04.png",
+          "assets/chars/mobility-v1/jianke/airAttack/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 10,
+        "group": "airAttack"
+      },
+      "block": {
+        "original": {
+          "frames": 1,
+          "path": "assets/chars/jianke/v2/block",
+          "fps": 12,
+          "loop": true,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.4296875,
+          "originY": 0.925
+        },
+        "sourceFiles": [
+          "assets/chars/jianke/v2/block/00.png"
+        ],
+        "sourceCount": 1,
+        "target": 12,
+        "group": "block"
+      },
+      "charge": {
+        "original": {
+          "frames": 4,
+          "path": "assets/chars/jianke/v2/charge",
+          "fps": 6,
+          "loop": true,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.4296875,
+          "originY": 0.925
+        },
+        "sourceFiles": [
+          "assets/chars/jianke/v2/charge/00.png",
+          "assets/chars/jianke/v2/charge/01.png",
+          "assets/chars/jianke/v2/charge/02.png",
+          "assets/chars/jianke/v2/charge/03.png"
+        ],
+        "sourceCount": 4,
+        "target": 12,
+        "group": "charge"
+      },
+      "uCharge": {
+        "original": {
+          "frames": 4,
+          "path": "assets/chars/combat-v2/jianke/uCharge",
+          "contact": 3,
+          "fps": 18,
+          "loop": true,
+          "phases": null,
+          "fitState": false,
+          "referenceHeight": 210,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/combat-v2/jianke/uCharge/00.png",
+          "assets/chars/combat-v2/jianke/uCharge/01.png",
+          "assets/chars/combat-v2/jianke/uCharge/02.png",
+          "assets/chars/combat-v2/jianke/uCharge/03.png"
+        ],
+        "sourceCount": 4,
+        "target": 12,
+        "group": "uCharge"
+      },
+      "u": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/combat-v2/jianke/u",
+          "contact": 3,
+          "fps": 18,
+          "loop": false,
+          "phases": [
+            3,
+            4
+          ],
+          "fitState": true,
+          "referenceHeight": 210,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/combat-v2/jianke/u/00.png",
+          "assets/chars/combat-v2/jianke/u/01.png",
+          "assets/chars/combat-v2/jianke/u/02.png",
+          "assets/chars/combat-v2/jianke/u/03.png",
+          "assets/chars/combat-v2/jianke/u/04.png",
+          "assets/chars/combat-v2/jianke/u/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 12,
+        "group": "u"
+      },
+      "uCharged": {
+        "original": {
+          "frames": 7,
+          "path": "assets/chars/combat-v2/jianke/uCharged",
+          "contact": 4,
+          "fps": 18,
+          "loop": false,
+          "phases": [
+            4,
+            5
+          ],
+          "fitState": true,
+          "referenceHeight": 210,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/combat-v2/jianke/uCharged/00.png",
+          "assets/chars/combat-v2/jianke/uCharged/01.png",
+          "assets/chars/combat-v2/jianke/uCharged/02.png",
+          "assets/chars/combat-v2/jianke/uCharged/03.png",
+          "assets/chars/combat-v2/jianke/uCharged/04.png",
+          "assets/chars/combat-v2/jianke/uCharged/05.png",
+          "assets/chars/combat-v2/jianke/uCharged/06.png"
+        ],
+        "sourceCount": 7,
+        "target": 12,
+        "group": "uCharged"
+      },
+      "superLunge": {
+        "original": {
+          "frames": 5,
+          "path": "assets/chars/jianke/v2/superLunge",
+          "fps": 12,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.4296875,
+          "originY": 0.925,
+          "phases": [
+            2,
+            3
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/jianke/v2/superLunge/00.png",
+          "assets/chars/jianke/v2/superLunge/01.png",
+          "assets/chars/jianke/v2/superLunge/02.png",
+          "assets/chars/jianke/v2/superLunge/03.png",
+          "assets/chars/jianke/v2/superLunge/04.png"
+        ],
+        "sourceCount": 5,
+        "target": 12,
+        "group": "superLunge"
+      },
+      "superWave": {
+        "original": {
+          "frames": 5,
+          "path": "assets/chars/jianke/v2/superWave",
+          "fps": 12,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.4296875,
+          "originY": 0.925,
+          "fitState": true,
+          "contact": 2
+        },
+        "sourceFiles": [
+          "assets/chars/jianke/v2/superWave/00.png",
+          "assets/chars/jianke/v2/superWave/01.png",
+          "assets/chars/jianke/v2/superWave/02.png",
+          "assets/chars/jianke/v2/superWave/03.png",
+          "assets/chars/jianke/v2/superWave/04.png"
+        ],
+        "sourceCount": 5,
+        "target": 12,
+        "group": "superWave"
+      },
+      "walkBack": {
+        "original": {
+          "path": "assets/chars/jianke/movement/walkBack",
+          "frames": 4,
+          "canvasHeight": 320,
+          "referenceHeight": 240,
+          "originX": 0.4296875,
+          "originY": 0.925,
+          "fps": 10,
+          "loop": true
+        },
+        "sourceFiles": [
+          "assets/chars/jianke/movement/walkBack/00.png",
+          "assets/chars/jianke/movement/walkBack/01.png",
+          "assets/chars/jianke/movement/walkBack/02.png",
+          "assets/chars/jianke/movement/walkBack/03.png"
+        ],
+        "sourceCount": 4,
+        "target": 10,
+        "group": "walk"
+      },
+      "doubleJump": {
+        "original": {
+          "frames": 4,
+          "path": "assets/chars/mobility-v1/jianke/doubleJump",
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.41015625,
+          "originY": 0.93125,
+          "fps": 24,
+          "loop": false
+        },
+        "sourceFiles": [
+          "assets/chars/mobility-v1/jianke/doubleJump/00.png",
+          "assets/chars/mobility-v1/jianke/doubleJump/01.png",
+          "assets/chars/mobility-v1/jianke/doubleJump/02.png",
+          "assets/chars/mobility-v1/jianke/doubleJump/03.png"
+        ],
+        "sourceCount": 4,
+        "target": 10,
+        "group": "jump"
+      },
+      "airMove": {
+        "original": {
+          "frames": 4,
+          "path": "assets/chars/mobility-v1/jianke/airMove",
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.41015625,
+          "originY": 0.93125,
+          "fps": 12,
+          "loop": false,
+          "airTravel": true
+        },
+        "sourceFiles": [
+          "assets/chars/mobility-v1/jianke/airMove/00.png",
+          "assets/chars/mobility-v1/jianke/airMove/01.png",
+          "assets/chars/mobility-v1/jianke/airMove/02.png",
+          "assets/chars/mobility-v1/jianke/airMove/03.png"
+        ],
+        "sourceCount": 4,
+        "target": 10,
+        "group": "jump"
+      },
+      "launcher": {
+        "original": {
+          "frames": 5,
+          "path": "assets/chars/jianke/v2/launcher",
+          "fps": 12,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.4296875,
+          "originY": 0.925,
+          "phases": [
+            2,
+            3
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/jianke/v2/launcher/00.png",
+          "assets/chars/jianke/v2/launcher/01.png",
+          "assets/chars/jianke/v2/launcher/02.png",
+          "assets/chars/jianke/v2/launcher/03.png",
+          "assets/chars/jianke/v2/launcher/04.png"
+        ],
+        "sourceCount": 5,
+        "target": 10,
+        "group": "j3"
+      },
+      "parry": {
+        "original": {
+          "frames": 3,
+          "path": "assets/chars/jianke/v2/parry",
+          "fps": 12,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.4296875,
+          "originY": 0.925
+        },
+        "sourceFiles": [
+          "assets/chars/jianke/v2/parry/00.png",
+          "assets/chars/jianke/v2/parry/01.png",
+          "assets/chars/jianke/v2/parry/02.png"
+        ],
+        "sourceCount": 3,
+        "target": 12,
+        "group": "block"
+      },
+      "super_": {
+        "original": {
+          "frames": 7,
+          "path": "assets/chars/jianke/v2/super_",
+          "fps": 12,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.4296875,
+          "originY": 0.925,
+          "phases": [
+            4,
+            5
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/jianke/v2/super_/00.png",
+          "assets/chars/jianke/v2/super_/01.png",
+          "assets/chars/jianke/v2/super_/02.png",
+          "assets/chars/jianke/v2/super_/03.png",
+          "assets/chars/jianke/v2/super_/04.png",
+          "assets/chars/jianke/v2/super_/05.png",
+          "assets/chars/jianke/v2/super_/06.png"
+        ],
+        "sourceCount": 7,
+        "target": 25,
+        "group": "super_"
+      }
+    },
+    "armored": {
+      "idle": {
+        "original": {
+          "frames": 1,
+          "path": "assets/chars/shouwang/v1/{form}/idle",
+          "fps": 4,
+          "loop": true,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/armored/idle/00.png"
+        ],
+        "sourceCount": 1,
+        "target": 10,
+        "group": "idle"
+      },
+      "run": {
+        "original": {
+          "frames": 8,
+          "path": "assets/chars/mobility-v1/{form}/run",
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.41015625,
+          "originY": 0.93125,
+          "fps": 18,
+          "loop": true
+        },
+        "sourceFiles": [
+          "assets/chars/mobility-v1/armored/run/00.png",
+          "assets/chars/mobility-v1/armored/run/01.png",
+          "assets/chars/mobility-v1/armored/run/02.png",
+          "assets/chars/mobility-v1/armored/run/03.png",
+          "assets/chars/mobility-v1/armored/run/04.png",
+          "assets/chars/mobility-v1/armored/run/05.png",
+          "assets/chars/mobility-v1/armored/run/06.png",
+          "assets/chars/mobility-v1/armored/run/07.png"
+        ],
+        "sourceCount": 8,
+        "target": 10,
+        "group": "run"
+      },
+      "jump": {
+        "original": {
+          "frames": 7,
+          "path": "assets/chars/shouwang/v1/{form}/jump",
+          "fps": 14,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375,
+          "physics": true
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/armored/jump/00.png",
+          "assets/chars/shouwang/v1/armored/jump/01.png",
+          "assets/chars/shouwang/v1/armored/jump/02.png",
+          "assets/chars/shouwang/v1/armored/jump/03.png",
+          "assets/chars/shouwang/v1/armored/jump/04.png",
+          "assets/chars/shouwang/v1/armored/jump/05.png",
+          "assets/chars/shouwang/v1/armored/jump/06.png"
+        ],
+        "sourceCount": 7,
+        "target": 10,
+        "group": "jump"
+      },
+      "dash": {
+        "original": {
+          "frames": 4,
+          "path": "assets/chars/shouwang/v1/{form}/dash",
+          "fps": 20,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/armored/dash/00.png",
+          "assets/chars/shouwang/v1/armored/dash/01.png",
+          "assets/chars/shouwang/v1/armored/dash/02.png",
+          "assets/chars/shouwang/v1/armored/dash/03.png"
+        ],
+        "sourceCount": 4,
+        "target": 10,
+        "group": "dash"
+      },
+      "j1": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/shouwang/v1/{form}/j1",
+          "fps": 14,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375,
+          "phases": [
+            2,
+            4
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/armored/j1/00.png",
+          "assets/chars/shouwang/v1/armored/j1/01.png",
+          "assets/chars/shouwang/v1/armored/j1/02.png",
+          "assets/chars/shouwang/v1/armored/j1/03.png",
+          "assets/chars/shouwang/v1/armored/j1/04.png",
+          "assets/chars/shouwang/v1/armored/j1/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 10,
+        "group": "j1"
+      },
+      "j2": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/shouwang/v1/{form}/j2",
+          "fps": 14,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375,
+          "phases": [
+            2,
+            4
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/armored/j2/00.png",
+          "assets/chars/shouwang/v1/armored/j2/01.png",
+          "assets/chars/shouwang/v1/armored/j2/02.png",
+          "assets/chars/shouwang/v1/armored/j2/03.png",
+          "assets/chars/shouwang/v1/armored/j2/04.png",
+          "assets/chars/shouwang/v1/armored/j2/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 10,
+        "group": "j2"
+      },
+      "j3": {
+        "original": {
+          "frames": 7,
+          "path": "assets/chars/shouwang/v1/{form}/j3",
+          "fps": 14,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375,
+          "phases": [
+            3,
+            5
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/armored/j3/00.png",
+          "assets/chars/shouwang/v1/armored/j3/01.png",
+          "assets/chars/shouwang/v1/armored/j3/02.png",
+          "assets/chars/shouwang/v1/armored/j3/03.png",
+          "assets/chars/shouwang/v1/armored/j3/04.png",
+          "assets/chars/shouwang/v1/armored/j3/05.png",
+          "assets/chars/shouwang/v1/armored/j3/06.png"
+        ],
+        "sourceCount": 7,
+        "target": 10,
+        "group": "j3"
+      },
+      "j4": {
+        "original": {
+          "frames": 7,
+          "path": "assets/chars/combat-v2/{form}/j4",
+          "contact": 3,
+          "fps": 18,
+          "loop": false,
+          "phases": [
+            3,
+            5
+          ],
+          "fitState": false,
+          "referenceHeight": 210,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/combat-v2/armored/j4/00.png",
+          "assets/chars/combat-v2/armored/j4/01.png",
+          "assets/chars/combat-v2/armored/j4/02.png",
+          "assets/chars/combat-v2/armored/j4/03.png",
+          "assets/chars/combat-v2/armored/j4/04.png",
+          "assets/chars/combat-v2/armored/j4/05.png",
+          "assets/chars/combat-v2/armored/j4/06.png"
+        ],
+        "sourceCount": 7,
+        "target": 10,
+        "group": "j4"
+      },
+      "low": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/shouwang/v1/{form}/low",
+          "fps": 14,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375,
+          "phases": [
+            2,
+            4
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/armored/low/00.png",
+          "assets/chars/shouwang/v1/armored/low/01.png",
+          "assets/chars/shouwang/v1/armored/low/02.png",
+          "assets/chars/shouwang/v1/armored/low/03.png",
+          "assets/chars/shouwang/v1/armored/low/04.png",
+          "assets/chars/shouwang/v1/armored/low/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 10,
+        "group": "low"
+      },
+      "dashAttack": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/shouwang/v1/{form}/dashAttack",
+          "fps": 14,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375,
+          "phases": [
+            2,
+            4
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/armored/dashAttack/00.png",
+          "assets/chars/shouwang/v1/armored/dashAttack/01.png",
+          "assets/chars/shouwang/v1/armored/dashAttack/02.png",
+          "assets/chars/shouwang/v1/armored/dashAttack/03.png",
+          "assets/chars/shouwang/v1/armored/dashAttack/04.png",
+          "assets/chars/shouwang/v1/armored/dashAttack/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 10,
+        "group": "dashAttack"
+      },
+      "airAttack": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/mobility-v1/{form}/airAttack",
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.41015625,
+          "originY": 0.93125,
+          "fps": 18,
+          "loop": false,
+          "phases": [
+            2,
+            4
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/mobility-v1/armored/airAttack/00.png",
+          "assets/chars/mobility-v1/armored/airAttack/01.png",
+          "assets/chars/mobility-v1/armored/airAttack/02.png",
+          "assets/chars/mobility-v1/armored/airAttack/03.png",
+          "assets/chars/mobility-v1/armored/airAttack/04.png",
+          "assets/chars/mobility-v1/armored/airAttack/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 10,
+        "group": "airAttack"
+      },
+      "block": {
+        "original": {
+          "frames": 1,
+          "path": "assets/chars/shouwang/v1/{form}/block",
+          "fps": 14,
+          "loop": true,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/armored/block/00.png"
+        ],
+        "sourceCount": 1,
+        "target": 12,
+        "group": "block"
+      },
+      "charge": {
+        "original": {
+          "frames": 1,
+          "path": "assets/chars/shouwang/v1/{form}/charge",
+          "fps": 6,
+          "loop": true,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/armored/charge/00.png"
+        ],
+        "sourceCount": 1,
+        "target": 12,
+        "group": "charge"
+      },
+      "uCharge": {
+        "original": {
+          "frames": 4,
+          "path": "assets/chars/combat-v2/{form}/uCharge",
+          "contact": 3,
+          "fps": 18,
+          "loop": true,
+          "phases": null,
+          "fitState": false,
+          "referenceHeight": 210,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/combat-v2/armored/uCharge/00.png",
+          "assets/chars/combat-v2/armored/uCharge/01.png",
+          "assets/chars/combat-v2/armored/uCharge/02.png",
+          "assets/chars/combat-v2/armored/uCharge/03.png"
+        ],
+        "sourceCount": 4,
+        "target": 12,
+        "group": "uCharge"
+      },
+      "u": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/combat-v2/{form}/u",
+          "contact": 3,
+          "fps": 18,
+          "loop": false,
+          "phases": [
+            3,
+            4
+          ],
+          "fitState": true,
+          "referenceHeight": 210,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/combat-v2/armored/u/00.png",
+          "assets/chars/combat-v2/armored/u/01.png",
+          "assets/chars/combat-v2/armored/u/02.png",
+          "assets/chars/combat-v2/armored/u/03.png",
+          "assets/chars/combat-v2/armored/u/04.png",
+          "assets/chars/combat-v2/armored/u/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 12,
+        "group": "u"
+      },
+      "uCharged": {
+        "original": {
+          "frames": 7,
+          "path": "assets/chars/combat-v2/{form}/uCharged",
+          "contact": 4,
+          "fps": 18,
+          "loop": false,
+          "phases": [
+            4,
+            5
+          ],
+          "fitState": true,
+          "referenceHeight": 210,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/combat-v2/armored/uCharged/00.png",
+          "assets/chars/combat-v2/armored/uCharged/01.png",
+          "assets/chars/combat-v2/armored/uCharged/02.png",
+          "assets/chars/combat-v2/armored/uCharged/03.png",
+          "assets/chars/combat-v2/armored/uCharged/04.png",
+          "assets/chars/combat-v2/armored/uCharged/05.png",
+          "assets/chars/combat-v2/armored/uCharged/06.png"
+        ],
+        "sourceCount": 7,
+        "target": 12,
+        "group": "uCharged"
+      },
+      "doubleJump": {
+        "original": {
+          "frames": 4,
+          "path": "assets/chars/mobility-v1/{form}/doubleJump",
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.41015625,
+          "originY": 0.93125,
+          "fps": 24,
+          "loop": false
+        },
+        "sourceFiles": [
+          "assets/chars/mobility-v1/armored/doubleJump/00.png",
+          "assets/chars/mobility-v1/armored/doubleJump/01.png",
+          "assets/chars/mobility-v1/armored/doubleJump/02.png",
+          "assets/chars/mobility-v1/armored/doubleJump/03.png"
+        ],
+        "sourceCount": 4,
+        "target": 10,
+        "group": "jump"
+      },
+      "airMove": {
+        "original": {
+          "frames": 4,
+          "path": "assets/chars/mobility-v1/{form}/airMove",
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.41015625,
+          "originY": 0.93125,
+          "fps": 12,
+          "loop": false,
+          "airTravel": true
+        },
+        "sourceFiles": [
+          "assets/chars/mobility-v1/armored/airMove/00.png",
+          "assets/chars/mobility-v1/armored/airMove/01.png",
+          "assets/chars/mobility-v1/armored/airMove/02.png",
+          "assets/chars/mobility-v1/armored/airMove/03.png"
+        ],
+        "sourceCount": 4,
+        "target": 10,
+        "group": "jump"
+      },
+      "launcher": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/shouwang/v1/{form}/launcher",
+          "fps": 14,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375,
+          "phases": [
+            2,
+            4
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/armored/launcher/00.png",
+          "assets/chars/shouwang/v1/armored/launcher/01.png",
+          "assets/chars/shouwang/v1/armored/launcher/02.png",
+          "assets/chars/shouwang/v1/armored/launcher/03.png",
+          "assets/chars/shouwang/v1/armored/launcher/04.png",
+          "assets/chars/shouwang/v1/armored/launcher/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 10,
+        "group": "j3"
+      },
+      "parry": {
+        "original": {
+          "frames": 3,
+          "path": "assets/chars/shouwang/v1/{form}/parry",
+          "fps": 8,
+          "loop": true,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/armored/parry/00.png",
+          "assets/chars/shouwang/v1/armored/parry/01.png",
+          "assets/chars/shouwang/v1/armored/parry/02.png"
+        ],
+        "sourceCount": 3,
+        "target": 12,
+        "group": "block"
+      },
+      "parryCounter": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/shouwang/v1/{form}/parryCounter",
+          "fps": 14,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375,
+          "phases": [
+            2,
+            4
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/armored/parryCounter/00.png",
+          "assets/chars/shouwang/v1/armored/parryCounter/01.png",
+          "assets/chars/shouwang/v1/armored/parryCounter/02.png",
+          "assets/chars/shouwang/v1/armored/parryCounter/03.png",
+          "assets/chars/shouwang/v1/armored/parryCounter/04.png",
+          "assets/chars/shouwang/v1/armored/parryCounter/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 10,
+        "group": "j1"
+      },
+      "super_": {
+        "original": {
+          "frames": 9,
+          "path": "assets/chars/shouwang/v1/{form}/super_",
+          "fps": 14,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375,
+          "phases": [
+            4,
+            6
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/armored/super_/00.png",
+          "assets/chars/shouwang/v1/armored/super_/01.png",
+          "assets/chars/shouwang/v1/armored/super_/02.png",
+          "assets/chars/shouwang/v1/armored/super_/03.png",
+          "assets/chars/shouwang/v1/armored/super_/04.png",
+          "assets/chars/shouwang/v1/armored/super_/05.png",
+          "assets/chars/shouwang/v1/armored/super_/06.png",
+          "assets/chars/shouwang/v1/armored/super_/07.png",
+          "assets/chars/shouwang/v1/armored/super_/08.png"
+        ],
+        "sourceCount": 9,
+        "target": 25,
+        "group": "super_"
+      }
+    },
+    "unarmored": {
+      "idle": {
+        "original": {
+          "frames": 1,
+          "path": "assets/chars/shouwang/v1/{form}/idle",
+          "fps": 4,
+          "loop": true,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/unarmored/idle/00.png"
+        ],
+        "sourceCount": 1,
+        "target": 10,
+        "group": "idle"
+      },
+      "run": {
+        "original": {
+          "frames": 8,
+          "path": "assets/chars/mobility-v1/{form}/run",
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.41015625,
+          "originY": 0.93125,
+          "fps": 18,
+          "loop": true
+        },
+        "sourceFiles": [
+          "assets/chars/mobility-v1/unarmored/run/00.png",
+          "assets/chars/mobility-v1/unarmored/run/01.png",
+          "assets/chars/mobility-v1/unarmored/run/02.png",
+          "assets/chars/mobility-v1/unarmored/run/03.png",
+          "assets/chars/mobility-v1/unarmored/run/04.png",
+          "assets/chars/mobility-v1/unarmored/run/05.png",
+          "assets/chars/mobility-v1/unarmored/run/06.png",
+          "assets/chars/mobility-v1/unarmored/run/07.png"
+        ],
+        "sourceCount": 8,
+        "target": 10,
+        "group": "run"
+      },
+      "jump": {
+        "original": {
+          "frames": 7,
+          "path": "assets/chars/shouwang/v1/{form}/jump",
+          "fps": 14,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375,
+          "physics": true
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/unarmored/jump/00.png",
+          "assets/chars/shouwang/v1/unarmored/jump/01.png",
+          "assets/chars/shouwang/v1/unarmored/jump/02.png",
+          "assets/chars/shouwang/v1/unarmored/jump/03.png",
+          "assets/chars/shouwang/v1/unarmored/jump/04.png",
+          "assets/chars/shouwang/v1/unarmored/jump/05.png",
+          "assets/chars/shouwang/v1/unarmored/jump/06.png"
+        ],
+        "sourceCount": 7,
+        "target": 10,
+        "group": "jump"
+      },
+      "dash": {
+        "original": {
+          "frames": 4,
+          "path": "assets/chars/shouwang/v1/{form}/dash",
+          "fps": 20,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/unarmored/dash/00.png",
+          "assets/chars/shouwang/v1/unarmored/dash/01.png",
+          "assets/chars/shouwang/v1/unarmored/dash/02.png",
+          "assets/chars/shouwang/v1/unarmored/dash/03.png"
+        ],
+        "sourceCount": 4,
+        "target": 10,
+        "group": "dash"
+      },
+      "j1": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/shouwang/v1/{form}/j1",
+          "fps": 14,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375,
+          "phases": [
+            2,
+            4
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/unarmored/j1/00.png",
+          "assets/chars/shouwang/v1/unarmored/j1/01.png",
+          "assets/chars/shouwang/v1/unarmored/j1/02.png",
+          "assets/chars/shouwang/v1/unarmored/j1/03.png",
+          "assets/chars/shouwang/v1/unarmored/j1/04.png",
+          "assets/chars/shouwang/v1/unarmored/j1/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 10,
+        "group": "j1"
+      },
+      "j2": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/shouwang/v1/{form}/j2",
+          "fps": 14,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375,
+          "phases": [
+            2,
+            4
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/unarmored/j2/00.png",
+          "assets/chars/shouwang/v1/unarmored/j2/01.png",
+          "assets/chars/shouwang/v1/unarmored/j2/02.png",
+          "assets/chars/shouwang/v1/unarmored/j2/03.png",
+          "assets/chars/shouwang/v1/unarmored/j2/04.png",
+          "assets/chars/shouwang/v1/unarmored/j2/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 10,
+        "group": "j2"
+      },
+      "j3": {
+        "original": {
+          "frames": 7,
+          "path": "assets/chars/shouwang/v1/{form}/j3",
+          "fps": 14,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375,
+          "phases": [
+            3,
+            5
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/unarmored/j3/00.png",
+          "assets/chars/shouwang/v1/unarmored/j3/01.png",
+          "assets/chars/shouwang/v1/unarmored/j3/02.png",
+          "assets/chars/shouwang/v1/unarmored/j3/03.png",
+          "assets/chars/shouwang/v1/unarmored/j3/04.png",
+          "assets/chars/shouwang/v1/unarmored/j3/05.png",
+          "assets/chars/shouwang/v1/unarmored/j3/06.png"
+        ],
+        "sourceCount": 7,
+        "target": 10,
+        "group": "j3"
+      },
+      "j4": {
+        "original": {
+          "frames": 7,
+          "path": "assets/chars/combat-v2/{form}/j4",
+          "contact": 3,
+          "fps": 18,
+          "loop": false,
+          "phases": [
+            3,
+            5
+          ],
+          "fitState": false,
+          "referenceHeight": 210,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/combat-v2/unarmored/j4/00.png",
+          "assets/chars/combat-v2/unarmored/j4/01.png",
+          "assets/chars/combat-v2/unarmored/j4/02.png",
+          "assets/chars/combat-v2/unarmored/j4/03.png",
+          "assets/chars/combat-v2/unarmored/j4/04.png",
+          "assets/chars/combat-v2/unarmored/j4/05.png",
+          "assets/chars/combat-v2/unarmored/j4/06.png"
+        ],
+        "sourceCount": 7,
+        "target": 10,
+        "group": "j4"
+      },
+      "low": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/shouwang/v1/{form}/low",
+          "fps": 14,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375,
+          "phases": [
+            2,
+            4
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/unarmored/low/00.png",
+          "assets/chars/shouwang/v1/unarmored/low/01.png",
+          "assets/chars/shouwang/v1/unarmored/low/02.png",
+          "assets/chars/shouwang/v1/unarmored/low/03.png",
+          "assets/chars/shouwang/v1/unarmored/low/04.png",
+          "assets/chars/shouwang/v1/unarmored/low/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 10,
+        "group": "low"
+      },
+      "dashAttack": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/shouwang/v1/{form}/dashAttack",
+          "fps": 14,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375,
+          "phases": [
+            2,
+            4
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/unarmored/dashAttack/00.png",
+          "assets/chars/shouwang/v1/unarmored/dashAttack/01.png",
+          "assets/chars/shouwang/v1/unarmored/dashAttack/02.png",
+          "assets/chars/shouwang/v1/unarmored/dashAttack/03.png",
+          "assets/chars/shouwang/v1/unarmored/dashAttack/04.png",
+          "assets/chars/shouwang/v1/unarmored/dashAttack/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 10,
+        "group": "dashAttack"
+      },
+      "airAttack": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/mobility-v1/{form}/airAttack",
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.41015625,
+          "originY": 0.93125,
+          "fps": 18,
+          "loop": false,
+          "phases": [
+            2,
+            4
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/mobility-v1/unarmored/airAttack/00.png",
+          "assets/chars/mobility-v1/unarmored/airAttack/01.png",
+          "assets/chars/mobility-v1/unarmored/airAttack/02.png",
+          "assets/chars/mobility-v1/unarmored/airAttack/03.png",
+          "assets/chars/mobility-v1/unarmored/airAttack/04.png",
+          "assets/chars/mobility-v1/unarmored/airAttack/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 10,
+        "group": "airAttack"
+      },
+      "block": {
+        "original": {
+          "frames": 1,
+          "path": "assets/chars/shouwang/v1/{form}/block",
+          "fps": 14,
+          "loop": true,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/unarmored/block/00.png"
+        ],
+        "sourceCount": 1,
+        "target": 12,
+        "group": "block"
+      },
+      "charge": {
+        "original": {
+          "frames": 1,
+          "path": "assets/chars/shouwang/v1/{form}/charge",
+          "fps": 6,
+          "loop": true,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/unarmored/charge/00.png"
+        ],
+        "sourceCount": 1,
+        "target": 12,
+        "group": "charge"
+      },
+      "uCharge": {
+        "original": {
+          "frames": 4,
+          "path": "assets/chars/combat-v2/{form}/uCharge",
+          "contact": 3,
+          "fps": 18,
+          "loop": true,
+          "phases": null,
+          "fitState": false,
+          "referenceHeight": 210,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/combat-v2/unarmored/uCharge/00.png",
+          "assets/chars/combat-v2/unarmored/uCharge/01.png",
+          "assets/chars/combat-v2/unarmored/uCharge/02.png",
+          "assets/chars/combat-v2/unarmored/uCharge/03.png"
+        ],
+        "sourceCount": 4,
+        "target": 12,
+        "group": "uCharge"
+      },
+      "u": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/combat-v2/{form}/u",
+          "contact": 3,
+          "fps": 18,
+          "loop": false,
+          "phases": [
+            3,
+            4
+          ],
+          "fitState": true,
+          "referenceHeight": 210,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/combat-v2/unarmored/u/00.png",
+          "assets/chars/combat-v2/unarmored/u/01.png",
+          "assets/chars/combat-v2/unarmored/u/02.png",
+          "assets/chars/combat-v2/unarmored/u/03.png",
+          "assets/chars/combat-v2/unarmored/u/04.png",
+          "assets/chars/combat-v2/unarmored/u/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 12,
+        "group": "u"
+      },
+      "uCharged": {
+        "original": {
+          "frames": 7,
+          "path": "assets/chars/combat-v2/{form}/uCharged",
+          "contact": 4,
+          "fps": 18,
+          "loop": false,
+          "phases": [
+            4,
+            5
+          ],
+          "fitState": true,
+          "referenceHeight": 210,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/combat-v2/unarmored/uCharged/00.png",
+          "assets/chars/combat-v2/unarmored/uCharged/01.png",
+          "assets/chars/combat-v2/unarmored/uCharged/02.png",
+          "assets/chars/combat-v2/unarmored/uCharged/03.png",
+          "assets/chars/combat-v2/unarmored/uCharged/04.png",
+          "assets/chars/combat-v2/unarmored/uCharged/05.png",
+          "assets/chars/combat-v2/unarmored/uCharged/06.png"
+        ],
+        "sourceCount": 7,
+        "target": 12,
+        "group": "uCharged"
+      },
+      "doubleJump": {
+        "original": {
+          "frames": 4,
+          "path": "assets/chars/mobility-v1/{form}/doubleJump",
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.41015625,
+          "originY": 0.93125,
+          "fps": 24,
+          "loop": false
+        },
+        "sourceFiles": [
+          "assets/chars/mobility-v1/unarmored/doubleJump/00.png",
+          "assets/chars/mobility-v1/unarmored/doubleJump/01.png",
+          "assets/chars/mobility-v1/unarmored/doubleJump/02.png",
+          "assets/chars/mobility-v1/unarmored/doubleJump/03.png"
+        ],
+        "sourceCount": 4,
+        "target": 10,
+        "group": "jump"
+      },
+      "airMove": {
+        "original": {
+          "frames": 4,
+          "path": "assets/chars/mobility-v1/{form}/airMove",
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.41015625,
+          "originY": 0.93125,
+          "fps": 12,
+          "loop": false,
+          "airTravel": true
+        },
+        "sourceFiles": [
+          "assets/chars/mobility-v1/unarmored/airMove/00.png",
+          "assets/chars/mobility-v1/unarmored/airMove/01.png",
+          "assets/chars/mobility-v1/unarmored/airMove/02.png",
+          "assets/chars/mobility-v1/unarmored/airMove/03.png"
+        ],
+        "sourceCount": 4,
+        "target": 10,
+        "group": "jump"
+      },
+      "launcher": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/shouwang/v1/{form}/launcher",
+          "fps": 14,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375,
+          "phases": [
+            2,
+            4
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/unarmored/launcher/00.png",
+          "assets/chars/shouwang/v1/unarmored/launcher/01.png",
+          "assets/chars/shouwang/v1/unarmored/launcher/02.png",
+          "assets/chars/shouwang/v1/unarmored/launcher/03.png",
+          "assets/chars/shouwang/v1/unarmored/launcher/04.png",
+          "assets/chars/shouwang/v1/unarmored/launcher/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 10,
+        "group": "j3"
+      },
+      "parry": {
+        "original": {
+          "frames": 3,
+          "path": "assets/chars/shouwang/v1/{form}/parry",
+          "fps": 8,
+          "loop": true,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/unarmored/parry/00.png",
+          "assets/chars/shouwang/v1/unarmored/parry/01.png",
+          "assets/chars/shouwang/v1/unarmored/parry/02.png"
+        ],
+        "sourceCount": 3,
+        "target": 12,
+        "group": "block"
+      },
+      "parryCounter": {
+        "original": {
+          "frames": 6,
+          "path": "assets/chars/shouwang/v1/{form}/parryCounter",
+          "fps": 14,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375,
+          "phases": [
+            2,
+            4
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/unarmored/parryCounter/00.png",
+          "assets/chars/shouwang/v1/unarmored/parryCounter/01.png",
+          "assets/chars/shouwang/v1/unarmored/parryCounter/02.png",
+          "assets/chars/shouwang/v1/unarmored/parryCounter/03.png",
+          "assets/chars/shouwang/v1/unarmored/parryCounter/04.png",
+          "assets/chars/shouwang/v1/unarmored/parryCounter/05.png"
+        ],
+        "sourceCount": 6,
+        "target": 10,
+        "group": "j1"
+      },
+      "super_": {
+        "original": {
+          "frames": 9,
+          "path": "assets/chars/shouwang/v1/{form}/super_",
+          "fps": 14,
+          "loop": false,
+          "referenceHeight": 240,
+          "canvasHeight": 320,
+          "originX": 0.37109375,
+          "originY": 0.9375,
+          "phases": [
+            4,
+            6
+          ]
+        },
+        "sourceFiles": [
+          "assets/chars/shouwang/v1/unarmored/super_/00.png",
+          "assets/chars/shouwang/v1/unarmored/super_/01.png",
+          "assets/chars/shouwang/v1/unarmored/super_/02.png",
+          "assets/chars/shouwang/v1/unarmored/super_/03.png",
+          "assets/chars/shouwang/v1/unarmored/super_/04.png",
+          "assets/chars/shouwang/v1/unarmored/super_/05.png",
+          "assets/chars/shouwang/v1/unarmored/super_/06.png",
+          "assets/chars/shouwang/v1/unarmored/super_/07.png",
+          "assets/chars/shouwang/v1/unarmored/super_/08.png"
+        ],
+        "sourceCount": 9,
+        "target": 25,
+        "group": "super_"
+      }
+    }
+  }
+}

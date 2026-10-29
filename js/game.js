@@ -132,7 +132,7 @@ class Game {
                 f.castSuperTier();
             }
         }
-        // 蓄气：需同时按住 P（蓄气键）+ S（下蹲/防御键）才生效；蓄气中受伤×1.5（破绽惩罚）
+        // 按住 P 蓄气；到时或受击后必须先松键，才能再次开始。蓄气中受伤×1.5。
         if (!inp.chgHeld) f.chargeInterrupted = false;
         if (inp.chgHeld && ["hit","guardbreak","knockdown"].includes(f.state)) f.chargeInterrupted = true;
         const charging = inp.chgHeld && !f.chargeInterrupted;
@@ -290,14 +290,14 @@ class Game {
             jianke: ["斗笠遮面，蓑衣迎雨。无名剑客以三段斩击衔接踏影突进，用银白剑气封锁对手的退路。", "近身连斩 / 剑意增伤"],
             shouwang: ["身披银铠的守望者，以重剑与沉稳的步伐守住战线。穿甲与脱甲形态带来不同的攻防节奏。", "双形态 / 重剑压制"]
         };
-        const profile = profiles[charId];
+        const profile = c.profile || profiles[charId] || [c.title, '自由对决'];
         const portrait = this.charCardHtml(c);
         const moves = [
-            ["J / 1", "三段普攻", c.combo.map(m=>m.damage).join(" / ")],
+            ["J / 1", c.combo.length+"段普攻", c.combo.map(m=>m.damage).join(" / ")],
             ["W + J / ↑ + 1", "上攻", c.launcher.damage],
             ["S + J / ↓ + 1", "下攻 · 破防", c.low.damage],
-            ["U / 4", "远攻 · 无耗气", c.skill.damage],
-            ["I / 5", "超必杀 · 100气", (c.super_.multiHit ? c.super_.hits + " × " + c.super_.perHit + " + " + c.super_.finalDamage : c.super_.damage)]
+            ["U / 4", (c.skill.name||"远攻")+(c.skill.forms?.unarmored?" / 脱甲："+c.skill.forms.unarmored.name:"")+" · 无耗气", c.skill.damage],
+            ["I / 5", (c.super_.name||"超必杀")+" · 100气", (c.super_.signatureArt ? c.super_.signatureArt==='sword-domain'?`${c.super_.pulseDamage}/秒 × 8秒`:`${c.super_.pulseDamage} × ${c.super_.pulses}` : c.super_.multiHit ? c.super_.hits + " × " + c.super_.perHit + " + " + c.super_.finalDamage : c.super_.damage)]
         ];
         const card = document.getElementById("cg-card");
         document.getElementById("cg-placeholder").classList.add("hidden");
@@ -433,6 +433,11 @@ class Game {
     }
 
     buildStageGrid() {
+        if (this.buildStagePicker) return this.buildStagePicker("stage-grid", this.lobby.stage, id => {
+            this.lobby.stage = id;
+            this.buildStageGrid();
+            this.syncLobbyOptions();
+        }, this.isHost);
         const grid = document.getElementById("stage-grid");
         grid.innerHTML = "";
         for (const id of CONFIG.stageOrder) {
@@ -574,13 +579,14 @@ class Game {
         document.getElementById("local-picks").textContent =
             "P1：" + CONFIG.characters[this.localPick.p1].name +
             (this.cpuSelection?"  VS  人机：":"  VS  P2：") + CONFIG.characters[this.localPick.p2].name;
+        this.buildStagePicker?.("local-stage-picker", this.selectedStage || "lingxia", id => this.selectStage(id, "local-stage-picker"));
     }
 
     startLocalMatch() {
         this.mode = this.cpuSelection ? "cpu" : "local";
         this.cpuBrain=null;
         document.getElementById("noble-practice").classList.add("hidden");
-        this.matchOptions = { stage: "lingxia", format: "bo3" };
+        this.matchOptions = { stage: this.selectedStage || "lingxia", format: "bo3" };
         const pick = this.localPick || { p1: "noble", p2: "jianke" };
         this.p1 = new Fighter(pick.p1, CONFIG.canvas.width * 0.3, 1);
         this.p2 = new Fighter(pick.p2, CONFIG.canvas.width * 0.7, -1);
@@ -725,12 +731,19 @@ class Game {
     updateProjectiles() {
         for (const p of this.projectiles) {
             if (p.dead) continue;
+            const previousX=p.collisionStartX??p.x,previousY=p.y;
+            delete p.collisionStartX;
             p.x += p.vx;
             if (p.vy) p.y += p.vy;
+            if(p.kind==='arcane-shock'&&p.grounded)p.y=CONFIG.canvas.groundY-(p.hitHeight||64)/2;
             if (p.x < -40 || p.x > CONFIG.canvas.width + 40 || p.y > CONFIG.canvas.groundY + 20) { p.dead = true; continue; }
             const defender = p.owner === this.p1 ? this.p2 : this.p1;
             if (defender.state === "ko" || defender.isInvulnerable()) continue;
-            const box = { x: p.x - p.size / 2, y: p.y - p.size / 2, w: p.size, h: p.size };
+            if(p.hitTargets?.has(defender))continue;
+            const hitWidth=p.hitWidth||p.size,hitHeight=p.hitHeight||p.size;
+            const box = p.kind==='revolver'||p.rangedArt
+                ? {x:Math.min(previousX,p.x)-hitWidth/2,y:Math.min(previousY,p.y)-hitHeight/2,w:Math.abs(p.x-previousX)+hitWidth,h:Math.abs(p.y-previousY)+hitHeight}
+                : { x: p.x - p.size / 2, y: p.y - p.size / 2, w: p.size, h: p.size };
             if (this.boxesOverlap(box, defender.getBodyBox())) {
                 // 剑气也可被决斗招架
                 if (defender.isParryActive()) {
@@ -742,13 +755,13 @@ class Game {
                     continue;
                 }
                 const blocked = defender.state === "block";
-                const atk = { damage: p.damage, knockback: 5, hitstun: 18, guardBreak: p.guardBreak };
+                const atk = { damage: p.damage, damageType:p.damageType, knockback: p.knockback ?? 5, hitstun: p.hitstun ?? 18, control:!!p.control, deferKnockdown:!!p.deferKnockdown, guardBreak: p.guardBreak };
                 const result = defender.takeHit(atk, Math.sign(p.vx), blocked, p.scale);
                 p.owner.gainMeter(CONFIG.resources.meterOnHit);
                 p.owner.gainLayers(1);
                 this.spawnHitSpark(p.x, p.y, blocked);
                 this.shake = blocked ? 2 : 5;
-                p.dead = true;
+                if(p.piercing&&!blocked){p.hitTargets||=new Set();p.hitTargets.add(defender);}else p.dead = true;
                 if (result.ko) this.onKO(p.owner);
                 this.updateHUD();
             }
@@ -760,18 +773,23 @@ class Game {
     updateSkillCasts(f) {
         if (f.state === "skill" && f.pendingProj && f.stateTimer === f.pendingProj.startup) {
             const s = f.pendingProj;
+            if (!s.tier) f.rangedCooldown = Math.max(f.rangedCooldown || 0, Math.ceil(CONFIG.resources.rangedCooldownSeconds * 60));
             const full = f.isPureWhite && f.isPureWhite();
             const dmg = full && s.fullDamageMult ? Math.round(s.damage * s.fullDamageMult) : s.damage;
             const mk = (vy) => this.projectiles.push({
-                x: f.x + f.facing * (f.width / 2 + 16),
+                x: f.x + f.facing * (s.projX ?? (f.width / 2 + 16)),
                 y: f.y - f.height * (s.projY ?? 0.55) + (vy ? 8 : 0),
                 vx: f.facing * s.projSpeed,
                 vy: vy || 0,
-                charged: !!s.charged, life: s.charged?110:90,
+                charged: !!s.charged, life: s.charged?110:90, kind:s.projectileKind || null,
+                collisionStartX:s.projectileKind==='revolver'||s.rangedArt?f.x+f.facing*f.width/2:undefined,
+                rangedArt:!!s.rangedArt,chargeLevel:s.chargeLevel||1,damageType:s.damageType,
+                hitWidth:s.projHitWidth,hitHeight:s.projHitHeight,piercing:!!s.piercing,
+                grounded:s.projectileKind==='arcane-shock'&&f.onGround,
                 size: s.projSize,
                 damage: dmg,
                 scale: f.damageScale(),
-                color: s.tier === 2 ? "#ffd166" : (full ? "#f4f6ff" : f.def.color),
+                color: s.projectileColor || (s.tier === 2 ? "#ffd166" : (full ? "#f4f6ff" : f.def.color)),
                 guardBreak: (full && !!s.fullGuardBreak) || !!s.guardBreak,
                 owner: f,
             });
@@ -894,7 +912,7 @@ class Game {
             k: "state",
             p1: this.p1.toSnapshot(),
             p2: this.p2.toSnapshot(),
-            pr: this.projectiles.map(p => ({ x: p.x, y: p.y, s: p.size, charged:!!p.charged,c: p.color, fxChar: p.owner?.charId, fxDir: Math.sign(p.vx) })),
+            pr: this.projectiles.map(p => ({ x: p.x, y: p.y, s: p.size, charged:!!p.charged,kind:p.kind,rangedArt:p.rangedArt,chargeLevel:p.chargeLevel,hitWidth:p.hitWidth,hitHeight:p.hitHeight,grounded:p.grounded,damageType:p.damageType,c: p.color, fxChar: p.owner?.charId, fxDir: Math.sign(p.vx) })),
             wo: this.combatV2ObjectsSnapshot?.()||[], sc: this.superFreeze, tm: this.timeLeft, ph: this.phase, pt: this.phaseTimer,
             ev,
         });
@@ -907,7 +925,7 @@ class Game {
         this.superFreeze=d.sc||null;
         this.p1.applySnapshot(d.p1);
         this.p2.applySnapshot(d.p2);
-        this.projectiles = (d.pr || []).map(p => ({x:p.x,y:p.y,size:p.s,charged:!!p.charged,color:p.c,fxChar:p.fxChar,fxDir:p.fxDir}));
+        this.projectiles = (d.pr || []).map(p => ({x:p.x,y:p.y,size:p.s,charged:!!p.charged,kind:p.kind,rangedArt:p.rangedArt,chargeLevel:p.chargeLevel,hitWidth:p.hitWidth,hitHeight:p.hitHeight,grounded:p.grounded,damageType:p.damageType,color:p.c,fxChar:p.fxChar,fxDir:p.fxDir}));
         this.timeLeft = d.tm;
         document.getElementById("timer").textContent = d.tm;
         for (const e of d.ev || []) this.spawnHitSpark(e.x, e.y, e.b);
@@ -1068,36 +1086,44 @@ class Game {
         if (!this._stageImgs) this._stageImgs = {};
         let img = this._stageImgs[src];
         if (img === undefined) {
+            if(window.gameAssets){img=window.gameAssets.loadImage(src+"?v="+ASSET_VER);this._stageImgs[src]=img;return img.complete&&img.naturalWidth?img:null;}
             img = new Image();
             img.onload = () => { img._ok = true; };
             img.src = src + "?v=" + ASSET_VER;   // 带版本号破缓存
             this._stageImgs[src] = img;
         }
-        return img._ok ? img : null;
+        return (img._ok || (img.complete && img.naturalWidth)) ? img : null;
     }
 
     drawStage() {
         const ctx = this.ctx, W = CONFIG.canvas.width, H = CONFIG.canvas.height;
         const st = CONFIG.stages[(this.matchOptions && this.matchOptions.stage) || "lingxia"];
+        // Cover the visible world rectangle, including zoom-out, jumps and camera shake.
+        const transform=ctx.getTransform();
+        const left=Math.min(0,-transform.e/transform.a)-4;
+        const top=Math.min(0,-transform.f/transform.d)-4;
+        const right=Math.max(W,(W-transform.e)/transform.a)+4;
+        const bottom=Math.max(H,(H-transform.f)/transform.d)+4;
+        const width=right-left,height=bottom-top;
 
         // 场景有背景图时：图片铺满 + 底部压暗保证角色可读；否则走程序化渐变
         const img = st.img ? this._stageImg(st.img) : null;
         if (img) {
-            const s = Math.max(W / img.width, H / img.height);
+            const s = Math.max(width / img.width, height / img.height);
             const dw = img.width * s, dh = img.height * s;
-            ctx.drawImage(img, (W - dw) / 2, (H - dh) / 2, dw, dh);
+            ctx.drawImage(img, left+(width-dw)/2, top+(height-dh)/2, dw, dh);
             const gg = ctx.createLinearGradient(0, CONFIG.canvas.groundY - 60, 0, H);
             gg.addColorStop(0, "rgba(10,10,20,0)");
             gg.addColorStop(1, "rgba(10,10,20,0.62)");
             ctx.fillStyle = gg;
-            ctx.fillRect(0, CONFIG.canvas.groundY - 60, W, H - CONFIG.canvas.groundY + 60);
+            ctx.fillRect(left, CONFIG.canvas.groundY - 60, width, Math.max(0,bottom-CONFIG.canvas.groundY+60));
         } else {
             const g = ctx.createLinearGradient(0, 0, 0, H);
             g.addColorStop(0, st.sky[0]);
             g.addColorStop(0.75, st.sky[1]);
             g.addColorStop(1, st.sky[2]);
             ctx.fillStyle = g;
-            ctx.fillRect(0, 0, W, H);
+            ctx.fillRect(left, top, width, height);
 
             // 远景剪影（占位，后期换场景美术）
             ctx.fillStyle = "rgba(0,0,0,0.28)";
@@ -1108,9 +1134,9 @@ class Game {
 
             // 地面
             ctx.fillStyle = st.ground;
-            ctx.fillRect(0, CONFIG.canvas.groundY, W, H - CONFIG.canvas.groundY);
+            ctx.fillRect(left, CONFIG.canvas.groundY, width, Math.max(0,bottom-CONFIG.canvas.groundY));
             ctx.fillStyle = "rgba(255,255,255,0.12)";
-            ctx.fillRect(0, CONFIG.canvas.groundY, W, 6);
+            ctx.fillRect(left, CONFIG.canvas.groundY, width, 6);
         }
 
         // 场景名
@@ -1144,6 +1170,7 @@ class Game {
 
     drawProjectiles() {
         for (const p of this.projectiles) {
+            if (p.kind === 'revolver'||p.rangedArt) continue; // Dedicated projectile renderers own these silhouettes.
             if (window.jiankeFX && ((p.owner?.charId || p.fxChar) === "jianke" || ((p.owner?.charId || p.fxChar) === "shouwang" && window.shouwangFX))) continue;
             if (p.owner?.charId === "noble") {
                 const c = this.ctx, dir = Math.sign(p.vx) || 1, r = Math.max(12, p.size);
@@ -1186,6 +1213,7 @@ class Game {
     }
 
     update() {
+        if(window.gameAssets?.blocked)return;
         // ---------- 客机：只发输入，等快照 ----------
         if (this.mode === "lan-guest") {
             if (this.phase !== "menu" && this.net) {
@@ -1308,12 +1336,18 @@ class Game {
         const horizontal=Math.max(1,Math.min(1.65,W*.7/Math.max(1,Math.abs(this.p1.x-this.p2.x))));
         const scale=Math.max(.8,Math.min(horizontal,(H-95)/Math.max(1,bottom-top)));
         let y=H*.84-bottom*scale;if(top*scale+y<28)y=28-top*scale;
-        return {scale,x:W/2-(this.p1.x+this.p2.x)/2*scale,y};
+        const desiredX=W/2-(this.p1.x+this.p2.x)/2*scale;
+        const x=scale>=1?Math.max(W-W*scale,Math.min(0,desiredX)):(W-W*scale)/2;
+        return {scale,x,y};
     }
 
     render() {
         if (window.jiankeFX && this.phase === "menu") window.jiankeFX.clear();
         const ctx = this.ctx;
+        ctx.setTransform(1,0,0,1,0,0);
+        ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.filter='none';
+        ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+        ctx.fillStyle='#101919';ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
         ctx.save();
         if (this.mode === "practice" && this.p1 && this.p2) {
             const view=this.practiceCamera();ctx.translate(view.x,view.y);ctx.scale(view.scale,view.scale);
@@ -1340,7 +1374,7 @@ class Game {
                 }
             }
         }
-        if (window.rainWeather) window.rainWeather.render(this,ctx);
+        if (window.rainWeather) {ctx.save();ctx.setTransform(1,0,0,1,0,0);window.rainWeather.render(this,ctx);ctx.restore();}
         if(window.roundEntrance&&(this.phase==="intro"||(this.phase==="fight"&&this._fightBannerStartedAt!=null&&performance.now()-this._fightBannerStartedAt<600)))window.roundEntrance.overlay(ctx,this);
         // 瞬步时缓：边缘淡蓝光晕提示「慢动作」
         if (this.slowmoFrames > 0 && this.phase === "fight") {

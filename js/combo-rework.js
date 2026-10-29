@@ -1,0 +1,45 @@
+/* User-authored strings. Existing damage tiers are retained; each new step has an explicit pose and outcome. */
+(() => {
+ CONFIG.physics.dashInvuln=30;
+ CONFIG.characters.motong.name='伊芙琳';
+ CONFIG.characters.jianke.super_.pulseDamage=400;
+ CONFIG.characters.jianke.skill.thirdStageName='寒霜重剑·投掷';
+ const pillars=CONFIG.characters.shouwang.super_.forms.unarmored;
+ pillars.range=CONFIG.canvas.width*.5;delete pillars.rangeBodies;delete pillars.reachBodies;
+ const sets={};
+ const build=(id,steps)=>{const d=CONFIG.characters[id],old=d.combo;return steps.map(([name,kind,anim],i)=>({...old[Math.min(i,old.length-1)],name,anim,comboChain:false,deferKnockdown:true,fullLaunch:0,fullKnockback:0,fullGuardBreak:false,guardBreak:false,launch:kind==='up'?-11:0,hitstun:18,knockback:kind==='hold'?0:kind==='back'?10:2,hitHeight:110,hitY:75,lunge:2,startup:8,active:5,recovery:18,control:kind==='hold',weapon:name.includes('触手')?'tentacle':name.includes('狼牙棒')?'mace':null}));};
+ sets.noble=build('noble',[['1A·直刺','push','j1'],['2A·平刺','push','j2'],['3A·锁剑','hold','j3'],['4A·平推','push','j1'],['5A·挑飞','up','launcher']]);
+ sets.jianke=build('jianke',[['1A·平斩','push','j1'],['2A·横切','push','j2'],['3A·推斩','push','j1'],['4A·重剑横斩','push','j4'],['5A·震剑','hold','j3'],['6A·挑飞','up','launcher']]);
+ sets.shouwang=build('shouwang',[['1A·平斩','push','j1'],['2A·推剑','push','j2'],['3A·横推','push','j1'],['4A·挑飞','up','launcher'],['5A·重斩','back','j4']]);
+ sets.unarmored=build('shouwang',[['1A·平推','push','j1'],['2A·挑飞','up','launcher'],['3A·重拳','push','j3'],['4A·平推','push','j2']]);
+ sets.wuxiang=build('wuxiang',[['1A·平推','push','j1'],['2A·雨伞平推','push','j2'],['3A·雨伞平推','push','j2'],['4A·平推','push','j1'],['5A·伞尖挑飞','up','launcher']]);
+ sets.ranged=build('wuxiang',[['1A·远势平推','push','j1'],['2A·远势平推','push','j1'],['3A·远势平推','push','j1'],['4A·拔枪射击','push','u'],['5A·火花止步','hold','u'],['6A·退敌弹','back','u']]);
+ sets.ranged.forEach((a,i)=>{a.bullet=i>=3;});
+ sets.liequan=build('liequan',[['1A·平推','push','j1'],['2A·平推','push','j2'],['3A·平推','push','j1'],['4A·狼牙棒重击','push','j4'],['5A·狼牙棒上挑','up','launcher'],['6A·震击','hold','j3']]);
+ sets.motong=build('motong',[['1A·杖击','push','j1'],['2A·推杖','push','j2'],['3A·横杖','push','j1'],['4A·触手缠身','hold','j4'],['5A·触手挑飞','up','launcher'],['6A·触手禁锢','hold','j4']]);
+ for(const id of CONFIG.roster)CONFIG.characters[id].combo=sets[id];
+ function select(f){const combo=sets[f.charId==='shouwang'&&f.form==='unarmored'?'unarmored':f.charId==='wuxiang'&&f.rangedNormals?'ranged':f.charId];if(f.def.combo!==combo)f.def={...f.def,combo};}
+ const attack=Fighter.prototype.attack;
+ Fighter.prototype.attack=function(){select(this);return attack.call(this);};
+ const rows=Game.prototype.nobleMoveRows;
+ if(rows)Game.prototype.nobleMoveRows=function(){if(this.p1)select(this.p1);return rows.call(this);};
+ const input=Game.prototype.applyInput;
+ Game.prototype.applyInput=function(f,inp){if(!inp.d&&f.state==='block')f.block(false);const chord=f.charId==='wuxiang'&&inp.d&&(inp.sklHeld||inp.skl);if(chord&&!f._modeChord&&this.phase==='fight'&&['idle','walk','block','rangedCharge'].includes(f.state)){if(f.state==='rangedCharge')f.setState('idle');f.rangedNormals=!f.rangedNormals;select(f);f.rangedChargeFrames=0;f.pendingProj=null;this.announce?.(f.rangedNormals?'左轮远攻连段':'雨伞近战连段');setTimeout(()=>{if(this.phase==='fight')this.announce?.('',true);},850);}f._modeChord=!!chord;if(chord)inp={...inp,skl:false,sklHeld:false,sklRelease:false};return input.call(this,f,inp);};
+ const eff=Fighter.prototype.effAttack,hit=Fighter.prototype.takeHit;
+ Fighter.prototype.effAttack=function(a){const r=eff.call(this,a);if(r&&a?.control)r.control=true;return r;};
+ Fighter.prototype.takeHit=function(a,...args){const r=hit.call(this,a,...args);if(a.control&&!r.immune&&!r.blocked&&!r.ko){this.vx=this.vy=0;this.hitstunLeft=18;this.normalPin={x:this.x,y:this.y,left:18};}return r;};
+ const update=Fighter.prototype.update;Fighter.prototype.update=function(){const p=this.normalPin;update.call(this);if(p&&p.left>0&&this.state==='hit'){this.x=p.x;this.y=p.y;this.vx=this.vy=0;if(--p.left<=0)this.normalPin=null;}else this.normalPin=null;};
+ const box=Fighter.prototype.getAttackBox;
+ Fighter.prototype.getAttackBox=function(){if(this.state==='attack'&&this.currentAttack?.bullet)return null;return box.call(this);};
+ const start=Fighter.prototype._startAttack;
+ Fighter.prototype._startAttack=function(a){this._normalShot=false;return start.call(this,a);};
+ const casts=Game.prototype.updateSkillCasts;
+ Game.prototype.updateSkillCasts=function(f){const a=f.currentAttack;if(f.state==='attack'&&a?.bullet&&!f._normalShot&&f.stateTimer>=f.atkDur(a,'startup')){f._normalShot=true;this.projectiles.push({owner:f,x:f.x+f.facing*55,y:f.y-f.height*.92,vx:f.facing*18,vy:0,life:75,size:8,hitWidth:12,hitHeight:12,kind:'revolver',damage:a.damage,scale:f.damageScale(),knockback:a.knockback,hitstun:18,control:a.control,deferKnockdown:true,color:'#ffc477'});}return casts.call(this,f);};
+ const snap=Fighter.prototype.toSnapshot,apply=Fighter.prototype.applySnapshot,reset=Fighter.prototype.resetForRound;
+ Fighter.prototype.toSnapshot=function(){return {...snap.call(this),normalPin:this.normalPin?{...this.normalPin}:null,rangedNormals:!!this.rangedNormals,normalShot:!!this._normalShot,modeChord:!!this._modeChord};};
+ Fighter.prototype.applySnapshot=function(s){this.normalPin=s.normalPin?{...s.normalPin}:null;this.rangedNormals=!!s.rangedNormals;this.form=s.fm??this.form;select(this);apply.call(this,s);select(this);if(s.ca?.k==='combo')this.currentAttack=this.def.combo[s.ca.i];this._normalShot=!!s.normalShot;this._modeChord=!!s.modeChord;};
+ Fighter.prototype.resetForRound=function(...args){reset.apply(this,args);this.normalPin=null;this.rangedNormals=false;this._modeChord=false;this._normalShot=false;select(this);};
+ const draw=Fighter.prototype.draw;
+ Fighter.prototype.draw=function(c){draw.call(this,c);const a=this.currentAttack;if(this.state!=='attack'||!a?.weapon)return;const t=Math.min(1,this.stateTimer/22),x=this.x,y=this.y-this.height*.65,d=this.facing;c.save();c.translate(x,y);c.scale(d,1);if(a.weapon==='tentacle'){for(let i=0;i<3;i++){c.strokeStyle=i%2?'#52dcb4':'#245a50';c.lineWidth=8-i*2;c.beginPath();c.moveTo(-18,12+i*8);c.bezierCurveTo(-75,-95,95,-80+i*25,40+70*Math.sin(t*Math.PI),a.launch?-85*t:i*10);c.stroke();}}else{c.rotate(-1.3+t*2.8);c.strokeStyle='#6e4b37';c.lineWidth=7;c.beginPath();c.moveTo(0,10);c.lineTo(65,0);c.stroke();c.fillStyle='#8e9baf';c.fillRect(50,-12,40,24);for(let i=0;i<5;i++){c.beginPath();c.moveTo(52+i*8,-10);c.lineTo(56+i*8,-22);c.lineTo(60+i*8,-10);c.fill();}}c.restore();};
+ window.comboRework={sets,select};
+})();

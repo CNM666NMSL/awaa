@@ -1,0 +1,29 @@
+[
+  {
+    "id": "motong",
+    "category": "walk-v2",
+    "prompt": "Create a corrected WALK CYCLE for the character in IMAGE 1. IMAGE 1 defines character identity and outfit, IMAGE 2 is a motion reference: transfer its clear alternation of straight supporting leg and flexed passing leg. Exactly FIVE COLUMNS by TWO ROWS = TEN chronological full-body sprites on transparent background. Keep the same detailed pixel-art game rendering, same character scale and identity, all facing RIGHT, same hip x and floor baseline in every equal cell. No captions, background, gridlines, detachable FX or other characters. Important: a full walking cycle, no gliding static pose. Frame1 near heel FORWARD and far toes BACK; 2 near foot supports under hip, far leg lifts; 3 near leg VERTICAL straight under pelvis, far knee bends forward with lifted ankle next to supporting knee; 4 far foot extends forward, near leg pushes behind; 5 FAR foot ahead lands while NEAR foot is visibly behind; 6 far leg supports under hip, near heel lifts behind; 7 near knee passes forward close to supporting leg; 8 far leg VERTICAL supporting, near knee bent forward ankle lifted; 9 near leg extends forward while far foot pushes off; 10 near heel reaches ground ready for1. The NEAR leg must be behind at frame5 and ahead at frame1/10, not always the same leg in front. Alternate both feet; cross/pass legs under body. Subtle natural torso rotation/arm movement and fabric follow-through, grounded unhurried walk, no running/high kicks, no whole-body translations, no copying one pose. Hold character's cane/shotgun/umbrella consistently in hand at side. No companion wolf on this HUMAN sheet. Keep face/mask, hat and weapon from IMAGE 1. Crisp pixels; transparent margins around each full figure and weapon.",
+    "refs": [
+      "E:/游戏1/AWA/assets/chars/cyber-v1/motong/portrait.png",
+      "E:/游戏1/AWA/assets/chars/gait-v2/sheets/noble-walk.png"
+    ]
+  },
+  {
+    "id": "liequan",
+    "category": "walk-v2",
+    "prompt": "Create a corrected WALK CYCLE for the character in IMAGE 1. IMAGE 1 defines character identity and outfit, IMAGE 2 is a motion reference: transfer its clear alternation of straight supporting leg and flexed passing leg. Exactly FIVE COLUMNS by TWO ROWS = TEN chronological full-body sprites on transparent background. Keep the same detailed pixel-art game rendering, same character scale and identity, all facing RIGHT, same hip x and floor baseline in every equal cell. No captions, background, gridlines, detachable FX or other characters. Important: a full walking cycle, no gliding static pose. Frame1 near heel FORWARD and far toes BACK; 2 near foot supports under hip, far leg lifts; 3 near leg VERTICAL straight under pelvis, far knee bends forward with lifted ankle next to supporting knee; 4 far foot extends forward, near leg pushes behind; 5 FAR foot ahead lands while NEAR foot is visibly behind; 6 far leg supports under hip, near heel lifts behind; 7 near knee passes forward close to supporting leg; 8 far leg VERTICAL supporting, near knee bent forward ankle lifted; 9 near leg extends forward while far foot pushes off; 10 near heel reaches ground ready for1. The NEAR leg must be behind at frame5 and ahead at frame1/10, not always the same leg in front. Alternate both feet; cross/pass legs under body. Subtle natural torso rotation/arm movement and fabric follow-through, grounded unhurried walk, no running/high kicks, no whole-body translations, no copying one pose. Hold character's cane/shotgun/umbrella consistently in hand at side. No companion wolf on this HUMAN sheet. Keep face/mask, hat and weapon from IMAGE 1. Crisp pixels; transparent margins around each full figure and weapon.",
+    "refs": [
+      "E:/游戏1/AWA/assets/chars/cyber-v1/liequan/portrait.png",
+      "E:/游戏1/AWA/assets/chars/gait-v2/sheets/noble-walk.png"
+    ]
+  },
+  {
+    "id": "wuxiang",
+    "category": "walk-v2",
+    "prompt": "Create a corrected WALK CYCLE for the character in IMAGE 1. IMAGE 1 defines character identity and outfit, IMAGE 2 is a motion reference: transfer its clear alternation of straight supporting leg and flexed passing leg. Exactly FIVE COLUMNS by TWO ROWS = TEN chronological full-body sprites on transparent background. Keep the same detailed pixel-art game rendering, same character scale and identity, all facing RIGHT, same hip x and floor baseline in every equal cell. No captions, background, gridlines, detachable FX or other characters. Important: a full walking cycle, no gliding static pose. Frame1 near heel FORWARD and far toes BACK; 2 near foot supports under hip, far leg lifts; 3 near leg VERTICAL straight under pelvis, far knee bends forward with lifted ankle next to supporting knee; 4 far foot extends forward, near leg pushes behind; 5 FAR foot ahead lands while NEAR foot is visibly behind; 6 far leg supports under hip, near heel lifts behind; 7 near knee passes forward close to supporting leg; 8 far leg VERTICAL supporting, near knee bent forward ankle lifted; 9 near leg extends forward while far foot pushes off; 10 near heel reaches ground ready for1. The NEAR leg must be behind at frame5 and ahead at frame1/10, not always the same leg in front. Alternate both feet; cross/pass legs under body. Subtle natural torso rotation/arm movement and fabric follow-through, grounded unhurried walk, no running/high kicks, no whole-body translations, no copying one pose. Hold character's cane/shotgun/umbrella consistently in hand at side. No companion wolf on this HUMAN sheet. Keep face/mask, hat and weapon from IMAGE 1. Crisp pixels; transparent margins around each full figure and weapon.",
+    "refs": [
+      "E:/游戏1/AWA/assets/chars/cyber-v1/wuxiang/portrait.png",
+      "E:/游戏1/AWA/assets/chars/gait-v2/sheets/noble-walk.png"
+    ]
+  }
+]

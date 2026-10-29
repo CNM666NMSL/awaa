@@ -1,0 +1,177 @@
+{
+  "generator": "built-in image_gen",
+  "identities": {
+    "jianke": {
+      "reference": "E:/游戏1/AWA/assets/chars/jianke/v2/portrait.png",
+      "source": "jianke/source-sheet.png",
+      "scale": 1.0593220338983051,
+      "charge": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "release": [
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        23
+      ],
+      "contact": 5,
+      "bodyHeight": 250,
+      "canvas": [
+        512,
+        384
+      ],
+      "origin": [
+        210,
+        356
+      ]
+    },
+    "unarmored": {
+      "reference": "E:/游戏1/AWA/assets/chars/shouwang.png",
+      "source": "unarmored/source-sheet.png",
+      "scale": 1.0245901639344261,
+      "charge": [
+        0,
+        1,
+        2,
+        3,
+        6,
+        7,
+        8,
+        9,
+        12,
+        13,
+        14,
+        15
+      ],
+      "release": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "contact": 5,
+      "bodyHeight": 250,
+      "canvas": [
+        512,
+        384
+      ],
+      "origin": [
+        210,
+        356
+      ]
+    },
+    "armored": {
+      "reference": "E:/游戏1/AWA/assets/chars/shouwang_armed.png",
+      "source": "armored/source-sheet.png",
+      "scale": 1.0330578512396693,
+      "charge": [
+        0,
+        1,
+        2,
+        3,
+        6,
+        7,
+        8,
+        9,
+        12,
+        13,
+        14,
+        15
+      ],
+      "release": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "contact": 5,
+      "bodyHeight": 250,
+      "canvas": [
+        512,
+        384
+      ],
+      "origin": [
+        210,
+        356
+      ]
+    },
+    "noble": {
+      "reference": "E:/游戏1/AWA/assets/chars/noble/v3/idle/00.png",
+      "source": "noble/source-sheet.png",
+      "scale": 1.0460251046025104,
+      "charge": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "release": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "contact": 5,
+      "bodyHeight": 250,
+      "canvas": [
+        512,
+        384
+      ],
+      "origin": [
+        210,
+        356
+      ]
+    }
+  }
+}

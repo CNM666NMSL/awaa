@@ -18,8 +18,8 @@ export class ShouwangFX {
  }
  actor(f){if(f?.charId!=='shouwang'||!this.fx)return;const p=this.previous.get(f)||{state:'',timer:-1,form:f.form},t=f.stateTimer,state=f.state,key=f._animForState(),reset=p.state!==state||t<p.timer||p.attack!==f.currentAttack;
  if(reset)p.contact=false;
- if((state==='attack'||state==='super')&&f.currentAttack){const a=f.curEff();if(t>=a.startup&&t<a.startup+a.active&&!p.contact){this.emit(f,key);p.contact=true;}}
- if(state==='skill'){const su=f.currentCast?.startup??f.def.skill.startup;if(t>=su&&!p.contact){this.emit(f,'u');p.contact=true;}}
+ if((state==='attack'||state==='super')&&f.currentAttack&&!f.currentAttack.signatureArt){const a=f.curEff();if(t>=a.startup&&t<a.startup+a.active&&!p.contact){this.emit(f,key);p.contact=true;}}
+ if(state==='skill'&&!f.currentCast?.rangedArt){const su=f.currentCast?.startup??f.def.skill.startup;if(t>=su&&!p.contact){this.emit(f,'u');p.contact=true;}}
  if(p.form!==f.form){this.runes(f,2);this.fx.dust(f.x,f.y,f.facing,26,1.4);for(let i=0;i<10;i++)this.line(f.x+(i%2?1:-1)*(i*4),f.y-18-i*10,f.facing,16,i*.7,0x9faeb7);}
  if(reset){if(state==='dash'){this.line(f.x-f.facing*30,f.y-48,-f.facing,100);this.fx.dust(f.x,f.y,-f.facing,12);}if(['hit','guardbreak'].includes(state)){for(let i=0;i<5;i++)this.line(f.x,f.y-65,f.facing,23,(i-2)*.6,i%2?0xffcd8c:0xbaffef);}if(['ko','knockdown'].includes(state))this.fx.dust(f.x,f.y,f.facing,22,1.3);if(['block','parry'].includes(state))this.fx.ribbon(f.x+f.facing*23,f.y-58,f.facing,24,52,-1.6,1.6,5,.32,0,0xd4e8ff);}
  if(f.landingTicks>0&&!p.land)this.fx.dust(f.x,f.y,f.facing,14,1.15);
