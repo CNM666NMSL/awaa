@@ -60,6 +60,6 @@ for(const event of ['pointerdown','keydown'])document.addEventListener(event,()=
 document.querySelectorAll('video').forEach(v=>v.addEventListener('play',()=>v.volume=audio.values.voice));
 let note=0;const melody=[146.83,174.61,220,196,146.83,130.81,174.61,164.81];
 setInterval(()=>{if(document.hidden||g.phase==='paused'||!$('menu-settings').classList.contains('hidden')||[...document.querySelectorAll('video')].some(v=>!v.paused))return;audio.tone('music',melody[note++%melody.length],1.5,.045);},650);
-const previous=new WeakMap(),update=g.update;g.update=function(...args){const result=update.apply(this,args);if(this.phase==='fight')for(const f of [this.p1,this.p2])if(f){const p=previous.get(f);if(p&&p.health>f.health)audio.tone('effects',90,.14,.16,'triangle');if(p&&p.state!==f.state&&['attack','skill','dash'].includes(f.state))audio.tone('effects',300,.12,.06,'triangle');previous.set(f,{state:f.state,health:f.health});}return result;};
+// Combat foley is handled by character-audio.js.
 })();
 
