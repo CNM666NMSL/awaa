@@ -1,0 +1,430 @@
+[
+  {
+    "target": "assets/chars/steady-motion-v1/noble/block/00.png",
+    "source": "assets/chars/expanded-v1/noble/block/06.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/jianke/block/00.png",
+    "source": "assets/chars/expanded-v1/jianke/block/06.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/block/00.png",
+    "source": "assets/chars/shouwang/v1/armored/block/00.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/block/00.png",
+    "source": "assets/chars/shouwang/v1/unarmored/block/00.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j1/00.png",
+    "source": "assets/chars/shouwang/v1/armored/j1/00.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j1/01.png",
+    "source": "assets/chars/shouwang/v1/armored/j1/01.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j1/02.png",
+    "source": "assets/chars/shouwang/v1/armored/j1/01.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j1/03.png",
+    "source": "assets/chars/shouwang/v1/armored/j1/02.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j1/04.png",
+    "source": "assets/chars/shouwang/v1/armored/j1/02.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j1/05.png",
+    "source": "assets/chars/shouwang/v1/armored/j1/03.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j1/06.png",
+    "source": "assets/chars/shouwang/v1/armored/j1/03.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j1/07.png",
+    "source": "assets/chars/shouwang/v1/armored/j1/04.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j1/08.png",
+    "source": "assets/chars/shouwang/v1/armored/j1/04.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j1/09.png",
+    "source": "assets/chars/shouwang/v1/armored/j1/05.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j1/00.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j1/00.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j1/01.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j1/01.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j1/02.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j1/01.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j1/03.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j1/02.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j1/04.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j1/02.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j1/05.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j1/03.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j1/06.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j1/03.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j1/07.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j1/04.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j1/08.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j1/04.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j1/09.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j1/05.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j2/00.png",
+    "source": "assets/chars/shouwang/v1/armored/j2/00.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j2/01.png",
+    "source": "assets/chars/shouwang/v1/armored/j2/01.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j2/02.png",
+    "source": "assets/chars/shouwang/v1/armored/j2/01.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j2/03.png",
+    "source": "assets/chars/shouwang/v1/armored/j2/02.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j2/04.png",
+    "source": "assets/chars/shouwang/v1/armored/j2/02.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j2/05.png",
+    "source": "assets/chars/shouwang/v1/armored/j2/03.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j2/06.png",
+    "source": "assets/chars/shouwang/v1/armored/j2/03.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j2/07.png",
+    "source": "assets/chars/shouwang/v1/armored/j2/04.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j2/08.png",
+    "source": "assets/chars/shouwang/v1/armored/j2/04.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j2/09.png",
+    "source": "assets/chars/shouwang/v1/armored/j2/05.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j2/00.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j2/00.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j2/01.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j2/01.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j2/02.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j2/01.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j2/03.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j2/02.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j2/04.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j2/02.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j2/05.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j2/03.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j2/06.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j2/03.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j2/07.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j2/04.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j2/08.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j2/04.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j2/09.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j2/05.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j3/00.png",
+    "source": "assets/chars/shouwang/v1/armored/j3/00.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j3/01.png",
+    "source": "assets/chars/shouwang/v1/armored/j3/01.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j3/02.png",
+    "source": "assets/chars/shouwang/v1/armored/j3/01.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j3/03.png",
+    "source": "assets/chars/shouwang/v1/armored/j3/02.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j3/04.png",
+    "source": "assets/chars/shouwang/v1/armored/j3/03.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j3/05.png",
+    "source": "assets/chars/shouwang/v1/armored/j3/03.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j3/06.png",
+    "source": "assets/chars/shouwang/v1/armored/j3/04.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j3/07.png",
+    "source": "assets/chars/shouwang/v1/armored/j3/05.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j3/08.png",
+    "source": "assets/chars/shouwang/v1/armored/j3/05.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j3/09.png",
+    "source": "assets/chars/shouwang/v1/armored/j3/06.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j3/00.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j3/00.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j3/01.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j3/01.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j3/02.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j3/01.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j3/03.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j3/02.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j3/04.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j3/03.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j3/05.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j3/03.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j3/06.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j3/04.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j3/07.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j3/05.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j3/08.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j3/05.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j3/09.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j3/06.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j4/00.png",
+    "source": "assets/chars/shouwang/v1/armored/j3/00.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j4/01.png",
+    "source": "assets/chars/shouwang/v1/armored/j3/01.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j4/02.png",
+    "source": "assets/chars/shouwang/v1/armored/j3/01.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j4/03.png",
+    "source": "assets/chars/shouwang/v1/armored/j3/02.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j4/04.png",
+    "source": "assets/chars/shouwang/v1/armored/j3/03.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j4/05.png",
+    "source": "assets/chars/shouwang/v1/armored/j3/03.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j4/06.png",
+    "source": "assets/chars/shouwang/v1/armored/j3/04.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j4/07.png",
+    "source": "assets/chars/shouwang/v1/armored/j3/05.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j4/08.png",
+    "source": "assets/chars/shouwang/v1/armored/j3/05.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/j4/09.png",
+    "source": "assets/chars/shouwang/v1/armored/j3/06.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j4/00.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j3/00.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j4/01.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j3/01.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j4/02.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j3/01.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j4/03.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j3/02.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j4/04.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j3/03.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j4/05.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j3/03.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j4/06.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j3/04.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j4/07.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j3/05.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j4/08.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j3/05.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/j4/09.png",
+    "source": "assets/chars/shouwang/v1/unarmored/j3/06.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/launcher/00.png",
+    "source": "assets/chars/shouwang/v1/armored/launcher/00.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/launcher/01.png",
+    "source": "assets/chars/shouwang/v1/armored/launcher/01.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/launcher/02.png",
+    "source": "assets/chars/shouwang/v1/armored/launcher/01.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/launcher/03.png",
+    "source": "assets/chars/shouwang/v1/armored/launcher/02.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/launcher/04.png",
+    "source": "assets/chars/shouwang/v1/armored/launcher/02.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/launcher/05.png",
+    "source": "assets/chars/shouwang/v1/armored/launcher/03.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/launcher/06.png",
+    "source": "assets/chars/shouwang/v1/armored/launcher/03.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/launcher/07.png",
+    "source": "assets/chars/shouwang/v1/armored/launcher/04.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/launcher/08.png",
+    "source": "assets/chars/shouwang/v1/armored/launcher/04.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/armored/launcher/09.png",
+    "source": "assets/chars/shouwang/v1/armored/launcher/05.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/launcher/00.png",
+    "source": "assets/chars/shouwang/v1/unarmored/launcher/00.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/launcher/01.png",
+    "source": "assets/chars/shouwang/v1/unarmored/launcher/01.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/launcher/02.png",
+    "source": "assets/chars/shouwang/v1/unarmored/launcher/01.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/launcher/03.png",
+    "source": "assets/chars/shouwang/v1/unarmored/launcher/02.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/launcher/04.png",
+    "source": "assets/chars/shouwang/v1/unarmored/launcher/02.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/launcher/05.png",
+    "source": "assets/chars/shouwang/v1/unarmored/launcher/03.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/launcher/06.png",
+    "source": "assets/chars/shouwang/v1/unarmored/launcher/03.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/launcher/07.png",
+    "source": "assets/chars/shouwang/v1/unarmored/launcher/04.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/launcher/08.png",
+    "source": "assets/chars/shouwang/v1/unarmored/launcher/04.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/unarmored/launcher/09.png",
+    "source": "assets/chars/shouwang/v1/unarmored/launcher/05.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/motong/block/00.png",
+    "source": "assets/chars/cyber-v1/motong/block/06.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/liequan/block/00.png",
+    "source": "assets/chars/cyber-v1/liequan/block/06.png"
+  },
+  {
+    "target": "assets/chars/steady-motion-v1/wuxiang/block/00.png",
+    "source": "assets/chars/cyber-v1/wuxiang/block/06.png"
+  }
+]

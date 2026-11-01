@@ -18,6 +18,8 @@
         (g.signatureObjects||= []).push(object);return object;
     }
     function shield(g,owner,x1,y1,x2,y2,r=0){
+        if(window.umbraCombat?.shieldSegment(g,owner,x1,y1,x2,y2))return true;
+        for(const f of [g.p1,g.p2])if(f!==owner&&f.specialShieldLeft>0&&segmentNear(x1,y1,x2,y2,f.x,f.y-f.height*.55,60+r)){spawn(g,f,'shield-flash',{x:x2,y:y2,life:18});return true;}
         for(const f of [g.p1,g.p2])if(f!==owner&&active(f)&&f.activeUltimate.kind==='sword-domain'){
             if(segmentNear(x1,y1,x2,y2,f.x,f.y-f.height*.55,f.activeUltimate.radius+r)){
                 spawn(g,f,'shield-flash',{x:x2,y:y2,life:18});g.spawnHitSpark(x2,y2,true);return true;
@@ -54,6 +56,7 @@
     const casts=Game.prototype.updateSkillCasts;
     Game.prototype.updateSkillCasts=function(f){
         const s=f.pendingProj;
+        if(s?.projectileKind==='hunter-wolf')return casts.call(this,f);
         if(f.state!=='skill'||!s?.rangedArt||s.chargeLevel!==3||f.stateTimer!==s.startup)return casts.call(this,f);
         const enemy=enemyOf(this,f);if(!enemy)return;
         f.pendingProj=null;f.rangedCooldown=Math.max(f.rangedCooldown||0,Math.ceil(CONFIG.resources.rangedCooldownSeconds*60));

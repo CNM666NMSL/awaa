@@ -47,7 +47,7 @@ const SPRITES = {};
                     for (let i = 0; i < count; i++) {
                         const key = `${keyPrefix}_${i}`;
                         const file = `${a.path.replace("{form}", form || "")}/${String(i + offset).padStart(2, "0")}.png`;
-                        request(`${file}?v=${ASSET_VER}`,img=>{SPRITES[key]=img;});
+                        request(`${file}?v=${a.assetVersion||ASSET_VER}`,img=>{SPRITES[key]=img;});
                     }
                 }
             }
@@ -263,6 +263,7 @@ class Fighter {
 
     get width()  { return this.def.width; }
     get height() { return this.def.height; }
+    get maxMeter() { return this.def.maxMeter || CONFIG.resources.maxMeter; }
 
     getBodyBox() {
         return { x: this.x - this.width / 2, y: this.y - this.height, w: this.width, h: this.height };
@@ -345,8 +346,8 @@ class Fighter {
         if (!this.canSwitchForm() || !this.onGround) return false;
         // S 键会触发 block（防御），所以切换需在 idle/walk/block 状态下都可进行
         if (!(this.state === "idle" || this.state === "walk" || this.state === "block")) return false;
-        if (this.form !== "armored") return false;   // 单向：脱甲后不可切回
-        this.form = "unarmored";
+        // Both forms use the same S+I toggle.
+        this.form = this.form === "armored" ? "unarmored" : "armored";
         this.justSwitchedForm = true;   // 通知 game 层做切换特效
         return true;
     }
@@ -397,7 +398,7 @@ class Fighter {
     }
 
     gainMeter(n) {
-        this.meter = Math.min(CONFIG.resources.maxMeter, this.meter + n);
+        this.meter = Math.min(this.maxMeter, this.meter + n);
     }
 
     // ---------- 行为入口 ----------
@@ -832,7 +833,7 @@ class Fighter {
         // 蓄气姿势：每帧直接攒气（受击会打断状态，已攒的气保留；蓄气中受伤×1.5）
         if (this.state === "charge") {
             this.chargeHeldFrames = (this.chargeHeldFrames || 0) + 1;
-            this.meter = Math.min(CONFIG.resources.maxMeter, this.meter + CONFIG.resources.chargePerSecond / 60);
+            this.meter = Math.min(this.maxMeter, this.meter + (this.def.chargePerSecond ?? CONFIG.resources.chargePerSecond) / 60);
             if (this.chargeHeldFrames >= CONFIG.resources.maxChargeSeconds * 60) {
                 this.chargeInterrupted = true;
                 this.endCharge();
@@ -1221,7 +1222,7 @@ class Fighter {
         }
 
         // 满层「纯白剑契」辉光
-        if (this.isPureWhite && this.isPureWhite()) {
+        if (!window.pixelFX && this.isPureWhite && this.isPureWhite()) {
             ctx.fillStyle = "rgba(244,246,255,0.14)";
             ctx.beginPath();
             ctx.arc(cx, -H * 0.5, H * 0.55 + Math.sin(t * 0.3) * 4, 0, Math.PI * 2);
@@ -1240,14 +1241,14 @@ class Fighter {
             ctx.globalAlpha = 1;
         }
         // 格挡：身前护盾
-        if (st === "block" && !this.def.cyberChinese && this.charId !== "noble" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX)) {
+        if (!window.pixelFX && st === "block" && !this.def.cyberChinese && this.charId !== "noble" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX)) {
             ctx.fillStyle = "rgba(140,190,255,0.30)";
             ctx.beginPath();
             ctx.ellipse(W * 0.30, -H * 0.5, W * 0.28, H * 0.48, 0, 0, Math.PI * 2);
             ctx.fill();
         }
         // 攻击 / 超必杀：白色刀光弧
-        if (!this.def.cyberChinese && this.charId !== "noble" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX) && this.currentAttack && this.isAttackActive && this.isAttackActive()) {
+        if (!window.pixelFX && !this.def.cyberChinese && this.charId !== "noble" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX) && this.currentAttack && this.isAttackActive && this.isAttackActive()) {
             ctx.strokeStyle = st === "super" ? "rgba(255,209,102,0.9)" : "rgba(255,255,255,0.85)";
             ctx.lineWidth = 5;
             ctx.beginPath();
@@ -1255,7 +1256,7 @@ class Fighter {
             ctx.stroke();
         }
         // 超必杀外圈
-        if (st === "super" && !this.def.cyberChinese && this.charId !== "noble" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX)) {
+        if (!window.pixelFX && st === "super" && !this.def.cyberChinese && this.charId !== "noble" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX)) {
             ctx.strokeStyle = "rgba(255,209,102,0.85)";
             ctx.lineWidth = 3;
             ctx.beginPath();
@@ -1263,7 +1264,7 @@ class Fighter {
             ctx.stroke();
         }
         // 招架成功白闪
-        if (st === "parry" && !this.def.cyberChinese && this.charId !== "noble" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX) && Math.floor(t / 4) % 2 === 0) {
+        if (!window.pixelFX && st === "parry" && !this.def.cyberChinese && this.charId !== "noble" && !(["jianke", "shouwang"].includes(this.charId) && window.jiankeFX) && Math.floor(t / 4) % 2 === 0) {
             ctx.fillStyle = "rgba(255,255,255,0.35)";
             ctx.fillRect(-W / 2, -H, W, H);
         }

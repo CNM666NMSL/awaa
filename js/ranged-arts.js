@@ -41,6 +41,7 @@
         ctx.restore();
     }
     function projectile(ctx,p){
+        if(p.kind==='hunter-wolf')return;
         const d=Math.sign(p.vx)||p.fxDir||1,w=p.hitWidth||80,h=p.hitHeight||18,n=p.chargeLevel||1,color=p.color||'#baffce';
         ctx.save();ctx.translate(p.x,p.y);ctx.scale(d,1);ctx.shadowColor=color;ctx.shadowBlur=n===1?3:16;ctx.fillStyle=color;ctx.strokeStyle=color;
         const trail=ctx.createLinearGradient(-w*1.8,0,w*.35,0);trail.addColorStop(0,color+'00');trail.addColorStop(1,color+(n===1?'55':'cc'));ctx.fillStyle=trail;if(p.kind!=='frost-wave')ctx.fillRect(-w*(n===1?1:1.8),-h*.2,w*(n===1?1.3:2),.4*h);

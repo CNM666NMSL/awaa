@@ -3,17 +3,26 @@
 'use strict';
 const g=window.game,$=id=>document.getElementById(id),touch=new Map();
 const controls=document.createElement('section');controls.className='touch-controls';controls.setAttribute('aria-label','手机战斗按键');
-const button=(action,label,key)=>`<button type="button" data-action="${action}" aria-label="${label}">${label}<small>${key}</small></button>`;
-controls.innerHTML='<div class="touch-dpad">'+button('up','上挑','W + 普攻')+button('left','◀','双击快跑')+button('down','防御','S / 下攻')+button('right','▶','双击快跑')+'</div><div class="touch-actions">'+button('skill','远攻','长按蓄力 U/4')+button('special','特殊','满资源 O/6')+button('super_','大招','I / 5')+button('charge','蓄气','按住 P / 7')+button('attack','普攻','J / 1')+button('jump','跳跃','K / 2')+button('dash','瞬身','L / 3')+button('launcher','上挑','W + J')+'</div>';
+const icons={attack:'M6 3l14 14-3 3L3 6zM18 3L4 17m-1-3 7 7m7-7 4 4',skill:'M4 12h16m-6-6 6 6-6 6M4 7v10',special:'M12 2l3 6 7 4-7 4-3 6-3-6-7-4 7-4z',super_:'M12 1l3 7 8-1-6 6 3 9-8-5-8 5 3-9-6-6 8 1z',jump:'M4 15l8-10 8 10M8 21l4-6 4 6',dash:'M3 5l8 7-8 7m9-14 8 7-8 7',down:'M12 2l8 4v8l-8 8-8-8V6zM8 12h8',charge:'M13 2L5 13h6l-1 9 9-13h-6z'};
+const button=(action,label,key)=>`<button type="button" data-action="${action}" aria-label="${label}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${icons[action]}"/></svg><span class="control-label">${label}</span><small>${key}</small></button>`;
+controls.innerHTML='<div class="touch-dpad"><button type="button" class="touch-stick" aria-label="方向摇杆：左右移动，上推上攻，下推防御"><span class="stick-ring"></span><span class="stick-axis horizontal"></span><span class="stick-axis vertical"></span><span class="stick-thumb"></span><span class="stick-up">上</span><span class="stick-down">防</span></button><span class="stick-caption">移动 / 方向组合</span>'+button('charge','蓄气','按住')+'</div><div class="touch-actions">'+button('skill','远攻','长按蓄力')+button('special','特殊','3层')+button('super_','大招','满气')+button('attack','普攻','连击')+button('jump','跳跃','二段跳')+button('dash','瞬身','闪避')+button('down','防御','按住')+'</div>';
 $('game-canvas').after(controls);
 const keysFor=action=>action==='launcher'?[CONFIG.keys.up,CONFIG.keys.attack]:[CONFIG.keys[action]];
-const heldKeys=()=>new Set([...touch.values()].flatMap(v=>keysFor(v.action)));
-function releaseAll(){touch.clear();controls.querySelectorAll('.held').forEach(b=>b.classList.remove('held'));}
-function release(e){const old=touch.get(e.pointerId);touch.delete(e.pointerId);if(old&&![...touch.values()].some(v=>v.button===old.button))old.button.classList.remove('held');}
-controls.querySelectorAll('button').forEach(b=>{
+const heldKeys=()=>new Set([...touch.values()].flatMap(v=>v.keys||keysFor(v.action)));
+const stick=controls.querySelector('.touch-stick');
+function resetStick(){stick.style.setProperty('--stick-x','0px');stick.style.setProperty('--stick-y','0px');}
+function releaseAll(){touch.clear();controls.querySelectorAll('.held').forEach(b=>b.classList.remove('held'));resetStick();}
+function release(e){const old=touch.get(e.pointerId);touch.delete(e.pointerId);if(old&&![...touch.values()].some(v=>v.button===old.button))old.button.classList.remove('held');if(old?.button===stick)resetStick();}
+controls.querySelectorAll('button[data-action]').forEach(b=>{
  b.addEventListener('pointerdown',e=>{e.preventDefault();if(g.phase!=='fight')return;const before=heldKeys();b.setPointerCapture(e.pointerId);touch.set(e.pointerId,{action:b.dataset.action,button:b});b.classList.add('held');for(const key of keysFor(b.dataset.action))if(!before.has(key))g.keysPressed[key]=true;audio.unlock();});
  for(const name of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(name,release);
 });
+function steer(e){const v=touch.get(e.pointerId);if(v?.button!==stick)return;const rect=stick.getBoundingClientRect(),rotated=document.body.dataset.rotated==='true',screenX=e.clientX-(rect.left+rect.width/2),screenY=e.clientY-(rect.top+rect.height/2),dx=rotated?screenY:screenX,dy=rotated?-screenX:screenY,radius=Math.min(rect.width,rect.height)*.32,dist=Math.hypot(dx,dy),k=Math.min(1,radius/Math.max(1,dist)),x=dx*k,y=dy*k,before=heldKeys(),keys=[];
+ if(dist>radius*.24){if(x< -radius*.32)keys.push(CONFIG.keys.left);if(x>radius*.32)keys.push(CONFIG.keys.right);if(y< -radius*.32)keys.push(CONFIG.keys.up);if(y>radius*.32)keys.push(CONFIG.keys.down);}
+ v.keys=keys;for(const key of keys)if(!before.has(key))g.keysPressed[key]=true;stick.style.setProperty('--stick-x',x+'px');stick.style.setProperty('--stick-y',y+'px');
+}
+stick.addEventListener('pointerdown',e=>{e.preventDefault();if(g.phase!=='fight')return;if([...touch.values()].some(v=>v.button===stick))return;stick.setPointerCapture(e.pointerId);touch.set(e.pointerId,{button:stick,keys:[]});stick.classList.add('held');steer(e);audio.unlock();});stick.addEventListener('pointermove',steer);for(const name of ['pointerup','pointercancel','lostpointercapture'])stick.addEventListener(name,release);
+window.touchControls={releaseAll,heldKeys,element:controls};
 const originalShow=g.show;g.show=function(id){const result=originalShow.call(this,id);if(!id)requestAnimationFrame(()=>window.scrollTo(0,0));return result;};
 const read=g.readInput;g.readInput=function(map,edges){if(map!==CONFIG.keys||!touch.size)return read.call(this,map,edges);const physical=this.keysDown;this.keysDown={...physical};for(const key of heldKeys())this.keysDown[key]=true;try{return read.call(this,map,edges);}finally{this.keysDown=physical;}};
 window.addEventListener('blur',releaseAll);document.addEventListener('visibilitychange',()=>{if(document.hidden){releaseAll();if(g.phase==='fight'&&!g.net)g.togglePause();}});

@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="responsive.css?v=mobile3">
 <link rel="stylesheet" href="stage-select.css?v=stages1">
 <link rel="stylesheet" href="loading.css?v=load1"><link rel="stylesheet" href="arena-ui.css?v=arena2">
+<link rel="stylesheet" href="wuxiang-umbra.css?v=umbra2">
+<link rel="stylesheet" href="adaptive-arena.css?v=mobile-arena1">
 </head>
 <body class="assets-loading">
 <section id="resource-loading" role="status" aria-live="polite" aria-busy="true" aria-label="正在加载游戏资源">
@@ -70,7 +72,7 @@
             <button id="practice-change-character">重新选人</button><button id="practice-contract">叠满资源</button><button id="practice-reset">重置位置</button>
             <span id="practice-stats" aria-live="polite">自由练习</span>
         </div>
-        <p class="practice-help">A / D 移动，双击快跑 · K 二段跳（方向键空中可控） · 空中方向 + J 追击 · J 角色专属连击 · W + J 上攻 · S + J 下攻 · L → J 瞬身攻击 · U 短按远攻 / 长按蓄力 / 空中可用 · O 满资源特殊技 · I 必杀 · P / S + P 攒气。点击出招表中的「演示」可直接试招。</p>
+        <p class="practice-help">A / D 移动，双击快跑 · K 二段跳（方向键空中可控） · 空中方向 + J 追击 · J 角色专属连击 · W + J 上攻 · S + J 下攻 · L → J 瞬身攻击 · U 短按远攻 / 长按蓄力 / 空中可用 · O 消耗3层特殊技 · I 必杀 · P / S + P 攒气。点击出招表中的「演示」可直接试招。</p>
         <details open><summary id="practice-move-title">出招表与参数</summary><div class="move-table-wrap"><table id="noble-moves"><thead><tr><th>招式 / 操作</th><th>基础伤害</th><th>耗气</th><th>前摇</th><th>判定</th><th>收招</th><th>射程</th><th></th></tr></thead><tbody></tbody></table></div><p class="practice-help">帧数以 60 FPS、0 层资源计；射程从角色中心计算，单位为游戏像素。实际伤害受资源、形态和连段影响。练习靶桩会自动恢复。</p></details>
     </section>
 
@@ -218,12 +220,12 @@
             <label><input type="checkbox" id="opt-flip"> 翻转角色立绘方向（立绘朝向反了就勾这个）</label>
             <label>人物音量 <output id="voice-value">80%</output><input type="range" id="voice-volume" min="0" max="100" value="80"></label><label>游戏音效 <output id="effects-value">80%</output><input type="range" id="effects-volume" min="0" max="100" value="80"></label><label>背景音乐 <output id="music-value">35%</output><input type="range" id="music-volume" min="0" max="100" value="35"></label><p class="audio-note">人物通道用于角色语音；当前尚无配音素材。音量自动保存。</p>
             <div class="controls-help">
-                <h3>键位操作 / 手机按键对照</h3><p>手机：左侧方向键移动与防御；右侧普攻、跳跃、瞬身、远攻、特殊、大招与蓄气。横屏体验更佳。</p><p>P2：← → 移动，↓ 防御，↑+1 上挑；1 普攻 / 2 跳跃 / 3 瞬身 / 4 远攻 / 5 大招 / 6 特殊 / 7 蓄气。</p>
+                <h3>键位操作 / 手机按键对照</h3><p>手机：左侧摇杆移动（向下防御）；右侧普攻、跳跃、瞬身、远攻、特殊、大招与防御，左侧蓄气。横屏体验更佳。</p><p>P2：← → 移动，↓ 防御，↑+1 上挑；1 普攻 / 2 跳跃 / 3 瞬身 / 4 远攻 / 5 大招 / 6 特殊 / 7 蓄气。</p>
                 <p>A / D 移动 &nbsp; W + J 上挑（W 单按不跳） &nbsp; S 防御/受身</p>
-                <p>J 普攻(三段) &nbsp; K 跳跃(方向二段跳，空中可移动攻击) &nbsp; L 瞬步</p>
-                <p>剑客、贵族、守望者：按住U 1秒进入二段，2.5秒进入三段，最多蓄力7秒自动释放。U 普通与蓄力远攻共用 2 秒释放间隔；L 瞬步不耗气，O 满资源施放特殊技。</p>
+                <p>J 普攻(角色专属连段) &nbsp; K 跳跃(方向二段跳，空中可移动攻击) &nbsp; L 瞬步</p>
+                <p>剑客、贵族、守望者：按住U 1秒进入二段，2.5秒进入三段，最多蓄力7秒自动释放。U 普通与蓄力远攻共用 2 秒释放间隔；L 瞬步不耗气，O 消耗3层资源施放特殊技，剩余保留。</p>
                 <p>I / 5：满100气释放大招；不足100气无法释放。剑客：8秒剑阵；贵族：6秒无敌六斩；守望者：6秒内3次陨石／石柱攻击。</p>
-                <p>守望者：S+I 不耗气从穿甲(减伤/慢) → 脱甲(攻速+10%，单向不可逆)</p>
+                <p>守望者：S+I 不耗气来回切换穿甲与脱甲形态</p>
                 <p>P / 7 长按攒气，S+P / ↓+7 同样可用；松键或受击中断。</p>
                 <p>命中 +5 / 受击约 +3.33 / 格挡 +4 气（上限100点）</p>
                 <p>W+J 上攻 &nbsp; S+J 下攻(破防) &nbsp; Esc 暂停</p>
@@ -263,20 +265,19 @@
 
 <script src="js/config.js?v=motion2"></script>
 <script src="js/jianke-anims.js?v=20261023-rain1"></script>
-<script src="js/jianke-movement.js?v=move1"></script><script src="js/jianke-walk.js?v=walk3"></script><script src="js/shouwang-anims.js?v=watch1"></script><script src="js/mobility-anims.js?v=mobility1"></script><script src="js/combat-v2-config.js?v=combat4"></script><script src="js/expanded-anims.js?v=frames1"></script><script src="js/gait-v2.js?v=idle1"></script><script src="js/cyber-anims.js?v=cyber1"></script><script src="js/cyber-roster.js?v=combo1"></script><script src="js/motion-v2.js?v=motion2"></script><script src="js/ultimate-ranges.js?v=range1"></script><script src="js/wuxiang-revolver.js?v=gun1"></script><script src="js/ranged-arts-config.js?v=arts1"></script><script src="js/signature-arts-config.js?v=mobile-super2"></script><script src="js/fighter.js?v=signature1"></script>
+<script src="js/jianke-movement.js?v=move1"></script><script src="js/jianke-walk.js?v=walk3"></script><script src="js/shouwang-anims.js?v=watch1"></script><script src="js/mobility-anims.js?v=mobility1"></script><script src="js/combat-v2-config.js?v=combat4"></script><script src="js/expanded-anims.js?v=frames1"></script><script src="js/gait-v2.js?v=idle1"></script><script src="js/cyber-anims.js?v=cyber1"></script><script src="js/cyber-roster.js?v=combo1"></script><script src="js/motion-v2.js?v=motion2"></script><script src="js/ultimate-ranges.js?v=range1"></script><script src="js/wuxiang-revolver.js?v=gun1"></script><script src="js/ranged-arts-config.js?v=arts1"></script><script src="js/signature-arts-config.js?v=mobile-super2"></script><script src="js/light-magic-config.js?v=light1"></script><script src="js/evelyn-v2-config.js?v=balance1"></script><script src="js/steady-motion-config.js?v=steady2"></script><script src="js/wuxiang-umbra-config.js?v=umbra2"></script><script src="js/air-hunter-config.js?v=air-hunter1"></script><script src="js/fighter.js?v=air-hunter1"></script>
 <script src="js/net.js?v=20261023-rain1"></script>
 <script type="module" src="js/rain-weather.js?v=load1"></script>
-<script type="module" src="js/jianke-fx.js?v=signature1"></script>
-<script type="module" src="js/shouwang-fx.js?v=signature1"></script>
-<script type="module" src="js/character-magic.js?v=signature1"></script>
-<script src="js/round-entrance.js?v=theme-c1"></script>
+<!-- Combat VFX are rendered from local PixelFX atlases; rain retains its separate renderer. -->
+<script src="js/round-entrance.js?v=light1"></script>
 <script src="js/blink-fx.js?v=arcade2"></script>
-<script src="js/game.js?v=combo1"></script>
+<script src="js/game.js?v=air-hunter1"></script>
 <script src="js/stage-select.js?v=stages1"></script>
-<script src="js/arcade-combat.js?v=arena2"></script>
+<script src="js/arcade-combat.js?v=umbra2"></script>
 <script src="js/noble-practice.js?v=combo1"></script>
 <script src="js/combat-v2.js?v=arts1"></script>
-<script src="js/cyber-combat.js?v=arts1"></script><script src="js/ranged-arts.js?v=signature1"></script><script src="js/signature-combat.js?v=combo1"></script><script src="js/mobile-supers.js?v=mobile-super2"></script><script src="js/signature-fx.js?v=combo1"></script><script src="js/mobile-ui.js?v=signature1"></script>
-<script src="js/combo-rework.js?v=combo1"></script><script src="js/arena-ui.js?v=combo1"></script><script>window.gameAssets.finishBootstrap();</script>
+<script src="js/cyber-combat.js?v=tentacle1"></script><script src="js/ranged-arts.js?v=air-hunter1"></script><script src="js/signature-combat.js?v=air-hunter1"></script><script src="js/mobile-supers.js?v=mobile-super2"></script><script src="js/signature-fx.js?v=combo1"></script><script src="js/mobile-ui.js?v=mobile-arena1"></script>
+<script src="js/combo-rework.js?v=tentacle1"></script><script src="js/light-magic.js?v=light1"></script><script src="js/special-rework.js?v=balance1"></script><script src="js/evelyn-hunter.js?v=balance1"></script><script src="js/evelyn-v2.js?v=air-hunter1"></script><script src="js/steady-motion.js?v=steady1"></script>
+<script src="js/pixelfx-assets.js?v=pixelfx1"></script><script src="js/pixelfx-combat.js?v=air-hunter1"></script><script src="js/wuxiang-umbra.js?v=umbra2"></script><script src="js/wuxiang-umbra-fx.js?v=umbra2"></script><script src="js/arena-ui.js?v=umbra2"></script><script src="js/air-hunter-combat.js?v=air-hunter1"></script><script src="js/air-hunter-fx.js?v=air-hunter1"></script><script src="js/adaptive-arena.js?v=mobile-arena1"></script><script>window.gameAssets.finishBootstrap();</script>
 </body>
 </html>
