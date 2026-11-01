@@ -35,7 +35,7 @@
   update.call(this);
   if(this.airRush){const a=this.airRush,v=enemy(g,this);
    if(a.sword&&!a.sword.hit){const s=a.sword,previous=s.y;s.y+=26;if(window.signatureArts.shield(g,this,s.x,previous,s.x,s.y,10))s.hit=true;else if(Math.abs(v.x-s.x)<v.width/2+20&&s.y>=v.y-v.height&&previous<=v.y){const r=hurt(g,this,v,this.def.airAttack.damage*.35,{airGuardBreak:true,guardBreak:true,knockback:2});s.hit=!r.immune;}else if(s.y>CONFIG.canvas.groundY)s.hit=true;}
-   if(a.phase==='dive'&&!a.landed&&!a.bodyHit&&Math.abs(v.x-this.x)<v.width/2+34&&this.y+24>=v.y-v.height&&prevY-10<=v.y){const damage=this.def.airAttack.damage*(a.kind==='jianke'?.65:a.kind==='motong'&&a.snared?.7:1),r=hurt(g,this,v,damage,{airGuardBreak:true,guardBreak:true});if(r.dmg>0&&!r.immune){a.bodyHit=true;this.hasHit=true;if(hunter(this)&&!r.ko)offer(this,v,'bind');clearSnare(g,this);}}
+   if(a.phase==='dive'&&!a.landed&&!a.bodyHit&&Math.abs(v.x-this.x)<v.width/2+34&&this.y+24>=v.y-v.height&&prevY-10<=v.y){const damage=this.def.airAttack.damage*(a.kind==='jianke'?.65:a.kind==='motong'&&a.snared?.7:1),r=hurt(g,this,v,damage,{airGuardBreak:true,guardBreak:true,knockback:a.kind==='motong'?0:4});if(r.dmg>0&&!r.immune){a.bodyHit=true;this.hasHit=true;if(hunter(this)&&!r.ko)offer(this,v,'bind');clearSnare(g,this);if(a.kind==='motong'&&!r.ko){const x=v.x;v.startKnockdown(this.facing,{knockback:0});v.x=x;v.vx=v.vy=0;v.y=CONFIG.canvas.groundY;v.onGround=true;}}}
    if(this.onGround){if(!a.landed)a.landed=1;else a.landed++;this.vx=this.vy=0;if(a.landed>=8){clearSnare(g,this);this.airRush=null;this.currentAttack=null;this.setState('idle');}}
    if(a.age>150){clearSnare(g,this);this.airRush=null;this.currentAttack=null;this.setState(this.onGround?'idle':'jump');}
   }
@@ -71,6 +71,6 @@
  Fighter.prototype.toSnapshot=function(){return{...snap.call(this),airHunter:JSON.parse(JSON.stringify({rush:this.airRush||null,snare:this.airSnare||null,trap:this.hunterTrap||null,burn:this.hunterBurn||null,follow:this.hunterFollowup||null,super:this.hunterSuper||null}))};};
  Fighter.prototype.applySnapshot=function(s){apply.call(this,s);const n=s.airHunter||{};this.airRush=n.rush||null;this.airSnare=n.snare||null;this.hunterTrap=n.trap||null;this.hunterBurn=n.burn||null;this.hunterFollowup=n.follow||null;this.hunterSuper=n.super||null;if(hunter(this))window.comboRework.select(this);};
  Fighter.prototype.resetForRound=function(...args){reset.apply(this,args);this.airRush=this.airSnare=this.hunterTrap=this.hunterBurn=this.hunterFollowup=this.hunterSuper=null;if(hunter(this))window.comboRework.select(this);};
- if(window.blinkFX){const blink=window.blinkFX.draw;window.blinkFX.draw=function(g,c,f){if(f.airRush||!f.onGround&&f.state==='attack')return;return blink.call(this,g,c,f);};}
+ if(window.blinkFX){const blink=window.blinkFX.draw;window.blinkFX.draw=function(g,c,f){if(f.airRush||!f.onGround&&(f.state==='attack'||['noble','jianke','shouwang'].includes(f.charId))||f.state==='walk'&&['liequan','motong','wuxiang'].includes(f.charId))return;return blink.call(this,g,c,f);};}
  window.airHunterCombat={hurt,follow,offer};
 })();

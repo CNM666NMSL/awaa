@@ -45,7 +45,7 @@ const CONFIG = {
     resources: {
         maxChargeSeconds: 7,
         rangedCooldownSeconds: 2,
-        maxHealth: 2000,       // 基础血量
+        maxHealth: 2500,       // 基础血量
         maxMeter: 100,         // 气槽上限：300 点（连续一条，UI 切 3 色分区）
         meterOnHit: 5,        // 普攻/技能命中攒气（点）
         meterOnHurt: 3.3333333333,       // 受击攒气（点）
@@ -207,7 +207,7 @@ const CONFIG = {
                 boots:  "#15151f",
                 accent: "#c9a227",
             },
-            width: 42, height: 108, walkSpeed: 5.6, maxHealth: 2000,   // 所有模式使用相同基础血量
+            width: 42, height: 108, walkSpeed: 5.6, maxHealth: 2500,   // 所有模式使用相同基础血量
             // 帧动画：path 为目录，帧文件 00.png 01.png ...
             // frames 支持 number / [start,end] 闭区间 / {count,offset}
             anims: {
@@ -269,7 +269,7 @@ const CONFIG = {
             name: "江湖剑客", title: "无名之剑",
             color: "#4a4a54", colorDark: "#8a7a52",
             sprite: "assets/chars/jianke.png",
-            width: 46, height: 112, walkSpeed: 5.2, maxHealth: 2000,
+            width: 46, height: 112, walkSpeed: 5.2, maxHealth: 2500,
             dashAttack: {name:"踏影刺",damage:65,range:88,hitHeight:44,startup:6,active:5,recovery:17,knockback:7,hitstun:22},
             airAttack: {name:"落雁斩",damage:58,range:72,hitHeight:60,startup:7,active:6,recovery:18,knockback:5,hitstun:21},
             superTiers: {

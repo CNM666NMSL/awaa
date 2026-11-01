@@ -1,7 +1,7 @@
 /* Wuxiang: umbrella/revolver kit. Costs and timings are simulation ticks at 60 Hz. */
 (()=>{
  const d=CONFIG.characters.wuxiang;
- d.maxMeter=300;d.chargePerSecond=50;
+ d.maxMeter=100;d.chargePerSecond=CONFIG.resources.chargePerSecond;
  window.umbraKit={magazine:5,reload:90,shotCooldown:120,bulletDamage:68,blastDamage:150,wallLife:720,wallCooldown:240,rainLife:480,slow:.7,haste:1.25};
  const clip=(name,frames=12,extra={})=>({path:'assets/chars/wuxiang-umbra-v2/'+name,assetVersion:'umbra2',frames,fps:40,loop:false,referenceHeight:250,canvasHeight:384,originX:.5,originY:356/384,...extra});
  Object.assign(d.anims,{
@@ -19,5 +19,5 @@
  const superAttack=(name,anim,life)=>attack(name,anim,0,{startup:0,active:life,recovery:0,fixedAnimationTiming:true,wsSuper:true});
  d.nightSupers={execution:superAttack('夜幕刑奏·伞锁连射','wsExecution',126),rain:superAttack('雾雨夜行','wsRain',40),burst:superAttack('开伞逐月','wsBurst',48)};
  d.super_=d.nightSupers.execution;
- d.profile=['伞柄四连、五响左轮与开伞滑翔。雾雨控制距离，瞬身伞锁接爆裂终弹。','I 300气 / S+I 200气 / W+I 100气'];
+ d.profile=['伞柄四连、五响左轮与开伞滑翔。雾雨控制距离，瞬身伞锁接爆裂终弹。','I 100气 / S+I 67气 / W+I 33气'];
 })();

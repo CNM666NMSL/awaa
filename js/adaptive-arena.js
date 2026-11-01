@@ -9,6 +9,13 @@
  const tools=document.createElement('nav');tools.id='arena-tools';tools.setAttribute('aria-label','画面与操控');tools.innerHTML='<button type="button" id="arena-fullscreen" title="进入全屏">⛶ <span>全屏</span></button><button type="button" id="arena-practice-toggle">练习工具</button>';viewport.append(tools);
  const footer=document.createElement('div');footer.className='arena-keyboard-hint';footer.innerHTML='<b>键盘</b><span>A D 移动</span><span>J 普攻</span><span>K 跳跃</span><span>L 瞬身</span><span>U 远攻</span><span>I 大招</span><span>O 特殊</span><span>S 防御</span><span>P 蓄气</span>';viewport.append(footer);
  const mode=document.createElement('div');mode.id='arena-input-status';mode.setAttribute('aria-live','polite');viewport.append(mode);
+ const practiceActions=document.createElement('nav');practiceActions.id='arena-practice-actions';practiceActions.setAttribute('aria-label','练习场快捷操作');practiceActions.innerHTML='<button id="arena-practice-reset">重置位置 / 血量</button><button id="arena-practice-reload">重新加载</button><button id="arena-practice-select">重新选人</button><button id="arena-practice-details">出招表 / 练习工具</button>';viewport.append(practiceActions);
+ $('arena-practice-reset').onclick=()=>g.resetNoblePractice();
+ $('arena-practice-reload').onclick=()=>location.reload();
+ $('arena-practice-select').onclick=()=>g.openPracticeSelect();
+ $('arena-practice-details').onclick=()=>{body.classList.toggle('arena-practice-open');};
+ const reselect=document.createElement('button');reselect.id='btn-settings-reselect';reselect.className='menu-btn';reselect.textContent='重新选择角色';$('btn-settings-home').before(reselect);
+ reselect.onclick=()=>{window.touchControls.releaseAll();g.keysDown={};g.keysPressed={};if(g.mode==='practice')g.openPracticeSelect();else if(g.mode==='lan-host'||g.mode==='lan-guest')g.backToLobby();else{const cpu=g.mode==='cpu';g.localPick={p1:g.p1?.charId||'noble',p2:g.p2?.charId||'jianke'};g.phase='menu';g.openLocalSelect(cpu);}};
  const setting=document.createElement('label');setting.className='arena-input-setting';setting.innerHTML='操控方式 <select id="arena-input-mode"><option value="auto">自动识别设备</option><option value="touch">触屏摇杆与按键</option><option value="keyboard">电脑键盘</option></select><small id="arena-device-hint"></small>';$('menu-settings').querySelector('.settings-box').prepend(setting);
  const ua=navigator.userAgent,android=/Android/i.test(ua),ios=/iPhone|iPad|iPod/i.test(ua)||navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1;
  const touchDevice=android||ios||!!navigator.userAgentData?.mobile||navigator.maxTouchPoints>0&&matchMedia('(pointer:coarse)').matches;
@@ -31,11 +38,11 @@
  $('arena-practice-toggle').onclick=()=>{body.classList.toggle('arena-practice-open');$('arena-practice-toggle').setAttribute('aria-expanded',String(body.classList.contains('arena-practice-open')));};
  const closePractice=document.createElement('button');closePractice.type='button';closePractice.className='arena-practice-close';closePractice.textContent='关闭练习工具 ×';closePractice.onclick=()=>body.classList.remove('arena-practice-open');$('noble-practice').prepend(closePractice);
  const phaseKey=()=>[g.phase,!!g.p1,!!g.p2,g.mode].join('|');let lastPhase='';
- function state(){const key=phaseKey();if(key===lastPhase)return;lastPhase=key;const active=!!g.p1&&!!g.p2&&!['menu','lobby'].includes(g.phase);body.classList.toggle('in-arena',active);body.dataset.phase=g.phase;$('arena-practice-toggle').hidden=g.mode!=='practice';if(!active||body.classList.contains('menu-visible'))window.touchControls.releaseAll();if(!active)body.classList.remove('arena-practice-open');fit();}
+ function state(){const key=phaseKey();if(key===lastPhase)return;lastPhase=key;const active=!!g.p1&&!!g.p2&&!['menu','lobby'].includes(g.phase);body.classList.toggle('in-arena',active);body.dataset.phase=g.phase;body.dataset.gameMode=g.mode||'menu';$('arena-practice-toggle').hidden=g.mode!=='practice';reselect.hidden=!g.p1||!g.p2;if(!active||body.classList.contains('menu-visible'))window.touchControls.releaseAll();if(!active)body.classList.remove('arena-practice-open');fit();}
  const hud=Game.prototype.updateHUD;
  Game.prototype.updateHUD=function(...args){hud.apply(this,args);for(const [id,f]of [['p1',this.p1],['p2',this.p2]])if(f){const img=$(id+'-panel').querySelector('.arena-avatar img'),src=f.def.sprites?.[f.form]||f.def.sprite;if(src&&img.dataset.src!==src){img.dataset.src=src;img.src=src;img.alt=f.name;}}
   const round=(this.p1?.roundsWon||0)+(this.p2?.roundsWon||0)+1;viewport.querySelector('.arena-round').textContent='第 '+round+' 回合';
-  const f=this.mode==='lan-guest'?this.p2:this.p1;if(f){const s=window.touchControls.heldKeys(),cost=f.charId==='wuxiang'?(s.has(CONFIG.keys.down)?200:s.has(CONFIG.keys.up)?100:300):100;const b=viewport.querySelector('[data-action="super_"]');b.querySelector('small').textContent=cost+'气';b.dataset.ready=String(f.meter>=cost);viewport.querySelector('[data-action="special"]').dataset.ready=String(f.resource>=3);}
+  const f=this.mode==='lan-guest'?this.p2:this.p1;if(f){const s=window.touchControls.heldKeys(),cost=f.charId==='wuxiang'?(s.has(CONFIG.keys.down)?67:s.has(CONFIG.keys.up)?33:100):100;const b=viewport.querySelector('[data-action="super_"]');b.querySelector('small').textContent=cost+'气';b.dataset.ready=String(f.meter>=cost);viewport.querySelector('[data-action="special"]').dataset.ready=String(f.resource>=3);}
   state();
  };
  const show=g.show;g.show=function(...args){const r=show.apply(this,args);state();return r;};

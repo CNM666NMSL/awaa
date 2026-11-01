@@ -1302,7 +1302,7 @@ class Game {
 
         // 防重叠
         const b1 = this.p1.getBodyBox(), b2 = this.p2.getBodyBox();
-        if (this.boxesOverlap(b1, b2)) {
+        if (this.p1.state!=='knockdown'&&this.p2.state!=='knockdown'&&this.boxesOverlap(b1, b2)) {
             const overlap = (b1.w / 2 + b2.w / 2) - Math.abs(this.p1.x - this.p2.x);
             const dir = this.p1.x < this.p2.x ? 1 : -1;
             this.p1.x -= dir * overlap / 2;

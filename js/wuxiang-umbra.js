@@ -37,7 +37,7 @@
  function release(g,f){const v=enemy(g,f);if(v?.nightPin?.side===side(g,f))v.nightPin=null;}
  Fighter.prototype.nightSuper=function(kind='execution'){
   if(!is(this)||!this.onGround||!['idle','walk','block','charge'].includes(this.state))return false;
-  const cost={execution:300,rain:200,burst:100}[kind];if(this.meter<cost)return false;
+  const cost={execution:100,rain:67,burst:33}[kind];if(this.meter<cost)return false;
   const s=ws(this);this.meter-=cost;this.currentAttack=this.def.nightSupers[kind];this.pendingProj=null;this.setState('super');this.vx=0;this._superMoveDir=0;this.hasHit=false;this.superSerial=(this.superSerial||0)+1;
   s.shot=null;s.gliding=false;s.super={kind,age:0,dir:this.facing,life:this.currentAttack.active,latched:false,checked:false};
   if(kind==='execution')this.blinkInvulnLeft=Math.max(this.blinkInvulnLeft,30);
@@ -200,7 +200,7 @@
  Game.prototype.applyStateSnapshot=function(data){const wo=data.wo||[];restore.call(this,{...data,wo:wo.filter(o=>!o.nightWall&&!o.nightWeather&&!o.nightFX)});this.nightWalls=wo.filter(o=>o.nightWall);this.nightFX=wo.filter(o=>o.nightFX);this.nightWeather=wo.find(o=>o.nightWeather)||null;};
  for(const name of ['startRound','resetNoblePractice']){const old=Game.prototype[name];if(old)Game.prototype[name]=function(...args){this.nightWalls=[];this.nightFX=[];this.nightWeather=null;return old.apply(this,args);};}
  const menu=window.game?.returnToMainMenu;if(menu)window.game.returnToMainMenu=function(...args){this.nightWalls=[];this.nightFX=[];this.nightWeather=null;return menu.apply(this,args);};
- const cpu=Game.prototype.readCpuInput;if(cpu)Game.prototype.readCpuInput=function(){const inp=cpu.call(this);if(is(this.p2)&&inp.sup){inp.u=this.p2.meter<200;inp.d=this.p2.meter>=200&&this.p2.meter<300;}return inp;};
+ const cpu=Game.prototype.readCpuInput;if(cpu)Game.prototype.readCpuInput=function(){const inp=cpu.call(this);if(is(this.p2)&&inp.sup){inp.u=this.p2.meter<67;inp.d=this.p2.meter>=67&&this.p2.meter<100;}return inp;};
  // Export for the draw-only adapter and meaningful collision/timing checks.
  window.umbraCombat={ws,fresh,segment,fire,hit,mistBlock,shieldSegment:(g,owner,x1,y1,x2,y2)=>mistBlock(g,{owner,x:x1,y:y1,vx:x2-x1,vy:y2-y1})};
 })();

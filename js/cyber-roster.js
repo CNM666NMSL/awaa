@@ -15,7 +15,7 @@
         const attack=(name,damage,extra={})=>({name,damage,range:92,hitY:c.height*.6,hitHeight:68,startup:10,active:8,recovery:15,knockback:4,hitstun:22,gainLayers:1,...extra});
         const combo=c.combo.map((name,i)=>attack(name,c.damage[i],{anim:'j'+(i+1),startup:i===3?14:10,active:8,recovery:i===3?20:14,knockback:i===3?9:3,hitstun:i===3?32:22,deferKnockdown:i<3,comboChain:true,lunge:i===3?3:0}));
         CONFIG.characters[id]={name:c.name,title:c.title,profile:c.profile,cyberChinese:true,color:c.color,colorDark:c.dark,
-            sprite:`assets/chars/cyber-v1/${id}/portrait.png`,anims:CYBER_ANIMS[id],width:44,height:c.height,walkSpeed:c.speed,maxHealth:2000,
+            sprite:`assets/chars/cyber-v1/${id}/portrait.png`,anims:CYBER_ANIMS[id],width:44,height:c.height,walkSpeed:c.speed,maxHealth:2500,
             resource:{name:c.resource,max:5,damagePerLayer:.04,desc:`命中积攒${c.resource}，满 5 层后按 O / 6 消耗全部资源施放「${c.special}」。`},combo,
             launcher:attack('上攻·'+c.combo[2],58,{anim:'launcher',hitY:108,hitHeight:100,launch:-12,range:80,recovery:19}),
             low:attack('下攻·'+c.combo[1],50,{anim:'low',hitY:34,hitHeight:40,guardBreak:true,range:92,recovery:20}),

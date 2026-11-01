@@ -92,7 +92,7 @@
  }
  function buffs(c,f,v,g){
   const r=role(f),t=clock(g);
-  if((f.state==='block'||f.state==='parry')&&!(f.charId==='wuxiang'&&f.def.umbraCombo))paint(c,r.key+'-guard',f.x+f.facing*19,f.y-f.height*.49,t,{pivot:[0,-22],sx:1.05,sy:f.height/65,alpha:.68});
+  if((f.state==='block'||f.state==='parry')&&!(f.charId==='wuxiang'&&f.def.umbraCombo)&&!window.weaponGuards?.draw(c,f,g))paint(c,r.key+'-guard',f.x+f.facing*19,f.y-f.height*.49,t,{pivot:[0,-22],sx:1.05,sy:f.height/65,alpha:.68});
   if(f.specialShieldLeft>0)shield(c,f,t);
   if(f.lightMagicLeft>0){sigil(c,f,g,1.2,.8);paint(c,'blessing',f.x,f.y,(600-f.lightMagicLeft)/60%1.8,{scale:1.3,alpha:.7,loop:true});}
   if(f.drainLeft>0){paint(c,'blood-sigil',f.x,f.y,t,{scale:1.1,alpha:.75});if(f.drainBusy)paint(c,'drain',f.x,f.y,(f.drainAge%108)/60,{dir:Math.sign(v.x-f.x)||f.facing,sx:Math.min(3,Math.abs(v.x-f.x)/110),sy:1.2,alpha:.8,loop:true});}
