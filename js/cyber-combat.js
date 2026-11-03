@@ -88,7 +88,7 @@
         ctx.restore();
     }
     function actorEffects(ctx,f){
-        if(!isCyber(f))return;
+        if(!isCyber(f)||f.charId==='motong')return;
         const active=['attack','skill','super','charge','rangedCharge','block'].includes(f.state),t=f.stateTimer,d=f.facing,superMove=f.state==='super',color=f.def.color;
         if(f.charId==='liequan')wolf(ctx,f.x-d*72,f.y,d,f.state==='walk'?1+Math.floor(t*.18)%6:0,.82);
         if(!active)return;

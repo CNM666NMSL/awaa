@@ -1,0 +1,100 @@
+/* Sharp arena chrome over the existing rain-city artwork. Layout dimensions are screen-space only. */
+:root{--arena-gold:#edc485;--arena-paper:#f5e6c9;--arena-ink:#0b121d;--arena-red:#ef7656;--arena-blue:#6dc6ee;--cut:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px)}
+html,body{width:100%;height:100%;min-height:0;margin:0;overflow:hidden;overscroll-behavior:none}
+body{background:linear-gradient(110deg,#080d19d9,#141a29bb),url('assets/stages/industrial-rain.png') center/cover fixed;font-family:'Microsoft YaHei',sans-serif}
+#game-wrapper,body.menu-visible #game-wrapper{width:100vw;height:100dvh;min-height:0;max-width:none;padding:0!important;position:relative;background:transparent}
+body.in-arena #game-wrapper{width:100vw;min-height:0;height:100dvh;padding:0!important;overflow:hidden;background:linear-gradient(90deg,#0c1423ed,#10182770,#0b1423ef),url('assets/stages/industrial-rain.png') center/cover}
+body.in-arena #game-wrapper:before,body.in-arena #game-wrapper:after{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(135deg,transparent 0 14px,#8ba4c605 14px 16px);z-index:0}
+body.in-arena #game-wrapper:after{inset:14px;border:1px solid #c6a36b30;clip-path:var(--cut);background:none}
+#arena-viewport{position:fixed;left:50%;top:50%;width:var(--arena-w,100vw);height:var(--arena-h,45vw);transform:translate(-50%,-50%);isolation:isolate;box-shadow:0 12px 100px #0009;background:#0c1720;z-index:1;overflow:hidden}
+body[data-rotated=true] #arena-viewport{transform:translate(-50%,-50%) rotate(90deg)}
+body:not(.in-arena) #arena-viewport{visibility:hidden;pointer-events:none}
+body.in-arena #game-canvas,body.menu-visible.in-arena #game-canvas{visibility:visible!important;width:100%!important;height:100%!important;max-width:none;aspect-ratio:1200/540;margin:0!important;border:0!important;border-radius:0;position:absolute;inset:0;display:block;image-rendering:auto}
+#arena-viewport:after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(#060d1a85,transparent 24%,transparent 79%,#060d1938);box-shadow:inset 0 0 0 1px #ebd8a830}
+body.in-arena #hud{position:absolute!important;inset:calc(14px * var(--ui-scale)) calc(22px * var(--ui-scale)) auto;top:calc(14px * var(--ui-scale))!important;left:calc(22px * var(--ui-scale))!important;width:calc(100% - 44px * var(--ui-scale))!important;height:auto!important;padding:0!important;display:grid;grid-template-columns:minmax(0,1fr) calc(110px * var(--ui-scale)) minmax(0,1fr);gap:calc(20px * var(--ui-scale));align-items:start;pointer-events:none;z-index:6;background:none!important}
+.player-panel{position:relative;min-width:0}.player-panel.right{grid-column:3;grid-row:1}.player-panel:not(.right){grid-column:1;grid-row:1}
+body.in-arena .player-panel{padding-left:calc(84px * var(--ui-scale));min-height:calc(80px * var(--ui-scale))}
+body.in-arena .player-panel.right{padding-left:0;padding-right:calc(84px * var(--ui-scale))}
+.arena-avatar{position:absolute;left:0;top:0;width:calc(74px * var(--ui-scale));height:calc(86px * var(--ui-scale));background:linear-gradient(140deg,#edcda0,#a25541 60%,#311f26);clip-path:polygon(18% 0,82% 0,100% 17%,100% 74%,50% 100%,0 74%,0 17%);padding:3px;filter:drop-shadow(0 3px 5px #0009)}
+.right .arena-avatar{left:auto;right:0;background:linear-gradient(220deg,#b9e3ef,#527eaa 60%,#1f2c47)}
+.arena-avatar img{width:100%;height:84%;object-fit:cover;object-position:center 4%;background:radial-gradient(ellipse at top,#786046,#14202a);clip-path:polygon(15% 0,85% 0,100% 14%,100% 78%,50% 100%,0 78%,0 14%)}
+.arena-avatar img{transform:scale(2.25);transform-origin:50% 8%}
+.right .arena-avatar img{background:radial-gradient(ellipse at top,#4f7b97,#14202a)}
+.arena-avatar>span{position:absolute;bottom:11%;left:0;width:100%;text-align:center;font:900 calc(10px * var(--ui-scale)) sans-serif;color:#ffe2b1;letter-spacing:2px}.right .arena-avatar>span{color:#b7e8ff}
+body.in-arena .player-name{font-size:calc(15px * var(--ui-scale));line-height:1.5;height:calc(23px * var(--ui-scale));margin:0 0 3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--arena-paper);font-weight:800;letter-spacing:.5px;text-shadow:0 2px 3px #000}
+body.in-arena .health-bar{height:calc(18px * var(--ui-scale));min-height:10px;border:0!important;border-radius:0;background:#0a101bd9;clip-path:polygon(0 0,100% 0,calc(100% - 11px) 100%,0 100%);box-shadow:inset 0 0 0 1px #b5a988}
+body.in-arena .right .health-bar{clip-path:polygon(0 0,100% 0,100% 100%,11px 100%)}
+body.in-arena #p1-health{background:linear-gradient(#ffc28d 0 9%,#f4784e 10% 70%,#b64037 71% 100%)!important;border-top:1px solid #ffe4b7}
+body.in-arena #p2-health{background:linear-gradient(#c7f0ff 0 9%,#64b7dc 10% 70%,#3d6baf 71% 100%)!important;border-top:1px solid #dbf4ff}
+body.in-arena .meter-bar{height:calc(9px * var(--ui-scale));min-height:6px;margin-top:4px;border:1px solid #bba1766b;border-radius:0;background:#07111dc9;clip-path:polygon(0 0,100% 0,calc(100% - 6px) 100%,0 100%)}
+body.in-arena .meter-fill{background:linear-gradient(90deg,#739ac5,#adbbde,#f0ce86)}body.in-arena .meter-fill.full{background:linear-gradient(90deg,#daa75b,#fff0b4)}
+body.in-arena .resource-line{min-height:0;font-size:calc(10px * var(--ui-scale));line-height:1.5;margin-top:3px;color:#e9d6ac;text-shadow:0 1px 2px #000}
+body.in-arena .round-marks{display:none}body.in-arena .controls-strip{display:none!important}
+.arena-clock{grid-column:2;grid-row:1;display:flex;flex-direction:column;align-items:center;padding-top:0;text-shadow:0 2px 6px #000}
+.arena-round{font:800 calc(12px * var(--ui-scale)) 'Microsoft YaHei',sans-serif;letter-spacing:2px;color:#edba7d;white-space:nowrap}
+body.in-arena #timer{font:italic 900 calc(52px * var(--ui-scale))/1 Georgia,serif!important;color:#fff3d4;padding:3px 0!important;min-width:0;background:none!important;border:0;letter-spacing:-2px;text-shadow:2px 2px 0 #703d37,0 5px 14px #0008}
+.arena-clock small{font:calc(8px * var(--ui-scale)) monospace;letter-spacing:2px;color:#a7afbf}
+body.in-arena #quick-settings,body.in-arena #arena-command-toggle,#arena-tools button{position:absolute;z-index:10;border:0;clip-path:var(--cut);background:linear-gradient(140deg,#26313eeb,#0c1725eb);color:#e8d5b5;font:600 calc(11px * var(--ui-scale)) 'Microsoft YaHei',sans-serif;padding:calc(9px * var(--ui-scale)) calc(15px * var(--ui-scale));cursor:pointer;box-shadow:inset 0 0 0 1px #d6b78272;touch-action:manipulation}
+body.in-arena #quick-settings{left:calc(22px * var(--ui-scale));top:calc(110px * var(--ui-scale));font-size:calc(11px * var(--ui-scale))}
+body.in-arena #arena-command-toggle{right:calc(22px * var(--ui-scale));top:calc(110px * var(--ui-scale))}
+#arena-tools{position:absolute;z-index:9;left:50%;bottom:calc(12px * var(--ui-scale));transform:translateX(-50%);display:flex;gap:8px;pointer-events:auto;white-space:nowrap}
+#arena-tools button{position:static;font-size:calc(10px * var(--ui-scale));padding:calc(6px * var(--ui-scale)) calc(12px * var(--ui-scale));background:#0b1722a8;color:#c4cfda;box-shadow:inset 0 0 0 1px #c3c7c24a}
+#arena-tools [hidden]{display:none}
+#arena-command-sheet{right:12px!important;top:calc(150px * var(--ui-scale))!important;max-height:calc(100% - 160px * var(--ui-scale));width:min(360px,58%);overflow:auto;border:1px solid #b8a27c66;background:#0d1825f5;clip-path:var(--cut);z-index:22}
+#arena-input-status{position:absolute;bottom:5px;right:18px;z-index:4;font:9px sans-serif;letter-spacing:1px;color:#c4d4e099;pointer-events:none}
+.arena-keyboard-hint{position:absolute;left:20px;bottom:13px;display:flex;gap:12px;align-items:center;z-index:4;font:10px sans-serif;letter-spacing:.5px;color:#bac8d8;text-shadow:0 1px 3px #000;pointer-events:none}.arena-keyboard-hint b{color:#e9c28e;border-left:2px solid #e9c28e;padding-left:6px}
+body[data-input=touch] .arena-keyboard-hint{display:none}
+/* The game keeps all bindings; only the input surface changes by detected device or user choice. */
+.touch-controls,.touch-controls.active{display:none!important}
+body.in-arena[data-input=touch][data-phase=fight] .touch-controls.active{display:block!important;position:absolute;inset:0;z-index:8;margin:0;padding:0;background:none;pointer-events:none;user-select:none;-webkit-user-select:none;touch-action:none}
+.touch-dpad{display:block!important;position:absolute;left:calc(28px * var(--ui-scale));bottom:calc(25px * var(--ui-scale));width:calc(148px * var(--ui-scale));height:calc(148px * var(--ui-scale));pointer-events:none}
+.touch-stick{position:absolute;inset:0;width:100%;height:100%;min-height:0!important;border:0!important;border-radius:50%!important;background:radial-gradient(circle,#a2b4bc20 0 35%,#19273366 36% 58%,#bac8ce45 59% 60%,#111d3033 61% 70%,transparent 71%)!important;box-shadow:none!important;pointer-events:auto;touch-action:none;opacity:1!important;transform:none!important;padding:0;cursor:grab;overflow:visible}
+.stick-ring{position:absolute;inset:12%;border:1px solid #d0d4c84d;transform:rotate(45deg);clip-path:polygon(0 10%,10% 0,90% 0,100% 10%,100% 90%,90% 100%,10% 100%,0 90%)}
+.stick-axis{position:absolute;background:#d0d4c82b;left:15%;top:50%;height:1px;width:70%}.stick-axis.vertical{transform:rotate(90deg)}
+.stick-thumb{position:absolute;width:43%;height:43%;left:28.5%;top:28.5%;border-radius:50%;background:radial-gradient(circle at 35% 25%,#f2e8c9b3,#8d9daa66 63%,#33445c80);border:1px solid #e2d6b787;box-shadow:0 4px 12px #0005,inset 0 0 10px #e8e8cc45;transform:translate(var(--stick-x,0px),var(--stick-y,0px));pointer-events:none}
+.touch-stick.held .stick-thumb{background:radial-gradient(circle at 35% 25%,#fff0c4d9,#bba77899 65%,#685d4980);border-color:#f3d194}
+.stick-up,.stick-down{position:absolute;left:45%;font:calc(10px * var(--ui-scale)) sans-serif;color:#d2dacfa6;pointer-events:none}.stick-up{top:10%}.stick-down{bottom:9%}.stick-caption{position:absolute;bottom:-14px;left:0;width:100%;text-align:center;font:calc(9px * var(--ui-scale)) sans-serif;letter-spacing:1px;color:#ced3c899;text-shadow:0 1px 3px #000}
+.touch-actions{display:block!important;position:absolute;right:calc(25px * var(--ui-scale));bottom:calc(22px * var(--ui-scale));width:calc(290px * var(--ui-scale));height:calc(245px * var(--ui-scale));pointer-events:none}
+.touch-controls button[data-action]{position:absolute;width:calc(68px * var(--ui-scale));height:calc(68px * var(--ui-scale));min-height:0!important;border:0!important;border-radius:0!important;padding:0;clip-path:polygon(27% 0,73% 0,100% 27%,100% 73%,73% 100%,27% 100%,0 73%,0 27%);background:linear-gradient(145deg,#f3c486,#8e5f3f 52%,#dba066)!important;color:#f6e1bf;box-shadow:none!important;pointer-events:auto;touch-action:none;opacity:.94;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;transform:none;transition:filter .1s,scale .1s;cursor:pointer;isolation:isolate}
+.touch-controls button[data-action]:before{content:'';position:absolute;inset:2px;background:radial-gradient(circle at 35% 20%,#455261db,#13202fe8 64%,#111b2bed);clip-path:inherit;z-index:-1}
+.touch-controls button[data-action]:after{content:'';position:absolute;inset:6px;clip-path:inherit;background:linear-gradient(140deg,#e6c48a35,transparent 40%,transparent 60%,#d7bc8422);z-index:-1}
+.touch-controls button svg{width:calc(25px * var(--ui-scale));height:calc(25px * var(--ui-scale));fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:square;stroke-linejoin:miter;filter:drop-shadow(0 2px 2px #0009)}
+.touch-controls .control-label{font:800 calc(12px * var(--ui-scale))/1.3 'Microsoft YaHei',sans-serif;letter-spacing:1px;text-shadow:0 1px 2px #000}.touch-controls button small{font:calc(8px * var(--ui-scale))/1.2 sans-serif!important;max-width:95%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#d1c5ab;margin:1px 0 0!important}
+.touch-controls button.held[data-action]{scale:.95;filter:brightness(1.4);background:#ffe1a3!important;color:#fff5da}.touch-controls button.held[data-action]:before{background:radial-gradient(circle,#865b30d9,#263144e8)}
+.touch-controls [data-action=attack]{right:0;bottom:0;width:calc(98px * var(--ui-scale));height:calc(98px * var(--ui-scale));background:linear-gradient(140deg,#fff0b7,#d8833d 55%,#f2d389)!important}
+.touch-controls [data-action=attack] svg{width:calc(37px * var(--ui-scale));height:calc(37px * var(--ui-scale))}.touch-controls [data-action=attack] .control-label{font-size:calc(15px * var(--ui-scale))}
+.touch-controls [data-action=skill]{right:0;bottom:calc(110px * var(--ui-scale))}.touch-controls [data-action=super_]{right:calc(92px * var(--ui-scale));bottom:calc(101px * var(--ui-scale));width:calc(76px * var(--ui-scale));height:calc(76px * var(--ui-scale));background:linear-gradient(140deg,#f9d28e,#cd7348 55%,#9a4c50)!important}
+.touch-controls [data-action=super_][data-ready=false],.touch-controls [data-action=special][data-ready=false]{filter:saturate(.35);opacity:.66}
+.touch-controls [data-action=jump]{right:calc(108px * var(--ui-scale));bottom:0}.touch-controls [data-action=dash]{right:calc(195px * var(--ui-scale));bottom:calc(23px * var(--ui-scale));width:calc(60px * var(--ui-scale));height:calc(60px * var(--ui-scale));background:linear-gradient(140deg,#b9dbef,#5e7d9f)!important}
+.touch-controls [data-action=special]{right:calc(184px * var(--ui-scale));bottom:calc(111px * var(--ui-scale));width:calc(60px * var(--ui-scale));height:calc(60px * var(--ui-scale));background:linear-gradient(140deg,#d2b8e3,#79618d)!important}
+.touch-controls [data-action=down]{right:calc(26px * var(--ui-scale));bottom:calc(191px * var(--ui-scale));width:calc(54px * var(--ui-scale));height:calc(54px * var(--ui-scale));background:linear-gradient(140deg,#a4c7d9,#557080)!important}
+.touch-controls [data-action=charge]{left:calc(15px * var(--ui-scale));bottom:calc(170px * var(--ui-scale));width:calc(54px * var(--ui-scale));height:calc(54px * var(--ui-scale));background:linear-gradient(140deg,#9acbb4,#527a6e)!important}
+/* Training tools become an optional drawer, so they no longer reduce the battle screen. */
+body.in-arena #noble-practice{display:none!important;position:fixed;right:16px;bottom:16px;width:min(720px,calc(100vw - 32px));max-height:65dvh;overflow:auto;padding:14px;background:#0f1e2af5;border:1px solid #b7a37e8c;z-index:26;clip-path:var(--cut);box-shadow:0 10px 60px #0009}
+body.in-arena.arena-practice-open #noble-practice:not(.hidden){display:block!important}.arena-practice-close{display:block;margin:0 0 12px auto;color:#edcba1;border:1px solid #7b786d;background:#182534;padding:7px 12px;cursor:pointer}
+.arena-input-setting{display:flex!important;gap:10px;flex-wrap:wrap}.arena-input-setting select{background:#152335;color:#e8dfcd;padding:7px;border:1px solid #777b7c}.arena-input-setting small{flex-basis:100%;color:#9fb2c5;font-size:11px}
+.night-ammo{font-size:calc(9px * var(--ui-scale));min-height:12px}.night-ammo i{width:4px;height:8px}.player-panel.right .night-ammo{justify-content:flex-end}
+/* Menus retain the rain-city wallpaper, now framed by the same angular metal as the battlefield. */
+body.menu-visible:not(.in-arena) .main-menu{background:linear-gradient(90deg,#0b1326a8,#111a2a50 45%,#0a1423c9),url('assets/stages/industrial-rain.png') center/cover!important;display:flex!important;flex-direction:column;align-items:flex-end;justify-content:center;gap:0;padding:6vh 10vw 6vh 45vw}
+.main-menu:before{content:'';position:absolute;left:6%;right:48%;top:12%;bottom:12%;background:linear-gradient(130deg,#1f31473b,transparent);border:1px solid #e4c99838;clip-path:polygon(0 0,100% 0,100% 80%,80% 100%,0 100%);pointer-events:none}
+body.menu-visible .main-brand{position:absolute;left:9%;top:32%;font:italic 900 clamp(64px,10vw,148px)/1 Georgia,serif;color:#f8e9c9;letter-spacing:4px;text-shadow:4px 4px 0 #3c4559,0 12px 35px #0009}
+body.menu-visible .main-tagline{position:absolute;left:9.5%;top:calc(32% + clamp(76px,11vw,160px));font:700 clamp(17px,2.3vw,32px) 'KaiTi',serif;letter-spacing:12px;color:#e8c899}
+body.menu-visible .main-actions{width:min(360px,100%);gap:12px;position:relative;z-index:1}
+.main-menu .hotspot,.menu-btn{clip-path:var(--cut);border-radius:0!important}
+.main-menu .hotspot{min-height:50px!important;background:linear-gradient(110deg,#162739f0,#101e2bf0)!important;color:#e8dbc0!important;border:1px solid #a994704f!important;box-shadow:inset 4px 0 #aab8bd36!important;font:700 19px 'Microsoft YaHei',sans-serif!important;letter-spacing:4px!important;transition:background .15s,translate .15s}
+.main-menu .hotspot.primary,.main-menu .hotspot:hover{background:linear-gradient(110deg,#e2bf85,#f1debb)!important;color:#1a2636!important;border-color:#ffe7bb!important;box-shadow:inset 4px 0 #8a623f!important;translate:3px 0}
+.arena-selection.overlay{background:linear-gradient(90deg,#0d1624f0,#152232e8,#101b2bf5),url('assets/stages/industrial-rain.png') center/cover!important}
+.arena-preview,.arena-selection .char-card,.arena-selection-footer .menu-btn{clip-path:var(--cut)}
+.arena-selection .char-card.selected{background:linear-gradient(135deg,#6e5440,#243346)!important;border-color:#efbf83!important}.arena-heading{border-bottom-color:#c9ac7850}
+@media(max-height:500px){.main-menu .hotspot{min-height:34px!important;font-size:14px!important;padding:6px 12px!important}.main-actions{gap:7px!important}body.in-arena .resource-line{font-size:8px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#arena-command-sheet dl>div{padding:3px 0}#arena-command-sheet{font-size:10px;padding:10px}#arena-input-status{font-size:8px;right:10px;bottom:3px}}
+@media(max-width:600px) and (orientation:portrait){body.menu-visible:not(.in-arena) .main-menu{padding:30px 12vw 40px;align-items:center;justify-content:flex-end}.main-menu:before{left:6%;right:6%;top:8%;bottom:6%}body.menu-visible .main-brand{left:0;top:16%;width:100%;text-align:center;font-size:84px}body.menu-visible .main-tagline{left:0;top:calc(16% + 100px);width:100%;text-align:center;font-size:20px;letter-spacing:7px}body.menu-visible .main-actions{width:100%;gap:9px}.main-menu .hotspot{min-height:43px!important;font-size:16px!important}body.in-arena #noble-practice{max-height:80dvh}body[data-rotated=true] #arena-viewport #hud{inset-inline:12px!important;width:calc(100% - 24px)!important;left:12px!important}}
+@media(min-width:1500px){body[data-input=keyboard] #arena-tools{bottom:14px}.arena-keyboard-hint{gap:17px;font-size:12px}.arena-keyboard-hint b{padding-left:10px}}
+@media(prefers-reduced-motion:reduce){.touch-controls button,.main-menu .hotspot{transition:none}}
+body[data-input=touch] .arena-selection-keys{font-size:0}body[data-input=touch] .arena-selection-keys:before{content:'点选双方角色与场景，再确认开始';font-size:10px}body[data-input=touch] .arena-selection-keys>*{display:none}
+
+.touch-actions .hunter-followup { filter: drop-shadow(0 0 9px #8edfff); border-color: #bdeeff; }
+#arena-practice-actions{display:none;position:absolute;bottom:34px;left:50%;transform:translateX(-50%);gap:7px;z-index:9;white-space:nowrap}
+body.in-arena[data-game-mode=practice]:not(.menu-visible) #arena-practice-actions{display:flex}
+#arena-practice-actions button{cursor:pointer;color:#f4dfb7;background:#122532ed;border:1px solid #bda07599;padding:7px 12px;font:600 12px 'Microsoft YaHei',sans-serif;clip-path:var(--cut)}
+body[data-input=touch] #arena-practice-actions{bottom:8px;gap:4px}
+body[data-input=touch] #arena-practice-actions button{font-size:10px;padding:6px}

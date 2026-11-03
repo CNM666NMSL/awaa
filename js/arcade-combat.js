@@ -44,7 +44,7 @@ Game.prototype.drawSuperCinematic=function(ctx){
  for(let j=0;j<25;j++){const x=(j*139+progress*250)%1200,y=160+j*12;ctx.strokeStyle=j%3?gold+'55':gold;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+90+j%4*25,y-8);ctx.stroke();}
  window.characterMagic?.cutscene(ctx,f);
  // Draw an enlarged actual super pose, preserving facing and sprite proportions.
- const old={key:f.animKey,frame:f.animFrame,timer:f.animTimer};f.animKey=f.def.anims.super_?'super_':f._animForState();const anim=f.def.anims[f.animKey];f.animFrame=Array.isArray(anim?.phases)?anim.phases[0]:Math.min(2,(anim?.frames||1)-1);if(!Number.isFinite(f.animFrame))f.animFrame=0;
+ const old={key:f.animKey,frame:f.animFrame,timer:f.animTimer};f.animKey=f.currentAttack?.anim&&f.def.anims[f.currentAttack.anim]?f.currentAttack.anim:f.def.anims.super_?'super_':f._animForState();const anim=f.def.anims[f.animKey];f.animFrame=Array.isArray(anim?.phases)?anim.phases[0]:Math.min(2,(anim?.frames||1)-1);if(!Number.isFinite(f.animFrame))f.animFrame=0;
  const img=f._animImg();ctx.save();ctx.translate(350,480);ctx.scale(2.6,2.6);ctx.translate(-f.x,-f.y);if(img)f._drawSprite(ctx,img);else f.draw(ctx);ctx.restore();f.animKey=old.key;f.animFrame=old.frame;f.animTimer=old.timer;
  ctx.fillStyle=gold;ctx.font='bold 24px Georgia';ctx.fillText('AWA  /  SUPER ART',650,210);ctx.font='bold 43px KaiTi, Microsoft YaHei';ctx.fillText(f.name,650,273);ctx.font='27px KaiTi, Microsoft YaHei';ctx.fillText(title,650,326);ctx.fillStyle='#e7e0c9';ctx.font='16px Microsoft YaHei';ctx.fillText('超 必 杀  ·  时 间 凝 结',650,370);
  if(progress<.12){ctx.fillStyle='rgba(255,255,255,.2)';ctx.fillRect(0,0,1200,540);}ctx.restore();

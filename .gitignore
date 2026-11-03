@@ -27,3 +27,7 @@ Thumbs.db
 .codex/
 .agents/
 .workbuddy/
+
+# PixelFX gallery font has a separate license and is not part of the game assets.
+/vendor/pixelfx-main/gallery/fonts/
+/artifacts/

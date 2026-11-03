@@ -89,7 +89,7 @@ class Game {
             sklHeld:skillHeld,sklRelease:skillWas&&!skillHeld,
             l: !!k[keyMap.left], r: !!k[keyMap.right],
             u: !!k[keyMap.up], d: !!k[keyMap.down],
-            atk: edge(keyMap.attack), jmp: jumpPressed, run: edgeStore._runDir||0,
+            atk: edge(keyMap.attack), jmp: jumpPressed, jmpHeld:!!k[keyMap.jump], run: edgeStore._runDir||0,
             dsh: edge(keyMap.dash), skl: edge(keyMap.skill),
             sup: edge(keyMap.super_), spc: edge(keyMap.special),
             chg: !!k[keyMap.charge], chgHeld: !!k[keyMap.charge],
@@ -755,7 +755,7 @@ class Game {
                     continue;
                 }
                 const blocked = defender.state === "block";
-                const atk = { damage: p.damage, damageType:p.damageType, knockback: p.knockback ?? 5, hitstun: p.hitstun ?? 18, control:!!p.control, deferKnockdown:!!p.deferKnockdown, guardBreak: p.guardBreak };
+                const atk = { damage: p.damage, damageType:p.damageType, knockback: p.knockback ?? 5, hitstun: p.hitstun ?? 18, control:!!p.control, deferKnockdown:!!p.deferKnockdown, guardBreak: p.guardBreak,hunterWolf:p.kind==='hunter-wolf'?p.chargeLevel:0,hunterSide:p.owner===this.p1?1:2 };
                 const result = defender.takeHit(atk, Math.sign(p.vx), blocked, p.scale);
                 p.owner.gainMeter(CONFIG.resources.meterOnHit);
                 p.owner.gainLayers(1);
@@ -912,7 +912,7 @@ class Game {
             k: "state",
             p1: this.p1.toSnapshot(),
             p2: this.p2.toSnapshot(),
-            pr: this.projectiles.map(p => ({ x: p.x, y: p.y, s: p.size, charged:!!p.charged,kind:p.kind,rangedArt:p.rangedArt,chargeLevel:p.chargeLevel,hitWidth:p.hitWidth,hitHeight:p.hitHeight,grounded:p.grounded,damageType:p.damageType,c: p.color, fxChar: p.owner?.charId, fxDir: Math.sign(p.vx) })),
+            pr: this.projectiles.map(p => ({ x: p.x, y: p.y, s: p.size, charged:!!p.charged,kind:p.kind,rangedArt:p.rangedArt,chargeLevel:p.chargeLevel,hitWidth:p.hitWidth,hitHeight:p.hitHeight,grounded:p.grounded,damageType:p.damageType,c: p.color, fxChar: p.owner?.charId, fxDir: Math.sign(p.vx),nightBullet:!!p.nightBullet,explosive:!!p.explosive,shotAngle:p.shotAngle })),
             wo: this.combatV2ObjectsSnapshot?.()||[], sc: this.superFreeze, tm: this.timeLeft, ph: this.phase, pt: this.phaseTimer,
             ev,
         });
@@ -925,7 +925,7 @@ class Game {
         this.superFreeze=d.sc||null;
         this.p1.applySnapshot(d.p1);
         this.p2.applySnapshot(d.p2);
-        this.projectiles = (d.pr || []).map(p => ({x:p.x,y:p.y,size:p.s,charged:!!p.charged,kind:p.kind,rangedArt:p.rangedArt,chargeLevel:p.chargeLevel,hitWidth:p.hitWidth,hitHeight:p.hitHeight,grounded:p.grounded,damageType:p.damageType,color:p.c,fxChar:p.fxChar,fxDir:p.fxDir}));
+        this.projectiles = (d.pr || []).map(p => ({x:p.x,y:p.y,size:p.s,charged:!!p.charged,kind:p.kind,rangedArt:p.rangedArt,chargeLevel:p.chargeLevel,hitWidth:p.hitWidth,hitHeight:p.hitHeight,grounded:p.grounded,damageType:p.damageType,color:p.c,fxChar:p.fxChar,fxDir:p.fxDir,nightBullet:!!p.nightBullet,explosive:!!p.explosive,shotAngle:p.shotAngle}));
         this.timeLeft = d.tm;
         document.getElementById("timer").textContent = d.tm;
         for (const e of d.ev || []) this.spawnHitSpark(e.x, e.y, e.b);
@@ -993,14 +993,14 @@ class Game {
         const p1Keys = [
             ["A/D", "走 / 双击跑"], ["W+J", "上挑"], ["S", "防御/受身"],
             ["J", "普攻"], ["K", "二段跳"], ["L", "瞬步"],
-            ["U", "远攻/长按蓄力"], ["O", "满资源特殊技"], ["I", "100气大招"],
+            ["U", "远攻/长按蓄力"], ["O", "消耗3层特殊技"], ["I", "100气大招"],
             ["P / S+P", "攒气"],
         ];
         // P2 键位：本地用小键盘，联机用与 P1 相同的字母键
         const p2Keys = isLocal ? [
             ["←/→", "走 / 双击跑"], ["↑+1", "上挑"], ["↓", "防御/受身"],
             ["1", "普攻"], ["2", "二段跳"], ["3", "瞬步"],
-            ["4", "远攻/长按蓄力"], ["6", "满资源特殊技"], ["5", "100气大招"],
+            ["4", "远攻/长按蓄力"], ["6", "消耗3层特殊技"], ["5", "100气大招"],
             ["7 / ↓+7", "攒气"],
         ] : p1Keys;
 
@@ -1055,10 +1055,10 @@ class Game {
                 setTimeout(() => { ghost.style.width = Math.max(0, f.health / f.maxHealth) * 100 + "%"; }, 250);
             }
         }
-        setBar("p1-meter", this.p1.meter / R.maxMeter);
-        setBar("p2-meter", this.p2.meter / R.maxMeter);
-        document.getElementById("p1-meter").classList.toggle("full", this.p1.meter >= R.maxMeter);
-        document.getElementById("p2-meter").classList.toggle("full", this.p2.meter >= R.maxMeter);
+        setBar("p1-meter", this.p1.meter / this.p1.maxMeter);
+        setBar("p2-meter", this.p2.meter / this.p2.maxMeter);
+        document.getElementById("p1-meter").classList.toggle("full", this.p1.meter >= this.p1.maxMeter);
+        document.getElementById("p2-meter").classList.toggle("full", this.p2.meter >= this.p2.maxMeter);
         // 气量数字标注（连续条，右侧显示具体点数）
         const setNum = (id, n) => { const el = document.getElementById(id); const s = Math.floor(n); if (el.textContent !== s) el.textContent = s; };
         setNum("p1-meter-num", this.p1.meter);
@@ -1302,7 +1302,7 @@ class Game {
 
         // 防重叠
         const b1 = this.p1.getBodyBox(), b2 = this.p2.getBodyBox();
-        if (this.boxesOverlap(b1, b2)) {
+        if (this.p1.state!=='knockdown'&&this.p2.state!=='knockdown'&&this.boxesOverlap(b1, b2)) {
             const overlap = (b1.w / 2 + b2.w / 2) - Math.abs(this.p1.x - this.p2.x);
             const dir = this.p1.x < this.p2.x ? 1 : -1;
             this.p1.x -= dir * overlap / 2;

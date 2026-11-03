@@ -72,4 +72,4 @@
       "path": "assets/chars/motion-v2/wuxiang/walkBack"
     }
   }
-};for(const id of CONFIG.roster){const a=CONFIG.characters[id].anims;Object.assign(a,walks[id]||{});Object.assign(a.idle,{frames:1,loop:false,fps:60,breathing:true});}})();
+};for(const id of CONFIG.roster){const a=CONFIG.characters[id].anims;Object.assign(a,walks[id]||{});if(walks[id])a.run={...a.walk,fps:30,assetVersion:"steady-run2"};Object.assign(a.idle,{frames:1,loop:false,fps:60,breathing:true});}})();

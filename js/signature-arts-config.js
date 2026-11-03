@@ -1,6 +1,6 @@
 /* Character-specific charged finishers and sustained ultimates. */
 (() => {
-    for(const id of CONFIG.roster)CONFIG.characters[id].maxHealth=2000;
+    for(const id of CONFIG.roster)CONFIG.characters[id].maxHealth=2500;
     const make=(def,extra)=>({...def.super_,multiHit:false,damage:0,lunge:0,startup:0,active:360,recovery:0,fixedAnimationTiming:true,...extra});
     const j=CONFIG.characters.jianke,n=CONFIG.characters.noble,w=CONFIG.characters.shouwang;
     for(const a of [...j.combo,j.launcher,j.low,j.dashAttack,j.airAttack,j.skill])if(a?.damage)a.damage=Math.round(a.damage*1.15);

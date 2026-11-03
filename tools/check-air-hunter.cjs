@@ -1,0 +1,27 @@
+const fs=require('node:fs'),assert=require('node:assert/strict'),{chromium}=require('C:/Users/Lenovo/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+(async()=>{const b=await chromium.launch({channel:'msedge',headless:true});try{const p=await b.newPage({viewport:{width:1440,height:800}}),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto('http://127.0.0.1:3012/index.html?practice=select&v=air-hunter1');await p.waitForFunction(()=>window.umbraCombat&&!gameAssets.blocked,{},{timeout:125000});
+ if(!await p.evaluate(()=>!!window.airHunterCombat)){await p.addScriptTag({url:'/js/air-hunter-config.js'});await p.addScriptTag({url:'/js/air-hunter-combat.js'});}
+ const results=await p.evaluate(()=>{
+  const out=[],check=(v,label)=>{if(!v)throw Error(label);out.push(label);};
+  const fresh=(id='liequan',form='armored',x=500,vx=510)=>{game.returnToMainMenu();game.startNoblePractice(id,'noble');game.phase='paused';game.mode='local';game.superFreeze=null;const f=game.p1,v=game.p2;if(id==='shouwang'){f.form=form;}f.x=x;v.x=vx;f.facing=1;v.facing=-1;f.meter=100;f.resource=v.resource=0;return[f,v];};
+  const tick=(n=1)=>{for(let i=0;i<n;i++){game.p1.update();game.p2.update();game.updateSkillCasts(game.p1);game.updateSkillCasts(game.p2);game.updateProjectiles();game.updateCombatV2();game.checkHit(game.p1,game.p2);game.checkHit(game.p2,game.p1);}};
+  const dive=f=>{f.y=250;f.onGround=false;f.setState('jump');f.attack();};
+  let f,v;
+  for(const [id,form]of [['jianke',''],['noble',''],['shouwang','armored'],['shouwang','unarmored'],['motong',''],['liequan',''],['wuxiang','']]){[f,v]=fresh(id,form);v.block(true);dive(f);check(!!f.airRush,id+' starts aerial rush');let broke=false;for(let i=0;i<35;i++){tick();broke||=v.state==='guardbreak';}check(v.health<2500&&broke,id+' '+form+' breaks defense');check(f.onGround&&!f.airRush,id+' lands and recovers');}
+  [f,v]=fresh();v.block(true);const r=v.takeHit({damage:100,fixedDamage:true,guardBreak:true},1,true,1);check(r.dmg===10&&r.blocked,'ordinary defense remains 90%');
+  [f,v]=fresh('jianke');dive(f);tick(9);check(v.health<2500&&f.airRush&&!f.airRush.bodyHit,'sword strikes before swordsman descends');
+  [f,v]=fresh('motong');dive(f);tick(6);check(!!v.airSnare,'Evelyn grabs before heel kick');tick(30);check(!v.airSnare,'Evelyn releases snare after impact');
+  [f,v]=fresh();dive(f);tick(15);check(f.hunterFollowup?.kind==='bind','hunter dive opens trap follow-up');check(airHunterCombat.follow(game,f)&&v.hunterTrap.left===180,'J follow-up roots for three seconds');const x=v.x;v.vx=20;tick(179);check(v.x===x&&v.hunterTrap?.left===1,'root holds full duration');tick();check(!v.hunterTrap,'root expires');
+  for(const [charge,level,damage]of [[0,1,68],[60,2,105],[150,3,156]]){[f,v]=fresh('liequan','',300,650);f.setState('rangedCharge');f.rangedChargeFrames=charge;const s=f.castSkill(charge>0);check(s.chargeLevel===level&&s.damage===damage,'wolf tier '+level+' damage');f.pendingProj=s;tick(s.startup);check(game.projectiles.some(p=>p.kind==='hunter-wolf'&&p.chargeLevel===level),'wolf tier '+level+' spawns');tick(25);if(level===3){check(f.hunterFollowup?.kind==='slow','ghost wolf opens slowing trap');const speed=v.curWalkSpeed();airHunterCombat.follow(game,f);check(Math.abs(v.curWalkSpeed()/speed-.65)<.001&&v.hunterTrap.left===180,'trap slows 35% for three seconds');}else check(!f.hunterFollowup,'lower tiers do not offer trap');}
+  [f,v]=fresh('liequan','',300,470);check(f.castSuper()&&f.meter===0,'wolf head super spends 100');tick(45);check(v.health===2120&&!!v.hunterBurn,'head deals exactly 380 once');tick(600);check(v.health===2020&&!v.hunterBurn,'burn deals ten ticks of ten');
+  [f,v]=fresh('liequan','',300,470);v.block(true);f.castSuper();tick(95);check(v.health===2462&&!v.hunterBurn,'guard reduces head to 38 and prevents burn');
+  [f,v]=fresh();f.hunterFollowup={kind:'slow',left:50,targetSide:2};f.hunterSuper={age:20,x:600};f.hunterBurn={age:10,left:590,side:2};const snap=JSON.parse(JSON.stringify(f.toSnapshot())),clone=new Fighter('liequan',10,-1);clone.applySnapshot(snap);check(clone.hunterFollowup.left===50&&clone.hunterSuper.age===20&&clone.hunterBurn.left===590,'new combat state survives snapshots');clone.resetForRound(10,-1);check(!clone.hunterFollowup&&!clone.hunterSuper&&!clone.hunterBurn,'round clears statuses');check(f.def.combo.length===5&&f.def.combo[3].launch<0&&f.def.combo[4].knockback===15,'five shotgun normals and launch / knockaway');
+  return out;
+ });console.log(results.join('\n'));
+ fs.mkdirSync('artifacts/air-hunter',{recursive:true});
+ for(const id of ['jianke','noble','shouwang','motong','liequan','wuxiang','wolf-head']){
+  await p.evaluate(id=>{game.returnToMainMenu();game.startNoblePractice(id==='wolf-head'?'liequan':id,'noble');game.phase='paused';game.mode='local';game.superFreeze=null;const f=game.p1,v=game.p2;f.x=500;v.x=650;f.facing=1;f.resource=0;
+   if(id==='wolf-head'){f.meter=100;f.castSuper();for(let i=0;i<45;i++)game.updateCombatV2();}else{f.y=255;f.onGround=false;f.setState('jump');f.attack();for(let i=0;i<7;i++)f.update();}f._updateAnim();game.updateHUD();game.render();if(!f._animImg()?.naturalWidth)throw Error('Missing active sprite '+id);
+  },id);await p.screenshot({path:'artifacts/air-hunter/'+id+'.png'});
+ }
+ assert.deepEqual(errors,[]);console.log('PASS aerial guard break, hunter combat contracts and all character render assets.');}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
