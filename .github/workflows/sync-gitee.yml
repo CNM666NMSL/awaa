@@ -1,0 +1,34 @@
+name: Sync latest Gitee game
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/sync-gitee.yml
+permissions:
+  contents: write
+concurrency:
+  group: sync-gitee
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out GitHub repository
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Merge reviewed Gitee revision
+        env:
+          SOURCE_COMMIT: adb476275a3b286d25cac0c406d506cc69e6939e
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch --no-tags https://gitee.com/wyc-pancakes/4434.git main
+          git cat-file -e "$SOURCE_COMMIT^{commit}"
+          git merge --no-edit "$SOURCE_COMMIT"
+          test -f index.html
+          test -f .nojekyll
+          git push origin HEAD:main
